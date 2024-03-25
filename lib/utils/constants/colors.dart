@@ -13,4 +13,5 @@ class PetWardenColors {
   static const Color lightGrey = Color(0xffE7E7E7);
   static const Color blueCardColor = Color(0xff395CBC);
   static const Color cyanColor = Color(0xffC2DDDD);
+  
 }

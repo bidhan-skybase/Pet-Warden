@@ -105,13 +105,22 @@ class CustomTextStyles {
     return TextStyle(fontFamily: "Nunito", fontSize: 18, fontWeight: FontWeight.w500, color: color);
   }
 
+  static TextStyle f20W500({Color? color}) {
+    return TextStyle(fontFamily: "Nunito", fontSize: 20, fontWeight: FontWeight.w500, color: color);
+  }
+
   static TextStyle f20W600({Color? color}) {
     return TextStyle(fontFamily: "Nunito", fontSize: 20, fontWeight: FontWeight.w600, color: color);
+  }
+
+  static TextStyle f22W600({Color? color}) {
+    return TextStyle(fontFamily: "Nunito", fontSize: 22, fontWeight: FontWeight.w600, color: color);
   }
 
   static TextStyle f24W600({Color? color}) {
     return TextStyle(fontFamily: "Nunito", fontSize: 24, fontWeight: FontWeight.w600, color: color);
   }
+
   static TextStyle f24W500({Color? color}) {
     return TextStyle(fontFamily: "Nunito", fontSize: 24, fontWeight: FontWeight.w500, color: color);
   }

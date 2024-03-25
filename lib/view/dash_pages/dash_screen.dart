@@ -77,7 +77,7 @@ class DashPage extends StatelessWidget {
           controller: dpc.pageController,
           children: [
             HomeScreen(),
-            const AppointmentScreen(),
+            AppointmentScreen(),
             const ChatScreen(),
             const ProfileScreen(),
             const ErrorScreen()
