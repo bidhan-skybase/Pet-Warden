@@ -61,6 +61,10 @@ class CustomTextStyles {
     return TextStyle(fontFamily: "Nunito", fontSize: 14, fontWeight: FontWeight.w600, color: color);
   }
 
+  static TextStyle f14W700({Color? color}) {
+    return TextStyle(fontFamily: "Nunito", fontSize: 14, fontWeight: FontWeight.w700, color: color);
+  }
+
   static TextStyle f15W300({Color? color}) {
     return TextStyle(fontFamily: "Nunito", fontSize: 15, fontWeight: FontWeight.w300, color: color);
   }

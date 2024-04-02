@@ -7,7 +7,7 @@ import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/view/dash_pages/appointments_screen.dart';
 import 'package:petwarden/view/dash_pages/chat_screen.dart';
-import 'package:petwarden/view/dash_pages/error_screen.dart';
+import 'package:petwarden/view/error_screen.dart';
 import 'package:petwarden/view/dash_pages/home_screen.dart';
 import 'package:petwarden/view/dash_pages/profile_screen.dart';
 
