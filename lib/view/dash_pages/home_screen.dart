@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/home_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
+import 'package:petwarden/view/booking/pet_sitter_profile.dart';
 import 'package:petwarden/widgets/custom/custom_search_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
-import 'package:petwarden/widgets/featured_pet_sitters.dart';
+import 'package:petwarden/widgets/pet_sitter_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../utils/constants/image_paths.dart';
@@ -305,17 +306,23 @@ class HomeScreen extends StatelessWidget {
                         case 0:
                           return Column(
                             children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
                               ListView.builder(
                                 physics: const ClampingScrollPhysics(),
                                 itemCount: 10,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  return const Padding(
-                                    padding: EdgeInsets.only(bottom: 15),
-                                    child: PetSitterCard(),
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: PetSitterCard(
+                                      imageUrl: ImagePath.profilePic,
+                                      name: "Joji",
+                                      available: true,
+                                      address: "Chitwan, Nepal",
+                                      ratings: "5/5 (100)",
+                                      onTap: () {
+                                        Get.toNamed(PetSitterProfile.routeName);
+                                      },
+                                    ),
                                   );
                                 },
                               ),

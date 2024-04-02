@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:petwarden/controller/splash_controller.dart';
 import 'package:petwarden/utils/config/auth_pages.dart';
+import 'package:petwarden/utils/config/booking_pages.dart';
 import 'package:petwarden/view/splash_screen.dart';
 
 import 'dash_pages.dart';
@@ -8,6 +9,7 @@ import 'dash_pages.dart';
 final List<GetPage> getPages = <GetPage>[
   ...authPages,
   ...dashPages,
+  ...bookingPages,
   GetPage(
       name: SplashScreen.routeName,
       page: () => SplashScreen(),

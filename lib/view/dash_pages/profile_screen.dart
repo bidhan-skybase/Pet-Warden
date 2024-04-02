@@ -42,6 +42,9 @@ class ProfileScreen extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: CustomTextStyles.f14W500(color: PetWardenColors.textGrey),
                 ),
+                const SizedBox(
+                  height: 45,
+                ),
                 const ProfileTile(
                   iconUrl: IconPath.myDetailsIcon,
                   title: "My Details",

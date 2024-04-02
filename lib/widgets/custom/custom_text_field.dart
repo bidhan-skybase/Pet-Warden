@@ -63,6 +63,12 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        onTapOutside: (event) {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },`
         // onChanged: onChanged,
         focusNode: focusNode,
         maxLength: maxCharacters,
@@ -73,7 +79,7 @@ class CustomTextField extends StatelessWidget {
         readOnly: (readOnly == null) ? false : readOnly!,
         keyboardType: textInputType,
         textInputAction: textInputAction,
-        maxLines: maxLines??1,
+        maxLines: maxLines ?? 1,
         validator: (validator != null) ? validator : null,
         controller: (controller != null) ? controller : null,
         onChanged: (text) {
