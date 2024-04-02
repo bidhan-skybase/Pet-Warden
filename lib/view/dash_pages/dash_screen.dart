@@ -78,7 +78,7 @@ class DashPage extends StatelessWidget {
           children: [
             HomeScreen(),
             AppointmentScreen(),
-            const ChatScreen(),
+            ChatScreen(),
             const ProfileScreen(),
             const ErrorScreen()
           ],

@@ -1,5 +1,4 @@
 // ignore_for_file: unused_import
-
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 import 'package:flutter/material.dart';
@@ -141,6 +140,7 @@ class AppointmentScreen extends StatelessWidget {
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               c.selectedDate.value.toString().substring(0, 10),
@@ -211,10 +211,55 @@ class AppointmentScreen extends StatelessWidget {
                               ),
                             ),
                             content: Container(
-                              height: 100,
+                              // height: 150,
                               decoration: BoxDecoration(
                                 color: PetWardenColors.blueCardColor,
                                 borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    dense: true,
+                                    visualDensity:
+                                        const VisualDensity(horizontal: -4, vertical: -4),
+                                    minVerticalPadding: 0,
+                                    contentPadding: const EdgeInsets.all(2),
+                                    leading: const Icon(
+                                      Icons.pets_outlined,
+                                      color: PetWardenColors.secondaryColor,
+                                    ),
+                                    title: Text(
+                                      "Appointed For: ",
+                                      style: CustomTextStyles.f15W600(color: Colors.white),
+                                    ),
+                                    subtitle: Text(
+                                      "Keanu",
+                                      style: CustomTextStyles.f13W500(color: Colors.white),
+                                    ),
+                                  ),
+                                  const Divider(
+                                    color: PetWardenColors.borderColor,
+                                  ),
+                                  ListTile(
+                                    dense: true,
+                                    visualDensity:
+                                        const VisualDensity(horizontal: -4, vertical: -4),
+                                    minVerticalPadding: 0,
+                                    contentPadding: const EdgeInsets.all(2),
+                                    leading: const Icon(
+                                      Icons.monetization_on_outlined,
+                                      color: PetWardenColors.secondaryColor,
+                                    ),
+                                    title: Text(
+                                      "Total Cost: ",
+                                      style: CustomTextStyles.f15W600(color: Colors.white),
+                                    ),
+                                    subtitle: Text(
+                                      "Rs. 1200",
+                                      style: CustomTextStyles.f13W500(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ))
                       ]),

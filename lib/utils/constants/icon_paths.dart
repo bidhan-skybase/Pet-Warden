@@ -22,4 +22,14 @@ class IconPath {
   static const searchIcon = "$baseIconPath/search.svg";
 
   static const clockIcon = "$baseIconPath/clock.svg";
+
+  //profile screen
+  static const myDetailsIcon = "$baseIconPath/details.svg";
+  static const petDetailsIcon = "$baseIconPath/pet.svg";
+  static const passwordIcon = "$baseIconPath/lock.svg";
+  static const helpIcon = "$baseIconPath/help.svg";
+  static const aboutUsIcon = "$baseIconPath/info.svg";
+  static const deleteUserIcon = "$baseIconPath/profile_delete.svg";
+  static const logOutIcon = "$baseIconPath/logout.svg";
+  static const rightArrow = "$baseIconPath/rightArrow.svg";
 }
