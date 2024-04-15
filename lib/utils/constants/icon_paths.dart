@@ -32,4 +32,5 @@ class IconPath {
   static const deleteUserIcon = "$baseIconPath/profile_delete.svg";
   static const logOutIcon = "$baseIconPath/logout.svg";
   static const rightArrow = "$baseIconPath/rightArrow.svg";
+  static const rightArrowAlt = "$baseIconPath/right.svg";
 }

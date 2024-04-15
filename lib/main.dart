@@ -10,12 +10,13 @@ void main() {
 }
 
 class PetWarden extends StatelessWidget {
-   final coreController = Get.find<CoreController>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final coreController = Get.find<CoreController>();
   PetWarden({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetMaterialApp( 
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Nunito'),
       initialRoute: SplashScreen.routeName,
