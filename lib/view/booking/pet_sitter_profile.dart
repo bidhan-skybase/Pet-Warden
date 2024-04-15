@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/view/booking/confirmation_page.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
@@ -157,7 +158,11 @@ class PetSitterProfile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomElevatedButton(onPressed: () {}, title: "Appoint"),
+                    CustomElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(ConfirmationPage.routeName);
+                        },
+                        title: "Appoint"),
                     const SizedBox(
                       height: 39,
                     ),
