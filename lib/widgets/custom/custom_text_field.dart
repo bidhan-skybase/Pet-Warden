@@ -68,7 +68,7 @@ class CustomTextField extends StatelessWidget {
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
-        },`
+        },
         // onChanged: onChanged,
         focusNode: focusNode,
         maxLength: maxCharacters,
