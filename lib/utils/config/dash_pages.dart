@@ -3,7 +3,9 @@ import 'package:petwarden/controller/dash_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/appointments_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/chat_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/home_page_controller.dart';
+import 'package:petwarden/view/dash_pages/booking_complete_screen.dart';
 import 'package:petwarden/view/dash_pages/dash_screen.dart';
+import 'package:petwarden/view/dash_pages/timer_screen.dart';
 
 final List<GetPage> dashPages = <GetPage>[
   GetPage(
@@ -17,5 +19,13 @@ final List<GetPage> dashPages = <GetPage>[
         Get.lazyPut(() => AppointmentsPageController());
       },
     ),
+  ),
+  GetPage(
+    name: TimerPage.routeName,
+    page: () => const TimerPage(),
+  ),
+  GetPage(
+    name: BookingCompleteScreen.routeName,
+    page: () => const BookingCompleteScreen(),
   ),
 ];

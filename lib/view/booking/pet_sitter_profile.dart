@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
-import 'package:petwarden/view/booking/confirmation_page.dart';
+import 'package:petwarden/view/booking/confirmation_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';

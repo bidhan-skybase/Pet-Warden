@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CoreController extends GetxController {
-  RxBool isUserLoggedIn=true.obs;
+  RxBool isUserLoggedIn = true.obs;
   Future<bool> checkCameraPermission() async {
     bool hasAccess = false;
     var status = await Permission.camera.status;

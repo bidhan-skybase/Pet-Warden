@@ -3,4 +3,10 @@ class ImagePath {
 
   static const logo = "$baseIconPath/logo.png";
   static const profilePic = "$baseIconPath/profile.jpg";
+  static const esewa = "$baseIconPath/esewa.png";
+
+  //onboarding
+  static const onboarding1 = "$baseIconPath/onboarding1.png";
+  static const onboarding2 = "$baseIconPath/onboarding2.png";
+  static const onboarding3 = "$baseIconPath/onboarding3.png";
 }

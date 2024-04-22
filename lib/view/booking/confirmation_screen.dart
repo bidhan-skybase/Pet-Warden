@@ -8,6 +8,7 @@ import 'package:petwarden/controller/booking/confirm_appointment_controller.dart
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/validators.dart';
+import 'package:petwarden/view/booking/payments_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
@@ -245,7 +246,11 @@ class ConfirmationPage extends StatelessWidget {
                         ),
                         SizedBox(
                             width: 200,
-                            child: CustomElevatedButton(onPressed: () {}, title: "Continue"))
+                            child: CustomElevatedButton(
+                                onPressed: () {
+                                  Get.toNamed(PaymentsPage.routeName);
+                                },
+                                title: "Continue"))
                       ],
                     ),
                   ),
