@@ -69,38 +69,14 @@ class _OnboardingPageState extends State<OnboardingPage> with SingleTickerProvid
               color: PetWardenColors.primaryColor,
             ),
           ),
-          swipetab == 0
-              ? Positioned(
-                  top: 30,
-                  child: SizedBox(
-                    width: Get.width,
-                    child: Image.asset(
-                      backgroundImages[0],
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              : Positioned(
-                  top: 80,
-                  left: 58,
-                  right: 55,
-                  child: SizedBox(
-                    child: Image.asset(
-                      backgroundImages[swipetab],
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-          // Positioned(
-          //   top: 50,
-          //   right: 20,
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Get.toNamed(HomePage.routeName);
-          //     },
-          //     child: Text('Skip', style: CustomTextStyles.f16W600(color: GearColors.lightGreen)),
-          //   ),
-          // ),
+          Positioned(
+            top: 30,
+            width: Get.width,
+            child: Image.asset(
+              backgroundImages[swipetab],
+              fit: BoxFit.cover,
+            ),
+          ),
           Positioned(
             left: 0,
             right: 0,
@@ -136,104 +112,34 @@ class _OnboardingPageState extends State<OnboardingPage> with SingleTickerProvid
                               )
                             ],
                           ),
-                          const Column(
+                          Column(
                             mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Simple Research',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  color: PetWardenColors.textColor,
-                                ),
+                                "Who Let the Dogs Out?",
+                                style: CustomTextStyles.f28W700(),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 8),
                               Text(
-                                'Search desired activity or adventure.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Poppins",
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
+                                "No more ruff times! Our app fetches \ntrustworthy pet sitters in your neighborhood. It's time to give your\n pets a vacation too! ",
+                                style: CustomTextStyles.f16W600(),
+                              )
                             ],
                           ),
-                          const Column(
+                          Column(
                             mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Quick Overview',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  color: PetWardenColors.textColor,
-                                ),
+                                "Pet Sitting, Simplified! ",
+                                style: CustomTextStyles.f28W700(),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 8),
                               Text(
-                                'See which gear people use...',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Poppins",
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Personal Reviews',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                '',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Poppins",
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Find the Best Price',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Get the cheapest deal.\nAdd to favorites and be notified when item goes on sale.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Poppins",
-                                  color: PetWardenColors.textColor,
-                                ),
-                              ),
+                                "Sit back, relax, and let Pet Warden be\n your furry friend's guardian angel. \nFinding the perfect pet sitter has never been this pawsome! ",
+                                style: CustomTextStyles.f16W600(),
+                              )
                             ],
                           ),
                         ],

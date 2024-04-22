@@ -32,29 +32,10 @@ class HomeScreen extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    "Location",
-                    style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
+                    "Hello, Bidhan 👋",
+                    style: CustomTextStyles.f20W600(color: PetWardenColors.textColor),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconPath.locationIcon),
-                      const Text("  Fulbari, Pokhara  "),
-                      SvgPicture.asset(IconPath.downArrowIcon),
-                      const Expanded(
-                          child: SizedBox(
-                        width: 10,
-                      )),
-                      CircleAvatar(
-                        backgroundColor: PetWardenColors.borderColor,
-                        radius: 17,
-                        child: SvgPicture.asset(
-                          IconPath.notificationIcon,
-                          height: 20,
-                        ),
-                      )
-                    ],
-                  ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -281,7 +262,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Pet Sitters Near You",
+                          "Pet Sitters For",
                           style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
                         ),
                         const Text(
