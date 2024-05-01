@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/utils/helper/storage-helper.dart';
 import 'package:petwarden/view/auth/log_in_screen.dart';
 import 'package:petwarden/widgets/custom/custom_tab_indicator.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
@@ -156,10 +157,11 @@ class _OnboardingPageState extends State<OnboardingPage> with SingleTickerProvid
                           pos: swipetab,
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (swipetab < 2) {
                               _tabController.animateTo(++swipetab);
                             } else {
+                              await StorageHelper.setOnBoarded();
                               Get.toNamed(LogInScreen.routeName);
                             }
                           },
