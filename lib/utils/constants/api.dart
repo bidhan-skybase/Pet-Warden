@@ -3,4 +3,5 @@ class Api {
 
   static const loginUrl = "$baseUrl/auth/login";
   static const signUpUrl = "$baseUrl/auth/register";
+  static const forgotPasswordUrl = "$baseUrl/auth/forgot-password";
 }

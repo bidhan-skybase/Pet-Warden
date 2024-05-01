@@ -7,7 +7,7 @@ import 'package:petwarden/utils/helper/log_helper.dart';
 import 'package:petwarden/utils/helper/request_helper.dart';
 import 'package:petwarden/utils/helper/storage-helper.dart';
 
-class LoginRepo {
+class AuthRepo {
   static Future<void> loginAsOwner({
     required String email,
     required String password,
@@ -28,7 +28,6 @@ class LoginRepo {
         var user = User.fromJson(data['data']);
         print("0--------------------$user");
         var accessToken = AccessToken.fromJson(data['data']['token']);
-
         LogHelper.info("-------accesstoken ----> $accessToken");
         StorageHelper.saveToken(accessToken);
         StorageHelper.saveOwner(user);
@@ -42,42 +41,24 @@ class LoginRepo {
     }
   }
 
-  // static Future<void> loginAsEmployee(
-  //     {required String email,
-  //     required String password,
-  //     required Function(Employee employee, Token token) onSuccess,
-  //     required Function(String message) onError}) async {
-  //   try {
-  //     var headers = {"Accept": "application/json"};
-
-  //     var body = {
-  //       "phone": email,
-  //       "password": password,
-  //     };
-
-  //     http.Response response = await BhokRequest.post(
-  //       Uri.parse(Api.riderLogin),
-  //       headers: headers,
-  //       body: body
-  //     );
-
-  //     log("${Api.riderLogin} ===================>");
-  //     log(response.body);
-
-  //     dynamic data = json.decode(response.body);
-
-  //     if(data['success']){
-  //       Employee employee = Employee.fromJson(data['data']["user"]);
-  //       Token token = Token.fromJson(data['data']["token"]);
-  //       onSuccess(employee, token);
-  //     }else{
-  //       onError(data['message']);
-  //     }
-
-  //   } catch (e, s) {
-  //     log(e.toString());
-  //     log(s.toString());
-  //     onError("Sorry Something went wrong");
-  //   }
-  // }
+  static Future<void> forgotPassword({
+    required String email,
+    required Function(String message) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.forgotPasswordUrl;
+      var body = {"email": email};
+      http.Response response = await PetRequest.post(url, body: body);
+      dynamic data = json.decode(response.body);
+      if (data['status']) {
+        onSuccess(data['message']);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(e.toString());
+      LogHelper.error(s.toString());
+    }
+  }
 }
