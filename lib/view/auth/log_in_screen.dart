@@ -32,9 +32,9 @@ class LogInScreen extends StatelessWidget {
             elevation: 0,
             surfaceTintColor: PetWardenColors.backgroundColor,
             leading: InkResponse(
-            radius: 20,
-              onTap: (){
-              Get.back();
+              radius: 20,
+              onTap: () {
+                Get.back();
               },
               child: const Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -74,6 +74,7 @@ class LogInScreen extends StatelessWidget {
                       CustomTextField(
                           hint: "Email",
                           controller: c.emailController,
+                          textCapitalization: TextCapitalization.none,
                           textInputAction: TextInputAction.next,
                           validator: Validators.checkEmailField,
                           textInputType: TextInputType.emailAddress),
@@ -101,7 +102,7 @@ class LogInScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Get.toNamed(ForgotPasswordScreen.routeName);
                         },
                         child: Text(
@@ -117,7 +118,7 @@ class LogInScreen extends StatelessWidget {
                 ),
                 CustomElevatedButton(
                   onPressed: () {
-                    Get.toNamed(DashPage.routeName);
+                    c.onSubmit();
                   },
                   title: "Sign In",
                 ),

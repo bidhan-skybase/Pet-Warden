@@ -1,5 +1,5 @@
 class User {
-  bool? status;
+  String? status;
   Data? data;
   String? message;
 

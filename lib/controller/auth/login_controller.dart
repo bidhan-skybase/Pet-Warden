@@ -1,56 +1,41 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/core_controller.dart';
+import 'package:petwarden/repo/login_repo.dart';
+import 'package:petwarden/utils/helper/pet_snackbar.dart';
+import 'package:petwarden/view/dash_pages/dash_screen.dart';
+import 'package:petwarden/widgets/progress_dialog.dart';
 
 class LoginController extends GetxController {
-
   var hidePass = true.obs;
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  // final FlutterSecureStorage storage = FlutterSecureStorage(); //To Store remember me username
 
   GlobalKey<FormState> signinKey = GlobalKey<FormState>();
 
   final CoreController coreController = Get.find();
-
-  @override
-  void onInit() {
-    super.onInit();
-    // loadRememberMe();
-  }
+  ProgressDialog loading = ProgressDialog();
 
   void onEyeClick() {
     hidePass.value = !hidePass.value;
   }
 
-
-
-
-
-
-
-  // Future<void> onSubmit() async {
-  //   if (signinKey.currentState!.validate()) {
-  //     FocusManager.instance.primaryFocus?.unfocus();
-  //     loading.show();
-  //     await AuthRepo.signin(
-  //         username: userNameController.text,
-  //         password: passwordController.text,
-  //         onSuccess: (user) {
-  //           loading.hide();
-  //           coreController.loadCurrentUser();
-  //           SkySnackBar.success(
-  //               title: "Signin Success",
-  //               message: "User Signed in Successfully");
-  //           Get.offAllNamed(DashScreen.routeName);
-  //         },
-  //         onError: (message) {
-  //           SkySnackBar.error(title: "Signin Failed", message: message);
-  //         });
-  //   }else{
-  //     rememberMe.value = false ;
-  //   }
-  // }
+  Future<void> onSubmit() async {
+    if (signinKey.currentState!.validate()) {
+      // loading.show();
+      await LoginRepo.loginAsOwner(
+          email: emailController.text,
+          password: passwordController.text,
+          onSuccess: (user) {
+            coreController.loadCurrentUser();
+            PetSnackBar.success(title: "Login", message: "Logged in successfully.");
+            Get.offAllNamed(DashPage.routeName);
+            loading.hide();
+          },
+          onError: (message) {
+            PetSnackBar.error(title: "Login Failed", message: message);
+            loading.hide();
+          });
+    }
+  }
 }

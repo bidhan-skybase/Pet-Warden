@@ -9,7 +9,7 @@ class PetSnackBar {
     Get.snackbar(title ?? "Successful", message ?? "The action was successful!",
         snackPosition: SnackPosition.TOP,
         margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-        backgroundColor: Colors.green, onTap: (snack) {
+        backgroundColor: const Color(0xff014739), onTap: (snack) {
       if (onTap != null) {
         onTap();
       }

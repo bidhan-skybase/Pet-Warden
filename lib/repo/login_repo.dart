@@ -25,9 +25,9 @@ class LoginRepo {
       print("----------------------$data");
 
       if (data['status']) {
-        var user = User.fromJson(data['data']['user']);
+        var user = User.fromJson(data['data']);
         print("0--------------------$user");
-        var accessToken = AccessToken.fromJson(data['data']['user']['token']);
+        var accessToken = AccessToken.fromJson(data['data']['token']);
 
         LogHelper.info("-------accesstoken ----> $accessToken");
         StorageHelper.saveToken(accessToken);

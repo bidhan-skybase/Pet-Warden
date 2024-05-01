@@ -13,7 +13,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     Timer(const Duration(seconds: 3), () {
-      if (!coreController.isOnBoarded()) {
+      if (coreController.isOnBoarded()) {
         Get.offAllNamed(OnboardingPage.routeName);
       } else if (coreController.isUserLoggedIn()) {
         Get.offAllNamed(DashPage.routeName);
