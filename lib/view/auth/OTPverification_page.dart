@@ -12,12 +12,12 @@ import 'package:pinput/pinput.dart';
 class OTPVerification extends StatelessWidget {
   final c = Get.find<SignUpController>();
   static const routeName = "/otp-verification";
-   OTPVerification({super.key});
+  OTPVerification({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-      onTap: (){
+    return GestureDetector(
+      onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
@@ -26,10 +26,9 @@ class OTPVerification extends StatelessWidget {
           backgroundColor: PetWardenColors.backgroundColor,
           elevation: 0,
           surfaceTintColor: PetWardenColors.backgroundColor,
-
           leading: InkResponse(
             radius: 20,
-            onTap: (){
+            onTap: () {
               Get.back();
             },
             child: const Icon(
@@ -39,96 +38,101 @@ class OTPVerification extends StatelessWidget {
             ),
           ),
         ),
-        body: Padding(
-            padding:EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Sign Up",
-              style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
-            ),
-            RichText(
-              text: TextSpan(
-                text: 'Verify your email for signing to  ',
-                style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Pet Warden',
-                      style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 43,
-            ),
-            Center(
-              child:SvgPicture.asset(IconPath.otpImage) ,
-            ),
-            const SizedBox(
-              height: 18,
-            ),
-            Text("We've just sent a verification code to your email. Enter the code below to complete the sign-up process.",
-              textAlign: TextAlign.center,style: CustomTextStyles.f12W500(color: PetWardenColors.highlightTextColor),),
-            const SizedBox(
-              height: 55,
-            ),
-            Center(
-              child: Form(
-                key: c.OTPKey,
-                child: Pinput(
-                  length: 5,
-                  validator: Validators.checkPinField,
-                  controller: c.otpController,
-                  pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                  showCursor: true,
-                  onCompleted: (value) {
-                    // c.onSubmit();
-                  },
-                  defaultPinTheme: PinTheme(
-                    height: 56,
-                    width: 56,
-                    textStyle: CustomTextStyles.f16W600(),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: PetWardenColors.borderColor),
-                    ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 23),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Sign Up",
+                  style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'Verify your email for signing to  ',
+                    style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Pet Warden',
+                          style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
+                    ],
                   ),
-                  submittedPinTheme: PinTheme(
-                    height: 56,
-                    width: 56,
-                    textStyle: CustomTextStyles.f16W600(),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: PetWardenColors.primaryColor),
-                    ),
-                  ),
-                  focusedPinTheme: PinTheme(
-                    height: 56,
-                    width: 56,
-                    textStyle: CustomTextStyles.f16W600(),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: PetWardenColors.primaryColor),
+                ),
+                const SizedBox(
+                  height: 43,
+                ),
+                Center(
+                  child: SvgPicture.asset(IconPath.otpImage),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  "We've just sent a verification code to your email. Enter the code below to complete the sign-up process.",
+                  textAlign: TextAlign.center,
+                  style: CustomTextStyles.f12W500(color: PetWardenColors.highlightTextColor),
+                ),
+                const SizedBox(
+                  height: 55,
+                ),
+                Center(
+                  child: Form(
+                    key: c.OTPKey,
+                    child: Pinput(
+                      length: 5,
+                      validator: Validators.checkPinField,
+                      controller: c.otpController,
+                      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                      showCursor: true,
+                      onCompleted: (value) {
+                        c.verifyOTP();
+                        // c.onSubmit();
+                      },
+                      defaultPinTheme: PinTheme(
+                        height: 56,
+                        width: 56,
+                        textStyle: CustomTextStyles.f16W600(),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: PetWardenColors.borderColor),
+                        ),
+                      ),
+                      submittedPinTheme: PinTheme(
+                        height: 56,
+                        width: 56,
+                        textStyle: CustomTextStyles.f16W600(),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: PetWardenColors.primaryColor),
+                        ),
+                      ),
+                      focusedPinTheme: PinTheme(
+                        height: 56,
+                        width: 56,
+                        textStyle: CustomTextStyles.f16W600(),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: PetWardenColors.primaryColor),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 115,
+                ),
+                CustomElevatedButton(
+                  onPressed: () {
+                    c.verifyOTP();
+                    // Get.toNamed(OTPVerification.routeName);
+                  },
+                  title: "Sign Up",
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 115,
-            ),
-            CustomElevatedButton(
-              onPressed: () {
-                // Get.toNamed(OTPVerification.routeName);
-              },
-              title: "Sign Up",
-            ),
-
-          ],
-        ),
-
+          ),
         ),
       ),
     );

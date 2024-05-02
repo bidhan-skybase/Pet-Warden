@@ -45,157 +45,160 @@ class SignUpPageUser extends StatelessWidget {
             ),
           ),
         ),
-        body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 23),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Sign Up",
-                  style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Enter your credentials for signing to  ',
-                    style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Pet Warden',
-                          style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
-                    ],
+        body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 23),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sign Up",
+                    style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
                   ),
-                ),
-                const SizedBox(
-                  height: 43,
-                ),
-                Center(
-                  child: Stack(alignment: Alignment.bottomRight, children: [
-                    GestureDetector(
-                        onTap: c.pickImage,
-                        child: Obx(
-                          () => CircleAvatar(
-                            radius: 60,
-                            backgroundImage: c.profilePicPath.value == 'http://surl.li/rkdax'
-                                ? NetworkImage(c.profilePicPath.value)
-                                : FileImage(File(c.profilePicPath.value)) as ImageProvider<Object>,
-                          ),
-                        )),
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Icon(
-                            Icons.circle,
-                            color: Colors.white,
-                            size: 28,
-                          ),
-                          Icon(
-                            Icons.circle,
-                            color: PetWardenColors.primaryColor,
-                            size: 26,
-                          ),
-                          Icon(
-                            Icons.camera_alt_outlined,
-                            color: Colors.white,
-                            size: 15,
-                          )
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-                const SizedBox(
-                  height: 43,
-                ),
-                Form(
-                  key: c.signupKeyUser,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                          hint: "Full name",
-                          controller: c.nameController,
-                          textInputAction: TextInputAction.next,
-                          validator: Validators.checkFieldEmpty,
-                          textInputType: TextInputType.text),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      CustomTextField(
-                          hint: "Email",
-                          controller: c.emailController,
-                          textInputAction: TextInputAction.next,
-                          validator: Validators.checkEmailField,
-                          textInputType: TextInputType.text),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      CustomTextField(
-                          hint: "Phone number",
-                          controller: c.phoneController,
-                          textInputAction: TextInputAction.next,
-                          validator: Validators.checkPhoneField,
-                          textInputType: TextInputType.text),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Obx(() => CustomPasswordField(
-                          hint: "Password",
-                          eye: c.hidePass.value,
-                          onEyeClick: c.onEyeClick,
-                          controller: c.passwordController,
-                          validator: Validators.checkPasswordField,
-                          textInputAction: TextInputAction.done,
-                          textInputType: TextInputType.none)),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Obx(() => CustomPasswordField(
-                          hint: "Confirm password",
-                          eye: c.hideConPass.value,
-                          onEyeClick: c.onConEyeClick,
-                          controller: c.confirmPasswordController,
-                          validator: (value) {
-                            if (value != c.passwordController.text) {
-                              return 'Passwords do not match';
-                            }
-                            return null;
-                          },
-                          textInputAction: TextInputAction.done,
-                          textInputType: TextInputType.none)),
-                      const SizedBox(
-                        height: 69,
-                      ),
-                    ],
-                  ),
-                ),
-                CustomElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(SignUpPagePet.routeName);
-                  },
-                  title: "Next",
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Center(
-                  child: RichText(
+                  RichText(
                     text: TextSpan(
-                      text: 'Already have an account? ',
-                      style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                      text: 'Enter your credentials for signing to  ',
+                      style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
                       children: <TextSpan>[
                         TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Get.toNamed(LogInScreen.routeName),
-                            text: 'Sign In',
+                            text: 'Pet Warden',
                             style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
                       ],
                     ),
                   ),
-                ),
-              ],
-            )),
+                  const SizedBox(
+                    height: 43,
+                  ),
+                  Center(
+                    child: Stack(alignment: Alignment.bottomRight, children: [
+                      GestureDetector(
+                          onTap: c.pickImage,
+                          child: Obx(
+                            () => CircleAvatar(
+                              radius: 60,
+                              backgroundImage: c.profilePicPath.value == 'http://surl.li/rkdax'
+                                  ? NetworkImage(c.profilePicPath.value)
+                                  : FileImage(File(c.profilePicPath.value))
+                                      as ImageProvider<Object>,
+                            ),
+                          )),
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                            Icon(
+                              Icons.circle,
+                              color: PetWardenColors.primaryColor,
+                              size: 26,
+                            ),
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.white,
+                              size: 15,
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 43,
+                  ),
+                  Form(
+                    key: c.signupKeyOwner,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                            hint: "Full name",
+                            controller: c.nameController,
+                            textInputAction: TextInputAction.next,
+                            validator: Validators.checkFieldEmpty,
+                            textInputType: TextInputType.text),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        CustomTextField(
+                            hint: "Email",
+                            controller: c.emailController,
+                            textInputAction: TextInputAction.next,
+                            validator: Validators.checkEmailField,
+                            textInputType: TextInputType.text),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        CustomTextField(
+                            hint: "Phone number",
+                            controller: c.phoneController,
+                            textInputAction: TextInputAction.next,
+                            validator: Validators.checkPhoneField,
+                            textInputType: TextInputType.text),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Obx(() => CustomPasswordField(
+                            hint: "Password",
+                            eye: c.hidePass.value,
+                            onEyeClick: c.onEyeClick,
+                            controller: c.passwordController,
+                            validator: Validators.checkPasswordField,
+                            textInputAction: TextInputAction.done,
+                            textInputType: TextInputType.none)),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Obx(() => CustomPasswordField(
+                            hint: "Confirm password",
+                            eye: c.hideConPass.value,
+                            onEyeClick: c.onConEyeClick,
+                            controller: c.confirmPasswordController,
+                            validator: (value) {
+                              if (value != c.passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
+                            textInputAction: TextInputAction.done,
+                            textInputType: TextInputType.none)),
+                        const SizedBox(
+                          height: 69,
+                        ),
+                      ],
+                    ),
+                  ),
+                  CustomElevatedButton(
+                    onPressed: () {
+                      Get.toNamed(SignUpPagePet.routeName);
+                    },
+                    title: "Next",
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Already have an account? ',
+                        style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                        children: <TextSpan>[
+                          TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Get.toNamed(LogInScreen.routeName),
+                              text: 'Sign In',
+                              style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        ),
       ),
     );
   }

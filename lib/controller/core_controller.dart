@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:petwarden/model/access_token_model.dart';
+import 'package:petwarden/model/pet_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
@@ -10,6 +11,7 @@ import 'package:petwarden/view/dash_pages/dash_screen.dart';
 
 class CoreController extends GetxController {
   Rxn<User> currentUser = Rxn();
+  Rxn<Pet> currentPet = Rxn();
   Rxn<AccessToken> accessToken = Rxn();
 
   Future<bool> checkCameraPermission() async {
@@ -47,6 +49,16 @@ class CoreController extends GetxController {
 
   Future<void> loadCurrentUser({bool updateCurrentUser = false}) async {
     currentUser.value = StorageHelper.getOwner();
+    // if (Get.isRegistered<ProfileController>()) {
+    //   Get.find<ProfileController>().currentUser.value = currentUser.value;
+    // }
+    // if (updateCurrentUser) {
+    //   updateUser();
+    // }
+  }
+
+  Future<void> loadCurrentPet({bool updateCurrentPet = false}) async {
+    currentPet.value = StorageHelper.getPet();
     // if (Get.isRegistered<ProfileController>()) {
     //   Get.find<ProfileController>().currentUser.value = currentUser.value;
     // }

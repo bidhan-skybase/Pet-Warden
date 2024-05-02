@@ -3,5 +3,8 @@ class Api {
 
   static const loginUrl = "$baseUrl/auth/login";
   static const signUpUrl = "$baseUrl/auth/register";
+  static const createPetProfileUrl = "$baseUrl/create-pet-profile";
+  static const sendOTPUrl = "$baseUrl/auth/send-verification-code";
+  static const verifyOTPUrl = "$baseUrl/auth/otp-verify";
   static const forgotPasswordUrl = "$baseUrl/auth/forgot-password";
 }

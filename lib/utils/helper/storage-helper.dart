@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:petwarden/model/access_token_model.dart';
+import 'package:petwarden/model/pet_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
 import 'package:petwarden/utils/helper/log_helper.dart';
@@ -75,6 +76,33 @@ class StorageHelper {
       return user;
     } catch (e, s) {
       log("Unable to fetch Customer");
+      log(e.toString());
+      log(s.toString());
+      return null;
+    }
+  }
+
+  static savePet(Pet pet) {
+    try {
+      final box = GetStorage();
+      box.write(StorageKeys.Pet, json.encode(pet.toJson()));
+      log(("pet Saved"));
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      throw "Unable to save pet";
+    }
+  }
+
+  static Pet? getPet() {
+    try {
+      final box = GetStorage();
+      log("====================> Customer");
+      log(box.read(StorageKeys.Pet));
+      Pet pet = Pet.fromJson(json.decode(box.read(StorageKeys.Pet)));
+      return pet;
+    } catch (e, s) {
+      log("Unable to fetch pet");
       log(e.toString());
       log(s.toString());
       return null;
