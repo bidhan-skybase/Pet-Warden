@@ -52,7 +52,6 @@ class StorageHelper {
       User user = User.fromJson(json.decode(box.read(StorageKeys.Owner)));
       return user;
     } catch (e, s) {
-      log("Unable to fetch Customer");
       log(e.toString());
       log(s.toString());
       return null;
@@ -85,34 +84,6 @@ class StorageHelper {
       return null;
     }
   }
-
-  // static saveEmployee(Employee employee) {
-  //   try {
-  //     final box = GetStorage();
-  //     box.write(StorageKeys.Employee, json.encode(employee.toJson()));
-  //     log(("Employee Saved"));
-  //   } catch (e, s) {
-  //     log(e.toString());
-  //     log(s.toString());
-  //     throw "Unable to save Employee";
-  //   }
-  // }
-
-  // static Employee? getEmployee() {
-  //   try {
-  //     final box = GetStorage();
-  //     log("====================> Employee");
-  //     log(box.read(StorageKeys.Employee));
-  //     Employee employee =
-  //         Employee.fromJson(json.decode(box.read(StorageKeys.Employee)));
-  //     return employee;
-  //   } catch (e, s) {
-  //     log("Unable to fetch Employee");
-  //     log(e.toString());
-  //     log(s.toString());
-  //     return null;
-  //   }
-  // }
 
   static saveToken(AccessToken token) {
     try {

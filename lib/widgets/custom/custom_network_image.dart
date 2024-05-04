@@ -29,9 +29,12 @@ class CustomNetworkImage extends StatelessWidget {
       height: height,
       width: width,
       placeholder: (context, url) => placeHolder ?? const ImageShimmer(),
-      errorWidget: (context, url, error) => Image.asset(
-        errorImage,
-        fit: boxFit,
+      errorWidget: (context, url, error) => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Image.asset(
+          errorImage,
+          fit: boxFit,
+        ),
       ),
     );
   }

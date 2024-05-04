@@ -283,8 +283,7 @@ class SignUpPagePet extends StatelessWidget {
                             title: "Oops! 🐾",
                             message:
                                 "Can't proceed without adding your profile picture. Let's make your pet's profile shine!");
-                      }
-                      if (c.signupKeyPet.currentState!.validate()) {
+                      } else if (c.signupKeyPet.currentState!.validate()) {
                         c.ownerSignUp();
                       }
                     },

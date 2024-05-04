@@ -1,17 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:petwarden/controller/dash_pages/profile_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/view/profile/change_password.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/profile_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final c = Get.find<ProfilePageController>();
+  ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +31,17 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(65),
-                    child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
+                    child: CustomNetworkImage(imageUrl: c.user.value?.profilePicture ?? ""),
+                    // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
                   ),
                 ),
                 Text(
-                  "Hasbulla Magomedov",
+                  c.user.value?.name ?? "",
                   style: CustomTextStyles.f20W600(),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "hasbulla@gmail.com",
+                  c.user.value?.email ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: CustomTextStyles.f14W500(color: PetWardenColors.textGrey),
                 ),
@@ -55,10 +58,13 @@ class ProfileScreen extends StatelessWidget {
                   title: "Pet Profile",
                   hasArrow: true,
                 ),
-                const ProfileTile(
+                ProfileTile(
                   iconUrl: IconPath.passwordIcon,
                   title: "Change Password",
                   hasArrow: true,
+                  onTap: () {
+                    Get.toNamed(ChangePassword.routeName);
+                  },
                 ),
                 const ProfileTile(
                   iconUrl: IconPath.helpIcon,
@@ -75,10 +81,13 @@ class ProfileScreen extends StatelessWidget {
                   title: "Delete Account",
                   hasArrow: false,
                 ),
-                const ProfileTile(
+                ProfileTile(
                   iconUrl: IconPath.logOutIcon,
                   title: "Log Out",
                   hasArrow: false,
+                  onTap: () {
+                    c.cc.logOut();
+                  },
                 ),
               ],
             ),

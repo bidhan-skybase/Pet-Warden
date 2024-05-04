@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/auth/forgot_password_controller.dart';
 import 'package:petwarden/controller/auth/login_controller.dart';
 import 'package:petwarden/controller/auth/sign_up_controller.dart';
+import 'package:petwarden/controller/profile/change_password_controller.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/auth/forgot_password.dart';
 import 'package:petwarden/view/auth/log_in_screen.dart';
 import 'package:petwarden/view/auth/sign_up_screen_pet.dart';
 import 'package:petwarden/view/auth/sign_up_screen_user.dart';
+import 'package:petwarden/view/profile/change_password.dart';
 
 final List<GetPage> authPages = <GetPage>[
   GetPage(
@@ -39,5 +41,11 @@ final List<GetPage> authPages = <GetPage>[
       page: () => ForgotPasswordScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ForgotPasswordController());
+      })),
+      GetPage(
+      name: ChangePassword.routeName,
+      page: () => ChangePassword(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ChangePasswordController());
       }))
 ];

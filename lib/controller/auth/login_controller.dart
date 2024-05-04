@@ -28,11 +28,11 @@ class LoginController extends GetxController {
           password: passwordController.text,
           onSuccess: (user) {
             coreController.loadCurrentUser();
+            loading.hide();
             PetSnackBar.success(
                 title: "Welcome Back! 🐾",
                 message: "You're now logged in. Let the pet adventures begin!");
             Get.offAllNamed(DashPage.routeName);
-            loading.hide();
           },
           onError: (message) {
             PetSnackBar.error(title: "Login Failed", message: message);

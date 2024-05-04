@@ -5,6 +5,7 @@ class User {
   String? status;
   String? updatedAt;
   String? createdAt;
+  String? profilePicture;
   int? id;
 
   User({this.name, this.email, this.phone, this.status, this.updatedAt, this.createdAt, this.id});
@@ -16,6 +17,7 @@ class User {
     status = json['status'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
+    profilePicture = json['profile_image_url'];
     id = json['id'];
   }
 
@@ -27,6 +29,7 @@ class User {
     data['status'] = status;
     data['updated_at'] = updatedAt;
     data['created_at'] = createdAt;
+    data['profile_image_url'] = profilePicture;
     data['id'] = id;
     return data;
   }

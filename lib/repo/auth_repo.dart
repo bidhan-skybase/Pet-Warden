@@ -46,6 +46,7 @@ class AuthRepo {
     required String phone,
     required String password,
     required String petName,
+    required String profilePicture,
     required Function(User user) onSuccess,
     required Function(String message) onError,
   }) async {
@@ -55,7 +56,8 @@ class AuthRepo {
       "password": password,
       "phone": phone,
       "email": email,
-      "pet_name": petName
+      "pet_name": petName,
+      "profile_image": profilePicture
     };
     http.Response response = await PetRequest.post(url, body: body);
     dynamic data = json.decode(response.body);
@@ -78,6 +80,7 @@ class AuthRepo {
     required String gender,
     required String vaccinationStatus,
     required String preferneces,
+    required String imageUrl,
     required Function(Pet pet) onSuccess,
     required Function(String message) onError,
   }) async {
@@ -89,7 +92,8 @@ class AuthRepo {
       "species": species,
       "gender": gender,
       "preferences": preferneces,
-      "vaccination_status": vaccinationStatus
+      "vaccination_status": vaccinationStatus,
+      "image_url": imageUrl
     };
     http.Response response = await PetRequest.post(url, body: body);
     dynamic data = json.decode(response.body);
@@ -155,6 +159,23 @@ class AuthRepo {
       } else {
         onError(data['message']);
       }
+    } catch (e, s) {
+      LogHelper.error(e.toString());
+      LogHelper.error(s.toString());
+    }
+  }
+
+  static Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required Function(bool status, String message) onSuccess,
+  }) async {
+    try {
+      String url = Api.changePasswordUrl;
+      var body = {"old_password": oldPassword, "new_password": newPassword};
+      http.Response response = await PetRequest.post(url, body: body);
+      dynamic data = json.decode(response.body);
+      onSuccess(data["status"], data["message"]);
     } catch (e, s) {
       LogHelper.error(e.toString());
       LogHelper.error(s.toString());

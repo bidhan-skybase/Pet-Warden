@@ -7,12 +7,19 @@ import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/utils/helper/storage-helper.dart';
+import 'package:petwarden/view/auth/log_in_screen.dart';
 import 'package:petwarden/view/dash_pages/dash_screen.dart';
 
 class CoreController extends GetxController {
   Rxn<User> currentUser = Rxn();
   Rxn<Pet> currentPet = Rxn();
   Rxn<AccessToken> accessToken = Rxn();
+
+  @override
+  void onInit() async {
+    loadCurrentUser(updateCurrentUser: true);
+    super.onInit();
+  }
 
   Future<bool> checkCameraPermission() async {
     bool hasAccess = false;
@@ -46,7 +53,7 @@ class CoreController extends GetxController {
     box.remove(StorageKeys.Token);
     box.remove(StorageKeys.UserType);
     box.remove(StorageKeys.Sitter);
-    Get.offAllNamed(DashPage.routeName);
+    Get.offAllNamed(LogInScreen.routeName);
     // loadCustomer();
     PetSnackBar.success(title: "Success", message: "Logged out successfully.");
   }

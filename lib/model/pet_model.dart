@@ -8,6 +8,7 @@ class Pet {
   String? gender;
   String? vaccinationStatus;
   String? preferences;
+  String? profileImage;
   int? ownerId;
 
   Pet(
@@ -20,6 +21,7 @@ class Pet {
       this.gender,
       this.vaccinationStatus,
       this.preferences,
+      this.profileImage,
       this.ownerId});
 
   Pet.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Pet {
     gender = json['gender'];
     vaccinationStatus = json['vaccination_status'];
     preferences = json['preferences'];
+    profileImage = json['image_url_base64'];
     ownerId = json['owner_id'];
   }
 
@@ -46,6 +49,7 @@ class Pet {
     data['gender'] = gender;
     data['vaccination_status'] = vaccinationStatus;
     data['preferences'] = preferences;
+    data['image_url_base64'] = profileImage;
     data['owner_id'] = ownerId;
     return data;
   }

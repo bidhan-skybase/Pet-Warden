@@ -251,8 +251,7 @@ class SignUpPageUser extends StatelessWidget {
                             title: "Oops! 🐾",
                             message:
                                 "Can't proceed without adding your profile picture. Let's make your profile shine!");
-                      }
-                      if (c.signupKeyOwner.currentState!.validate()) {
+                      } else if (c.signupKeyOwner.currentState!.validate()) {
                         Get.toNamed(SignUpPagePet.routeName);
                       }
                     },

@@ -12,12 +12,12 @@ import '../../widgets/custom/custom_text_styles.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   final c = Get.find<ForgotPasswordController>();
   static const routeName = "/forgot-password";
-   ForgotPasswordScreen({super.key});
+  ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
@@ -26,10 +26,9 @@ class ForgotPasswordScreen extends StatelessWidget {
           backgroundColor: PetWardenColors.backgroundColor,
           elevation: 0,
           surfaceTintColor: PetWardenColors.backgroundColor,
-
           leading: InkResponse(
             radius: 20,
-            onTap: (){
+            onTap: () {
               Get.back();
             },
             child: const Icon(
@@ -39,18 +38,20 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Padding(padding:EdgeInsets.symmetric(horizontal: 23) ,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 23),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Forgot Password",
                 style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
               ),
-            Text("Enter your mail to get a password reset link",
+              Text(
+                "Enter your mail to get a password reset link",
                 style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
-        ),
+              ),
               const SizedBox(
                 height: 53,
               ),
@@ -68,13 +69,13 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               CustomElevatedButton(
                 onPressed: () {
+                  c.onSubmit();
                   // Get.toNamed(OTPVerification.routeName);
                 },
                 title: "Reset Password",
               ),
-          ],
-        ),
-
+            ],
+          ),
         ),
       ),
     );

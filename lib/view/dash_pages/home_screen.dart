@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/home_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
-import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/view/booking/pet_sitter_profile.dart';
 import 'package:petwarden/widgets/custom/custom_search_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
@@ -31,10 +27,10 @@ class HomeScreen extends StatelessWidget {
             child: CustomScrollView(slivers: [
               SliverToBoxAdapter(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    "Hello, Bidhan 👋",
-                    style: CustomTextStyles.f20W600(color: PetWardenColors.textColor),
-                  ),
+                  Obx(() => Text(
+                        "Hello, ${c.firstName.value} 👋",
+                        style: CustomTextStyles.f20W600(color: PetWardenColors.textColor),
+                      )),
 
                   const SizedBox(
                     height: 20,

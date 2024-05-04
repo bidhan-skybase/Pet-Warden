@@ -96,6 +96,7 @@ class SignUpController extends GetxController {
           phone: phoneController.text,
           password: passwordController.text,
           petName: petNameController.text,
+          profilePicture: profilePicPath.value,
           onSuccess: (user) async {
             coreController.loadCurrentUser();
             await createPetProfile();
@@ -116,6 +117,7 @@ class SignUpController extends GetxController {
         gender: selectedGender.value,
         vaccinationStatus: selectedVaccinationStatus.value,
         preferneces: habitsController.text,
+        imageUrl: petPicPath.value,
         onSuccess: (pet) async {
           coreController.loadCurrentPet();
           loading.hide();
