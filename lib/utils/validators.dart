@@ -22,10 +22,26 @@ class Validators {
 
   static String? checkOptionalPhoneField(String? fieldContent) {
     fieldContent!.trim();
-    if ((fieldContent.isNotEmpty) &&
-        !(fieldContent.isNumericOnly && fieldContent.length == 10)) {
+    if ((fieldContent.isNotEmpty) && !(fieldContent.isNumericOnly && fieldContent.length == 10)) {
       return 'Invalid phone number';
     }
+    return null;
+  }
+
+  static String? checkFullName(String? fullName) {
+    if (fullName == null || fullName.trim().isEmpty) {
+      return "This field is required";
+    }
+
+    List<String> nameParts = fullName.trim().split(" ");
+    if (nameParts.length < 2) {
+      return "Invalid full name";
+    }
+
+    if (!nameParts.every((part) => RegExp(r'^[a-zA-Z]+$').hasMatch(part))) {
+      return "Invalid characters in full name";
+    }
+
     return null;
   }
 

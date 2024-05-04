@@ -22,13 +22,15 @@ class LoginController extends GetxController {
 
   Future<void> onSubmit() async {
     if (signinKey.currentState!.validate()) {
-      // loading.show();
+      loading.show();
       await AuthRepo.loginAsOwner(
           email: emailController.text,
           password: passwordController.text,
           onSuccess: (user) {
             coreController.loadCurrentUser();
-            PetSnackBar.success(title: "Login", message: "Logged in successfully.");
+            PetSnackBar.success(
+                title: "Welcome Back! 🐾",
+                message: "You're now logged in. Let the pet adventures begin!");
             Get.offAllNamed(DashPage.routeName);
             loading.hide();
           },

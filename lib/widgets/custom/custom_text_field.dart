@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 
 import 'custom_text_styles.dart';
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
   final double height;
   final TextStyle? hintTextStyle;
   final int? maxLines;
+  final List<TextInputFormatter>? inputFormatter;
 
   const CustomTextField({
     super.key,
@@ -58,11 +60,13 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.maxLines,
     this.hintTextStyle,
+    this.inputFormatter,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        inputFormatters: inputFormatter,
         onTapOutside: (event) {
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {

@@ -1,7 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petwarden/model/pet_model.dart';
 import 'package:petwarden/repo/auth_repo.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
@@ -18,8 +19,8 @@ class SignUpController extends GetxController {
   final CoreController coreController = Get.find();
 
   //user
-  late Rx<String> profilePicPath = Rx<String>('http://surl.li/rkdax');
-  late Rx<String> petPicPath = Rx<String>('http://surl.li/rkdax');
+  late Rx<String> profilePicPath = Rx<String>('');
+  late Rx<String> petPicPath = Rx<String>('');
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
@@ -40,35 +41,38 @@ class SignUpController extends GetxController {
   RxString selectedGender = RxString("male");
 
   final List<String> petTypes = [
+    "",
     'Dog',
     'Cat',
   ];
 
   final List<String> breed = [
+    "",
     'Lab',
     'German',
   ];
 
   final List<String> vaccinationStatus = [
     'Vaccinated',
+    "",
     'Not Vaccinated',
   ];
-  RxString selectedPetType = "Dog".obs;
-  RxString selectedBreed = "Lab".obs;
-  RxString selectedVaccinationStatus = "Vaccinated".obs;
+  RxString selectedPetType = "".obs;
+  RxString selectedBreed = "".obs;
+  RxString selectedVaccinationStatus = "".obs;
 
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      profilePicPath.value = pickedFile.path;
-    }
+  void pickImage(XFile pickedImage) async {
+    final bytes = File(pickedImage.path).readAsBytesSync();
+    String base64Image = base64Encode(bytes);
+    print("this is the image $base64Image");
+    profilePicPath.value = base64Image;
   }
 
-  Future<void> pickPetImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      petPicPath.value = pickedFile.path;
-    }
+  void pickImagePet(XFile pickedImage) async {
+    final bytes = File(pickedImage.path).readAsBytesSync();
+    String base64Image = base64Encode(bytes);
+    print("this is the image $base64Image");
+    petPicPath.value = base64Image;
   }
 
   void onEyeClick() {
@@ -94,7 +98,6 @@ class SignUpController extends GetxController {
           petName: petNameController.text,
           onSuccess: (user) async {
             coreController.loadCurrentUser();
-
             await createPetProfile();
           },
           onError: (msg) {
@@ -132,7 +135,7 @@ class SignUpController extends GetxController {
           PetSnackBar.success(
               message: "Just one more step to start your pet's journey with Pet Warden!",
               title: "Just One Step Away! 🐾");
-          Get.offNamed(OTPVerification.routeName);
+          Get.offAllNamed(OTPVerification.routeName);
         },
         onError: (message) {
           PetSnackBar.error(message: message);

@@ -6,31 +6,8 @@ import 'package:petwarden/model/access_token_model.dart';
 import 'package:petwarden/model/pet_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
-import 'package:petwarden/utils/helper/log_helper.dart';
 
 class StorageHelper {
-  static bool isOnboarded() {
-    try {
-      final box = GetStorage();
-      bool onBoarded = box.read(StorageKeys.AppLoadDate);
-      LogHelper.info("isOnboarded  value in storage --------$onBoarded");
-      return onBoarded;
-    } catch (e, s) {
-      LogHelper.info("isOnboarded error function is called in-----------catch");
-      return false;
-    }
-  }
-
-  static Future<void> setOnBoarded() async {
-    try {
-      LogHelper.info("isOnboarded function is called    write --------storage helpers");
-      final box = GetStorage();
-      await box.write(StorageKeys.AppLoadDate, true);
-    } catch (e) {
-      LogHelper.info(e.toString());
-    }
-  }
-
   static saveUserType(String userType) {
     try {
       final box = GetStorage();
@@ -154,6 +131,38 @@ class StorageHelper {
       final box = GetStorage();
       AccessToken token = AccessToken.fromJson(jsonDecode(box.read(StorageKeys.Token)) ?? "");
       return token;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // static saveOnboarded(String onboarded) {
+  //   try {
+  //     final box = GetStorage();
+  //     box.write(StorageKeys.isOnboarded, onboarded);
+  //     log("Token Saved ==========>");
+  //   } catch (e, s) {
+  //     log(e.toString());
+  //     log(s.toString());
+  //     throw "Unable to save token";
+  //   }
+  // }
+  static Future<void> saveOnboarded(String onboarded) async {
+    try {
+      final box = GetStorage();
+      await box.write(StorageKeys.isOnboarded, onboarded);
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+    }
+  }
+
+  static String? getOnboarded() {
+    try {
+      final box = GetStorage();
+      String isOnboarded = box.read(StorageKeys.isOnboarded);
+      print(box.read(StorageKeys.isOnboarded));
+      return isOnboarded;
     } catch (e) {
       return null;
     }

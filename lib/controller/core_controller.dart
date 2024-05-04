@@ -21,15 +21,19 @@ class CoreController extends GetxController {
     if (hasAccess) {
       return hasAccess;
     }
-    var permission = await Permission.camera.request();
+    var permission = await Permission.storage.request();
     hasAccess =
         permission != PermissionStatus.denied && permission != PermissionStatus.permanentlyDenied;
 
     return hasAccess;
   }
 
-  bool isOnBoarded() {
-    return StorageHelper.isOnboarded();
+  bool isOnboarded() {
+    if (StorageHelper.getOnboarded() != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool isUserLoggedIn() {

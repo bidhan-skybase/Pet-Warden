@@ -13,5 +13,8 @@ class PetWardenColors {
   static const Color lightGrey = Color(0xffE7E7E7);
   static const Color blueCardColor = Color(0xff395CBC);
   static const Color cyanColor = Color(0xffC2DDDD);
-  
+
+  static final Color shimmerBase = Colors.grey.withOpacity(0.40);
+  static const Color shimmerHighlight = Color(0xFFE1E1E1);
+  static final Color shimmerBaseLight = Colors.grey.withOpacity(0.10);
 }

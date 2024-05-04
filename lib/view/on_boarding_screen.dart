@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -161,7 +160,7 @@ class _OnboardingPageState extends State<OnboardingPage> with SingleTickerProvid
                             if (swipetab < 2) {
                               _tabController.animateTo(++swipetab);
                             } else {
-                              await StorageHelper.setOnBoarded();
+                              await StorageHelper.saveOnboarded("true");
                               Get.toNamed(LogInScreen.routeName);
                             }
                           },
@@ -177,33 +176,6 @@ class _OnboardingPageState extends State<OnboardingPage> with SingleTickerProvid
                         )
                       ],
                     ),
-
-                    // SizedBox(
-                    //   height: 48,
-                    //   width: double.infinity,
-                    //   child: TextButton(
-                    //       style: TextButton.styleFrom(
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(10),
-                    //         ),
-                    //         backgroundColor: PetWardenColors.primaryColor,
-                    //       ),
-                    //       child: Text(
-                    //         swipetab == 0 ? "Get Started" : "Next",
-                    //         style: const TextStyle(
-                    //           color: Colors.white,
-                    //           fontWeight: FontWeight.w600,
-                    //           fontSize: 16,
-                    //         ),
-                    //       ),
-                    //       onPressed: () async {
-                    //         if (swipetab < 4) {
-                    //           _tabController.animateTo(++swipetab);
-                    //         } else {
-                    //           Get.toNamed(LogInScreen.routeName);
-                    //         }
-                    //       }),
-                    // ),
                     const SizedBox(height: 24),
                   ]),
                 ),
