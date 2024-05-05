@@ -22,7 +22,7 @@ final List<GetPage> dashPages = <GetPage>[
         Get.lazyPut(() => DashPageController());
         Get.lazyPut(() => ChatPageController());
         Get.lazyPut(() => AppointmentsPageController());
-
+        Get.lazyPut(() => MessageController());
         Get.lazyPut(() => ProfilePageController());
       },
     ),

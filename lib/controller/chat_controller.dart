@@ -1,27 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:petwarden/controller/core_controller.dart';
+import 'package:petwarden/model/chat_room_model.dart';
 import 'package:petwarden/model/message_model.dart';
+import 'package:petwarden/model/user_model.dart';
 
-class MessageController extends ChangeNotifier {
+class MessageController extends GetxController {
   var cc = Get.find<CoreController>();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   TextEditingController messageController = TextEditingController();
+  Rxn<User> user = Rxn();
 
-  Future<void> sendMessage(String receiverId, String message) async {
-    final String currentUserId = cc.currentUser.value!.id!.toString();
-    final String currentUserEmail = cc.currentUser.value!.email!;
+  @override
+  void onInit() {
+    user.value = cc.currentUser.value;
+    super.onInit();
+  }
+
+  Future<void> sendMessage(String receiverId, String receiverName, String message) async {
     final Timestamp timestamp = Timestamp.now();
-
     Message newMessage = Message(
-        senderId: "2",
-        senderEmail: currentUserEmail,
-        receiverId: "4",
+        senderId: user.value!.id.toString(),
+        senderName: user.value!.name!,
+        receiverId: receiverId,
+        receiverName: receiverName,
         message: message,
         timestamp: timestamp);
 
-    List<String> ids = [currentUserId, receiverId];
+    List<String> ids = [user.value!.id!.toString(), receiverId];
     ids.sort();
     String chatRoomId = ids.join("_");
     await firestore
@@ -43,35 +51,65 @@ class MessageController extends ChangeNotifier {
         .snapshots();
   }
 
-  Future<void> printMessages(String chatRoomId) async {
+  Future<void> chatRoomInfo(String chatRoomId) async {
     try {
-      // Reference to the collection of messages in the specified chat room
-      CollectionReference messagesRef = FirebaseFirestore.instance
-          .collection('chat_rooms')
-          .doc(chatRoomId)
-          .collection('messages');
+      const receiverImage =
+          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      final Timestamp timestamp = Timestamp.now();
+      ChatRoom newRoom = ChatRoom(
+          senderId: user.value!.id!.toString(),
+          senderName: user.value!.name.toString(),
+          senderImage: user.value!.profilePicture ?? "",
+          receiverId: "4",
+          receiverName: "sandeep",
+          receiverImage: receiverImage,
+          timestamp: timestamp);
 
-      // Listen to changes in the messages collection
-      await messagesRef.get().then((querySnapshot) {
-        for (var doc in querySnapshot.docs) {
-          // Retrieve the message data from the document
-          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-          // Print the message data
-          print("Message ID: ${doc.id}");
-          print("Sender ID: ${data['senderId']}");
-          print("Sender Email: ${data['senderEmail']}");
-          print("Receiver ID: ${data['receiverId']}");
-          print("Message: ${data['message']}");
-          // print("TimeStamp: ${data["timestamp"].toString()}");
-          // Convert timestamp to DateTime if needed
-          Timestamp timestamp = data['timeStamp'] as Timestamp;
-          DateTime dateTime = timestamp.toDate();
-          print("Timestamp: $dateTime");
-          print("----");
-        }
-      });
-    } catch (e) {
-      print("Error printing messages: $e");
+      final roomInfoDocRef =
+          firestore.collection('chat_rooms').doc(chatRoomId).collection('roomInfo').doc('info');
+      final roomInfoDocSnapshot = await roomInfoDocRef.get();
+
+      if (roomInfoDocSnapshot.exists) {
+        await roomInfoDocRef.update(newRoom.toMap());
+      } else {
+        await roomInfoDocRef.set(newRoom.toMap());
+      }
+    } catch (error) {
+      // Handle error
+      print('Error updating chat room info: $error');
+      rethrow;
+    }
+  }
+
+  Stream<QuerySnapshot> getRoomInfo() {
+    String chatRoomId = "2_4";
+    return firestore
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("roomInfo")
+        .orderBy("timestamp", descending: false)
+        .snapshots();
+  }
+
+  String formatTimestamp(Timestamp timestamp) {
+    // Get the current time
+    final now = DateTime.now();
+    // Get the message timestamp as a DateTime object
+    final messageTime = timestamp.toDate();
+
+    // Calculate the difference between now and the message time
+    final difference = now.difference(messageTime);
+
+    // Format the difference into a human-readable string
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds} s';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} mins';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hrs';
+    } else {
+      final formatter = DateFormat('MMM d, yyyy');
+      return formatter.format(messageTime);
     }
   }
 }

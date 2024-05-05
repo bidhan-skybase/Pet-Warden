@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/dash_pages/appointments_page_controller.dart';
+import 'package:petwarden/controller/chat_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
-import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/dash_pages/messages_screen.dart';
 import 'package:petwarden/widgets/chat_tile.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class ChatScreen extends StatelessWidget {
-  final c = Get.find<AppointmentsPageController>();
+  final c = Get.find<MessageController>();
   ChatScreen({super.key});
 
   @override
@@ -24,42 +24,54 @@ class ChatScreen extends StatelessWidget {
             style: CustomTextStyles.f22W600(),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(children: [
-              ListView.separated(
-                separatorBuilder: (context, builder) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Container(
-                      height: 1,
-                      width: Get.width,
-                      color: PetWardenColors.borderColor,
-                    ),
-                  );
-                },
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(MessagesScreen.routeName);
-                      },
-                      child: const ChatTile(
-                        imageUrl: ImagePath.profilePic,
-                        name: "Drake",
-                        message: "Hey there!. Thank you ",
-                        time: "Today",
-                      ),
-                    ),
-                  );
-                },
-              )
-            ]),
-          ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(children: [Expanded(child: _buildChatRooms())]),
         ));
+  }
+
+  Widget _buildChatRooms() {
+    return StreamBuilder(
+      stream: c.getRoomInfo(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text("Error${snapshot.error}");
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading..');
+        }
+        return ListView.separated(
+          separatorBuilder: (context, builder) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Container(
+                height: 1,
+                width: Get.width,
+                color: PetWardenColors.borderColor,
+              ),
+            );
+          },
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            Map<String, dynamic> data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+            var timeField = c.formatTimestamp(data["timestamp"]);
+            return InkWell(
+              onTap: () {},
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(MessagesScreen.routeName);
+                },
+                child: ChatTile(
+                  imageUrl: data['receiverImage'],
+                  name: data["receiverName"],
+                  message: " ",
+                  time: timeField,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
