@@ -18,6 +18,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        await c.addUser();
+      }),
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(

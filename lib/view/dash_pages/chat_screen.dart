@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/appointments_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/view/dash_pages/messages_screen.dart';
 import 'package:petwarden/widgets/chat_tile.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
@@ -41,11 +42,19 @@ class ChatScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return const ChatTile(
-                    imageUrl: ImagePath.profilePic,
-                    name: "Drake",
-                    message: "Hey there!. Thank you ",
-                    time: "Today",
+                  return InkWell(
+                    onTap: () {},
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(MessagesScreen.routeName);
+                      },
+                      child: const ChatTile(
+                        imageUrl: ImagePath.profilePic,
+                        name: "Drake",
+                        message: "Hey there!. Thank you ",
+                        time: "Today",
+                      ),
+                    ),
                   );
                 },
               )
