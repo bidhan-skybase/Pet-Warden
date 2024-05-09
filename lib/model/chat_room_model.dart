@@ -8,16 +8,17 @@ class ChatRoom {
   final String receiverName;
   final String receiverImage;
   final Timestamp timestamp;
+  final String lastMessage;
 
-  ChatRoom({
-    required this.senderId,
-    required this.senderName,
-    required this.senderImage,
-    required this.receiverId,
-    required this.receiverName,
-    required this.receiverImage,
-    required this.timestamp,
-  });
+  ChatRoom(
+      {required this.senderId,
+      required this.senderName,
+      required this.senderImage,
+      required this.receiverId,
+      required this.receiverName,
+      required this.receiverImage,
+      required this.timestamp,
+      required this.lastMessage});
   Map<String, dynamic> toMap() {
     return {
       'senderId': senderId,
@@ -27,6 +28,7 @@ class ChatRoom {
       'receiverName': receiverName,
       'receiverImage': receiverImage,
       'timestamp': timestamp,
+      'lastMessage': lastMessage
     };
   }
 }

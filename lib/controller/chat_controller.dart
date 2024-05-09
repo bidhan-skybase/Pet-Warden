@@ -63,7 +63,8 @@ class MessageController extends GetxController {
           receiverId: "4",
           receiverName: "sandeep",
           receiverImage: receiverImage,
-          timestamp: timestamp);
+          timestamp: timestamp,
+          lastMessage: messageController.text);
 
       final roomInfoDocRef =
           firestore.collection('chat_rooms').doc(chatRoomId).collection('roomInfo').doc('info');

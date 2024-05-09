@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/chat_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
+import 'package:petwarden/utils/constants/icon_paths.dart';
+import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
@@ -42,7 +45,7 @@ class MessagesScreen extends StatelessWidget {
                 Expanded(
                   child: CustomTextField(
                     hint: "Message",
-                    controller:c.messageController,
+                    controller: c.messageController,
                     textInputAction: TextInputAction.go,
                     textInputType: TextInputType.text,
                   ),
@@ -51,21 +54,18 @@ class MessagesScreen extends StatelessWidget {
                   onTap: () {
                     if (c.messageController.text.isNotEmpty) {
                       c.sendMessage("4", "sandeep", c.messageController.text);
-                      c.messageController.clear();
                       c.getMessage(c.user.value!.id!.toString(), "4");
                       c.chatRoomInfo("2_4");
+                      c.messageController.clear();
                     }
                   },
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: PetWardenColors.secondaryColor,
+                      // color: PetWardenColors.secondaryColor,
                       shape: BoxShape.circle,
                     ),
-                    padding: const EdgeInsets.all(10),
-                    child: const Icon(
-                      Icons.arrow_upward,
-                      color: PetWardenColors.textGrey,
-                    ),
+                    padding: const EdgeInsets.only(left: 10, right: 5),
+                    child: SvgPicture.asset(IconPath.sendIcon),
                   ),
                 ),
               ],
@@ -81,7 +81,7 @@ class MessagesScreen extends StatelessWidget {
 
   Widget _buildMessageList() {
     return StreamBuilder(
-      stream:c.getMessage(
+      stream: c.getMessage(
         c.user.value!.id.toString(),
         "4",
       ),
@@ -90,7 +90,7 @@ class MessagesScreen extends StatelessWidget {
           return Text("Error${snapshot.error}");
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading..');
+          return const Center(child: CircularProgressIndicator());
         }
         return ListView.builder(
           itemCount: snapshot.data!.docs.length,
@@ -124,6 +124,7 @@ class MessagesScreen extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Container(
+            constraints: BoxConstraints(maxWidth: Get.width / 2),
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),

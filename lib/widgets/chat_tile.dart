@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -21,38 +22,61 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: SizedBox.fromSize(
-            size: const Size.fromRadius(35),
-            child: CustomNetworkImage(imageUrl: imageUrl),
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: SizedBox.fromSize(
+              size: const Size.fromRadius(35),
+              child: CustomNetworkImage(imageUrl: imageUrl),
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          name,
-          style: CustomTextStyles.f20W600(color: PetWardenColors.textGrey),
-        ),
-        const Expanded(
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: CustomTextStyles.f20W600(color: PetWardenColors.textGrey),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: SizedBox(
+                  width: Get.width - 200,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    message,
+                    style: CustomTextStyles.f14W300(color: PetWardenColors.primaryColor),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Expanded(
+              child: SizedBox(
+            width: 10,
+          )),
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
             child: SizedBox(
-          width: 10,
-        )),
-        SizedBox(
-          width: 50,
-          child: Text(
-            time,
-            overflow: TextOverflow.ellipsis,
-            softWrap: false,
-            style: CustomTextStyles.f12W500(color: PetWardenColors.buttonColor),
-          ),
-        )
-      ],
+              width: 50,
+              child: Text(
+                time,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                style: CustomTextStyles.f12W500(color: PetWardenColors.textGrey),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

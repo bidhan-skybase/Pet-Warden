@@ -6,6 +6,7 @@ import 'package:petwarden/controller/chat_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/view/dash_pages/messages_screen.dart';
 import 'package:petwarden/widgets/chat_tile.dart';
+import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -25,8 +26,17 @@ class ChatScreen extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(children: [Expanded(child: _buildChatRooms())]),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(children: [
+            Expanded(child: _buildChatRooms()),
+            // Expanded(
+            //   child: CustomElevatedButton(
+            //       onPressed: () {
+            //         Get.toNamed(MessagesScreen.routeName);
+            //       },
+            //       title: "Chat"),
+            // )
+          ]),
         ));
   }
 
@@ -56,17 +66,15 @@ class ChatScreen extends StatelessWidget {
             Map<String, dynamic> data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
             var timeField = c.formatTimestamp(data["timestamp"]);
             return InkWell(
-              onTap: () {},
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed(MessagesScreen.routeName);
-                },
-                child: ChatTile(
-                  imageUrl: data['receiverImage'],
-                  name: data["receiverName"],
-                  message: " ",
-                  time: timeField,
-                ),
+              radius: 24,
+              onTap: () {
+                Get.toNamed(MessagesScreen.routeName);
+              },
+              child: ChatTile(
+                imageUrl: data['receiverImage'],
+                name: data["receiverName"],
+                message: data["lastMessage"],
+                time: timeField,
               ),
             );
           },

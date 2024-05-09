@@ -20,7 +20,6 @@ class IconPath {
   static const downArrowIcon = "$baseIconPath/downArrow.svg";
   static const notificationIcon = "$baseIconPath/notifications.svg";
   static const searchIcon = "$baseIconPath/search.svg";
-
   static const clockIcon = "$baseIconPath/clock.svg";
 
   //profile screen
@@ -33,4 +32,6 @@ class IconPath {
   static const logOutIcon = "$baseIconPath/logout.svg";
   static const rightArrow = "$baseIconPath/rightArrow.svg";
   static const rightArrowAlt = "$baseIconPath/right.svg";
+
+  static const sendIcon = "$baseIconPath/send.svg";
 }
