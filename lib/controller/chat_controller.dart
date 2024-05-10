@@ -84,6 +84,7 @@ class MessageController extends GetxController {
 
   Stream<QuerySnapshot> getRoomInfo() {
     String chatRoomId = "2_4";
+
     return firestore
         .collection("chat_rooms")
         .doc(chatRoomId)
@@ -112,5 +113,10 @@ class MessageController extends GetxController {
       final formatter = DateFormat('MMM d, yyyy');
       return formatter.format(messageTime);
     }
+  }
+
+  void getID() async {
+    var qs = await firestore.collection("chat_rooms").doc("chat_room").get();
+    print(qs);
   }
 }

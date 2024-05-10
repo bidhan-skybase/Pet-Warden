@@ -42,10 +42,5 @@ final List<GetPage> authPages = <GetPage>[
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ForgotPasswordController());
       })),
-      GetPage(
-      name: ChangePassword.routeName,
-      page: () => ChangePassword(),
-      binding: BindingsBuilder(() {
-        Get.lazyPut(() => ChangePasswordController());
-      }))
+ 
 ];

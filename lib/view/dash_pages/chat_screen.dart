@@ -68,7 +68,8 @@ class ChatScreen extends StatelessWidget {
             return InkWell(
               radius: 24,
               onTap: () {
-                Get.toNamed(MessagesScreen.routeName);
+                c.getID();
+                // Get.toNamed(MessagesScreen.routeName);
               },
               child: ChatTile(
                 imageUrl: data['receiverImage'],
