@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -195,9 +192,9 @@ class SignUpPagePet extends StatelessWidget {
                           child: CustomDropdownFormField(
                             items: c.petTypes,
                             value: c.selectedPetType.value,
-                            hint: "Select pet type",
                             onChanged: (value) {
                               c.selectedPetType.value = value.toString();
+                              c.updateBreeds(); // Update breeds when pet type changes
                             },
                           ),
                         ),
@@ -206,9 +203,8 @@ class SignUpPagePet extends StatelessWidget {
                         () => SizedBox(
                           width: Get.width / 2,
                           child: CustomDropdownFormField(
-                            items: c.breed,
+                            items: c.breeds,
                             value: c.selectedBreed.value,
-                            hint: "Select breed",
                             onChanged: (value) {
                               c.selectedBreed.value = value.toString();
                             },

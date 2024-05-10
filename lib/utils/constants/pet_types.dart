@@ -1,0 +1,60 @@
+class PetConstants {
+  final List<String> petTypes = ['Dog', 'Cat', 'Fish', 'Birds', 'Snakes', 'Lizards'];
+  Map<String, List<String>> breedMap = {
+    'Dog': [
+      'Japanese Spitz',
+      'Labrador Retriever',
+      'German Shepherd',
+      'Golden Retriever',
+      'Bulldog',
+      'Beagle',
+      'Poodle',
+      'Rottweiler',
+    ],
+    'Cat': [
+      'Siamese',
+      'Persian',
+      'Maine Coon',
+      'Ragdoll',
+      'British Shorthair',
+      'Sphynx',
+      'Bengal',
+    ],
+    'Fish': [
+      'Goldfish',
+      'Betta',
+      'Guppy',
+      'Angelfish',
+      'Tetra',
+      'Molly',
+      'Cichlid',
+    ],
+    'Birds': [
+      'Parakeet',
+      'Canary',
+      'Cockatiel',
+      'Lovebird',
+      'Finch',
+      'Conure',
+      'African Grey Parrot',
+    ],
+    'Snakes': [
+      'Ball Python',
+      'Corn Snake',
+      'King Snake',
+      'Boa Constrictor',
+      'Milk Snake',
+      'Reticulated Python',
+      'Garter Snake',
+    ],
+    'Lizards': [
+      'Bearded Dragon',
+      'Leopard Gecko',
+      'Crested Gecko',
+      'Blue-Tongued Skink',
+      'Green Anole',
+      'Veiled Chameleon',
+      'Tokay Gecko',
+    ],
+  };
+}

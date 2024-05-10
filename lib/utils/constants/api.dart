@@ -8,5 +8,5 @@ class Api {
   static const verifyOTPUrl = "$baseUrl/auth/otp-verify";
   static const forgotPasswordUrl = "$baseUrl/auth/forgot-password";
   static const changePasswordUrl = "$baseUrl/auth/change-password";
-  static const updateOwnerProfile = "$baseUrl/update-profile";
+  static const updateOwnerProfile = "$baseUrl/auth/update-profile";
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petwarden/repo/auth_repo.dart';
+import 'package:petwarden/utils/constants/pet_types.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/dash_pages/dash_screen.dart';
@@ -17,6 +18,7 @@ class SignUpController extends GetxController {
   GlobalKey<FormState> signupKeyPet = GlobalKey<FormState>();
   GlobalKey<FormState> OTPKey = GlobalKey<FormState>();
   final CoreController coreController = Get.find();
+  PetConstants constants = PetConstants();
 
   //user
   late Rx<String> profilePicPath = Rx<String>('');
@@ -40,38 +42,42 @@ class SignUpController extends GetxController {
 
   RxString selectedGender = RxString("male");
 
-  final List<String> petTypes = [
-    "",
-    'Dog',
-    'Cat',
-  ];
+  List<String> petTypes = [];
 
-  final List<String> breed = [
-    "",
-    'Lab',
-    'German',
-  ];
+  Map<String, List<String>> breedMap = {};
 
   final List<String> vaccinationStatus = [
     'Vaccinated',
-    "",
     'Not Vaccinated',
   ];
-  RxString selectedPetType = "".obs;
-  RxString selectedBreed = "".obs;
-  RxString selectedVaccinationStatus = "".obs;
+  RxString selectedPetType = "Dog".obs;
+  RxString selectedBreed = "Lab".obs;
+  RxList<String> breeds = RxList<String>(["Lab", "German"]);
+  RxString selectedVaccinationStatus = "Vaccinated".obs;
+
+  @override
+  void onInit() {
+    petTypes = constants.petTypes;
+    breedMap = constants.breedMap;
+    updateBreeds();
+    super.onInit(); // Initialize breeds
+  }
+
+  void updateBreeds() {
+    breeds.value = breedMap[selectedPetType.value] ?? [];
+    selectedBreed.value = breeds.first;
+  }
 
   void pickImage(XFile pickedImage) async {
     final bytes = File(pickedImage.path).readAsBytesSync();
     String base64Image = base64Encode(bytes);
-    print("this is the image $base64Image");
+
     profilePicPath.value = base64Image;
   }
 
   void pickImagePet(XFile pickedImage) async {
     final bytes = File(pickedImage.path).readAsBytesSync();
     String base64Image = base64Encode(bytes);
-    print("this is the image $base64Image");
     petPicPath.value = base64Image;
   }
 

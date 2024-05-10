@@ -8,6 +8,7 @@ import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/profile/change_password.dart';
 import 'package:petwarden/view/profile/pet-owner_detail.dart';
+import 'package:petwarden/view/profile/pet_details.dart';
 import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/profile_tile.dart';
@@ -19,9 +20,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        await c.addUser();
-      }),
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
@@ -60,10 +58,13 @@ class ProfileScreen extends StatelessWidget {
                     Get.toNamed(PetOwnerDetails.routeName);
                   },
                 ),
-                const ProfileTile(
+                ProfileTile(
                   iconUrl: IconPath.petDetailsIcon,
                   title: "Pet Profile",
                   hasArrow: true,
+                  onTap: () {
+                    Get.toNamed(PetDetailScreen.routeName);
+                  },
                 ),
                 ProfileTile(
                   iconUrl: IconPath.passwordIcon,

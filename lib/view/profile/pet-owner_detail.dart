@@ -42,14 +42,19 @@ class PetOwnerDetails extends StatelessWidget {
           "My Details",
           style: CustomTextStyles.f22W600(),
         ),
-        actions: [
-          TextButton(
-              onPressed: () {},
-              child: Text(
-                "Save",
-                style: CustomTextStyles.f16W600(color: PetWardenColors.buttonColor),
-              ))
-        ],
+        // actions: [
+        //   TextButton(
+        //       onPressed: () {},
+        //       child: Text(
+        //         "Save",
+        //         style: CustomTextStyles.f16W600(color: PetWardenColors.buttonColor),
+        //       ))
+        // ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        child: CustomElevatedButton(title: "Save Changes", onPressed: () {}),
       ),
       body: SingleChildScrollView(
         child: Padding(
