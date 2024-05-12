@@ -285,17 +285,18 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               ListView.builder(
                                 physics: const ClampingScrollPhysics(),
-                                itemCount: 10,
+                                itemCount: c.sitters.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
+                                  var sitter = c.sitters[index];
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 15),
                                     child: PetSitterCard(
                                       imageUrl: ImagePath.profilePic,
-                                      name: "Joji",
-                                      available: true,
-                                      address: "Chitwan, Nepal",
-                                      ratings: "5/5 (100)",
+                                      name: sitter.name,
+                                      available: sitter.status == "active" ? true : false,
+                                      address: sitter.address,
+                                      ratings: sitter.avgRating.toString(),
                                       onTap: () {
                                         Get.toNamed(PetSitterProfile.routeName);
                                       },
