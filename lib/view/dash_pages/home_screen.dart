@@ -7,6 +7,7 @@ import 'package:petwarden/widgets/custom/custom_search_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/pet_sitter_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:petwarden/widgets/shimmers/sitter_shimmer.dart';
 
 import '../../utils/constants/image_paths.dart';
 
@@ -283,28 +284,30 @@ class HomeScreen extends StatelessWidget {
                         case 0:
                           return Column(
                             children: [
-                              ListView.builder(
-                                physics: const ClampingScrollPhysics(),
-                                itemCount: c.sitters.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  var sitter = c.sitters[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 15),
-                                    child: PetSitterCard(
-                                      imageUrl: ImagePath.profilePic,
-                                      name: sitter.name,
-                                      available: sitter.status == "active" ? true : false,
-                                      address: sitter.address,
-                                      ratings: sitter.avgRating.toString(),
-                                      stars: sitter.avgRating?.round(),
-                                      onTap: () {
-                                        Get.toNamed(PetSitterProfile.routeName);
+                              c.isLoading.value
+                                  ? SitterShimmer.sitterList()
+                                  : ListView.builder(
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount: c.sitters.length,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        var sitter = c.sitters[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.only(bottom: 15),
+                                          child: PetSitterCard(
+                                            imageUrl: ImagePath.profilePic,
+                                            name: sitter.name,
+                                            available: sitter.status == "active" ? true : false,
+                                            address: sitter.address,
+                                            ratings: sitter.avgRating.toString(),
+                                            stars: sitter.avgRating?.round(),
+                                            onTap: () {
+                                              Get.toNamed(PetSitterProfile.routeName);
+                                            },
+                                          ),
+                                        );
                                       },
                                     ),
-                                  );
-                                },
-                              ),
                             ],
                           );
                         case 1:
