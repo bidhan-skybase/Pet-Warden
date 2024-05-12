@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petwarden/controller/sitters/pet_sitter_profile_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
@@ -17,7 +16,8 @@ import '../../widgets/pet_sitter_info.dart';
 
 class PetSitterProfile extends StatelessWidget {
   static const routeName = "/petSitterProfile";
-  const PetSitterProfile({super.key});
+  final c = Get.find<PetSitterProfileController>();
+  PetSitterProfile({super.key});
 
   @override
   Widget build(BuildContext context) {

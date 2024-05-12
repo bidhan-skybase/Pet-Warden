@@ -26,4 +26,25 @@ class SittersRepo {
       onError("Error when fetching sitters");
     }
   }
+
+  static Future<void> getSitterDetail({
+    required String id,
+    required Function(Sitters sitter) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.getSitterDetail.replaceAll("#id#", id);
+      http.Response response = await PetRequest.get(url);
+      dynamic data = json.decode(response.body);
+      if (data['status']) {
+        var sitter = Sitters.fromJson(data["data"]);
+        onSuccess(sitter);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.getSitterDetail, error: e, stackTrace: s);
+      onError("Error when fetching sitter info");
+    }
+  }
 }

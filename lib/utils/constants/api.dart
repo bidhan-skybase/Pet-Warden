@@ -10,4 +10,5 @@ class Api {
   static const changePasswordUrl = "$baseUrl/auth/change-password";
   static const updateOwnerProfile = "$baseUrl/auth/update-profile";
   static const getSitters = "$baseUrl/pet-sitters";
+  static const getSitterDetail = "$baseUrl/pet-sitter/show/#id#";
 }

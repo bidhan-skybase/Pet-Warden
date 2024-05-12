@@ -302,7 +302,8 @@ class HomeScreen extends StatelessWidget {
                                             ratings: sitter.avgRating.toString(),
                                             stars: sitter.avgRating?.round(),
                                             onTap: () {
-                                              Get.toNamed(PetSitterProfile.routeName);
+                                              Get.toNamed(PetSitterProfile.routeName,
+                                                  arguments: {"id": sitter.id});
                                             },
                                           ),
                                         );

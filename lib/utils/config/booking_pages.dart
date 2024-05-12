@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:petwarden/controller/booking/confirm_appointment_controller.dart';
+import 'package:petwarden/controller/sitters/booking/confirm_appointment_controller.dart';
+import 'package:petwarden/controller/sitters/pet_sitter_profile_controller.dart';
 import 'package:petwarden/view/booking/appointement_success.dart';
 import 'package:petwarden/view/booking/confirmation_screen.dart';
 import 'package:petwarden/view/booking/payments_screen.dart';
@@ -8,10 +9,10 @@ import 'package:petwarden/view/booking/pet_sitter_profile.dart';
 final List<GetPage> bookingPages = <GetPage>[
   GetPage(
     name: PetSitterProfile.routeName,
-    page: () => const PetSitterProfile(),
+    page: () => PetSitterProfile(),
     binding: BindingsBuilder(
       () {
-        // Get.lazyPut(() => HomePageController());
+        Get.lazyPut(() => PetSitterProfileController());
       },
     ),
   ),
