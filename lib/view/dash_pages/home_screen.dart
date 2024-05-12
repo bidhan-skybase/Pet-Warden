@@ -258,7 +258,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Pet Sitters For",
+                          "Pet Sitters For ${c.petName.value}",
                           style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
                         ),
                         const Text(
@@ -297,6 +297,7 @@ class HomeScreen extends StatelessWidget {
                                       available: sitter.status == "active" ? true : false,
                                       address: sitter.address,
                                       ratings: sitter.avgRating.toString(),
+                                      stars: sitter.avgRating?.round(),
                                       onTap: () {
                                         Get.toNamed(PetSitterProfile.routeName);
                                       },

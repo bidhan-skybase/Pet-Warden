@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/model/sitters_model.dart';
@@ -7,7 +9,8 @@ import 'package:petwarden/utils/helper/pet_snackbar.dart';
 class HomePageController extends GetxController {
   final cc = Get.find<CoreController>();
   RxString firstName = "".obs;
-  List<Sitters> sitters = [];
+    RxString petName = "".obs;
+  RxList<Sitters> sitters = <Sitters>[].obs;
 
   @override
   void onInit() {
@@ -22,9 +25,15 @@ class HomePageController extends GetxController {
     firstName.value = nameParts.isNotEmpty ? nameParts[0] : "";
   }
 
+    void getPetName() {
+    String fullName = cc.currentPet.value?.name ?? "";
+    List<String> nameParts = fullName.split(" ");
+    petName.value = nameParts.isNotEmpty ? nameParts[0] : "";
+  }
+
   void getSitters() {
     SittersRepo.getPetSitters(onSuccess: (listOfSitters) {
-      sitters = listOfSitters;
+      sitters.value = listOfSitters;
     }, onError: (message) {
       PetSnackBar.error(message: message);
     });

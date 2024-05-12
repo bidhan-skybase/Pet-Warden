@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
-import 'package:petwarden/view/booking/pet_sitter_profile.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class PetSitterCard extends StatelessWidget {
@@ -14,6 +12,7 @@ class PetSitterCard extends StatelessWidget {
   final String? ratings;
   final bool? available;
   final VoidCallback? onTap;
+  final int? stars;
   const PetSitterCard(
       {super.key,
       this.imageUrl,
@@ -21,6 +20,7 @@ class PetSitterCard extends StatelessWidget {
       this.address,
       this.ratings,
       this.available,
+      this.stars,
       this.onTap});
 
   @override
@@ -56,9 +56,14 @@ class PetSitterCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          name ?? "",
-                          style: CustomTextStyles.f24W500(color: PetWardenColors.textGrey),
+                        SizedBox(
+                          width: Get.width / 2.3,
+                          child: Text(
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            name ?? "",
+                            style: CustomTextStyles.f24W500(color: PetWardenColors.textGrey),
+                          ),
                         ),
                         const Expanded(
                             child: SizedBox(
@@ -95,11 +100,11 @@ class PetSitterCard extends StatelessWidget {
                       children: [
                         SizedBox(
                           height: 20,
-                          width: 130,
+                          // width: 100,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            itemCount: 5,
+                            itemCount: stars,
                             itemBuilder: (context, index) {
                               return const Icon(
                                 Icons.star_rounded,
@@ -108,7 +113,26 @@ class PetSitterCard extends StatelessWidget {
                             },
                           ),
                         ),
+                        SizedBox(
+                          height: 20,
+                          // width: 100,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: 5 - stars!,
+                            itemBuilder: (context, index) {
+                              return Icon(
+                                Icons.star_rounded,
+                                color: PetWardenColors.textGrey.withOpacity(0.15),
+                              );
+                            },
+                          ),
+                        ),
                         // ItemBuilder(child: Icon(Icons.star_rounded, color: PetWardenColors.secondaryColor)),
+                        const Expanded(
+                            child: SizedBox(
+                          width: 10,
+                        )),
                         Text(
                           ratings ?? "",
                           style: const TextStyle(color: PetWardenColors.textGrey, fontSize: 12),
