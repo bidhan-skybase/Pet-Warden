@@ -40,7 +40,7 @@ class SignUpController extends GetxController {
 
   ProgressDialog loading = ProgressDialog();
 
-  RxString selectedGender = RxString("male");
+  RxString selectedGender = RxString("Male");
 
   List<String> petTypes = [];
 

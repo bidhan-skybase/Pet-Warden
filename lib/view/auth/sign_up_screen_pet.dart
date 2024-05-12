@@ -231,12 +231,12 @@ class SignUpPagePet extends StatelessWidget {
                       Row(
                         children: [
                           Obx(() => SkyRadioButton(
-                              value: "male",
+                              value: "Male",
                               groupVlaue: c.selectedGender.value,
                               onTap: c.changeGender,
                               title: "Male")),
                           Obx(() => SkyRadioButton(
-                              value: "female",
+                              value: "Female",
                               groupVlaue: c.selectedGender.value,
                               onTap: c.changeGender,
                               title: "Female")),

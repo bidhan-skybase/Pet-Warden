@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:petwarden/controller/profile/change_password_controller.dart';
+import 'package:petwarden/controller/profile/pet_detail_controller.dart';
 import 'package:petwarden/controller/profile/pet_owner_detail_controller.dart';
 import 'package:petwarden/view/profile/change_password.dart';
 import 'package:petwarden/view/profile/pet-owner_detail.dart';
@@ -14,9 +15,9 @@ final List<GetPage> profilePages = <GetPage>[
       })),
   GetPage(
       name: PetDetailScreen.routeName,
-      page: () => const PetDetailScreen(),
+      page: () => PetDetailScreen(),
       binding: BindingsBuilder(() {
-        // Get.lazyPut(() => PetOwnerDetailController());
+        Get.lazyPut(() => PetDetailController());
       })),
   GetPage(
       name: ChangePassword.routeName,

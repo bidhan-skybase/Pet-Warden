@@ -18,6 +18,7 @@ class CoreController extends GetxController {
   @override
   void onInit() async {
     loadCurrentUser(updateCurrentUser: true);
+    loadCurrentPet(updateCurrentPet: true);
     super.onInit();
   }
 
@@ -51,6 +52,7 @@ class CoreController extends GetxController {
     final box = GetStorage();
     box.remove(StorageKeys.Owner);
     box.remove(StorageKeys.Token);
+    box.remove(StorageKeys.Pet);
     box.remove(StorageKeys.UserType);
     box.remove(StorageKeys.Sitter);
     Get.offAllNamed(LogInScreen.routeName);
