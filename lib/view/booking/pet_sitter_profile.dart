@@ -88,7 +88,7 @@ class PetSitterProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Joji Bhandari ".toUpperCase(),
+                    c.sitter.value?.name?.toUpperCase() ?? "",
                     style: CustomTextStyles.f16W600(color: PetWardenColors.primaryColor),
                   ),
                   Container(
@@ -106,9 +106,14 @@ class PetSitterProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(IconPath.locationIcon),
-                  Text(
-                    " Chitwan, Nepal",
-                    style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      c.sitter.value?.address ?? "",
+                      style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                    ),
                   ),
                   const Text(
                     " | ",
@@ -126,25 +131,25 @@ class PetSitterProfile extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Rs. 1200 /hr",
+                  "Rs. ${c.sitter.value?.chargePerHour ?? ""} /hr",
                   style: CustomTextStyles.f22W600(color: Colors.black),
                 ),
               ),
               const SizedBox(
                 height: 30,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  PetSitterInfo(
+                  const PetSitterInfo(
                     title: "Pets",
                     info: "101",
                   ),
                   PetSitterInfo(
                     title: "Experience",
-                    info: "1.5 year",
+                    info: "${c.sitter.value?.experience ?? ""} year",
                   ),
-                  PetSitterInfo(
+                  const PetSitterInfo(
                     title: "Ratings",
                     info: "100",
                   ),
@@ -174,7 +179,7 @@ class PetSitterProfile extends StatelessWidget {
                       height: 18,
                     ),
                     Text(
-                      "Whether it's a midday stroll, a game of fetch, or simply some cuddle time on the couch, I'll tailor my services to match your pet's preferences and routine. With me by your side, you can enjoy peace of mind knowing that your furry companion is in capable hands, receiving the individuali... more",
+                      c.sitter.value?.bio ?? "",
                       style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
                     ),
                     const SizedBox(
