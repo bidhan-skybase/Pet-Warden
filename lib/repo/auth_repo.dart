@@ -57,7 +57,7 @@ class AuthRepo {
       "phone": phone,
       "email": email,
       "pet_name": petName,
-      // "profile_image": profilePicture
+      "profile_image": profilePicture
     };
     http.Response response = await PetRequest.post(url, body: body);
     dynamic data = json.decode(response.body);
@@ -93,7 +93,7 @@ class AuthRepo {
       "gender": gender,
       "preferences": preferneces,
       "vaccination_status": vaccinationStatus,
-      // "image_url": imageUrl
+      "image_url": imageUrl
     };
     http.Response response = await PetRequest.post(url, body: body);
     dynamic data = json.decode(response.body);
