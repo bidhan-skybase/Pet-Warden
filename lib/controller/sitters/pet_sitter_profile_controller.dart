@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/main.dart';
 import 'package:petwarden/model/sitters_model.dart';
@@ -7,6 +8,8 @@ import 'package:petwarden/utils/helper/pet_snackbar.dart';
 class PetSitterProfileController extends GetxController {
   Rxn<String> id = Rxn();
   Rxn<Sitters> sitter = Rxn();
+  RxDouble rating = RxDouble(0.0);
+  var reviewController = TextEditingController();
   @override
   void onInit() {
     var args = Get.arguments;
