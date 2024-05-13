@@ -309,7 +309,10 @@ class PetSitterProfile extends StatelessWidget {
                                                 height: 22,
                                               ),
                                               CustomElevatedButton(
-                                                  onPressed: () {}, title: "Add Review")
+                                                  onPressed: () {
+                                                    c.addRating();
+                                                  },
+                                                  title: "Add Review")
                                             ]),
                                       ),
                                     ),

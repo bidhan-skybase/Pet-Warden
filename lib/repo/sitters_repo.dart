@@ -47,4 +47,27 @@ class SittersRepo {
       onError("Error when fetching sitter info");
     }
   }
+
+  static Future<void> addReview({
+    required double ratings,
+    required String comment,
+    required String sitterId,
+    required Function(bool status) onSuccess,
+    required Function(bool status) onError,
+  }) async {
+    try {
+      String url = Api.reviewSitter;
+      var body = {"rating": ratings, "comment": comment, "sitter_id": sitterId};
+      http.Response response = await PetRequest.post(url, body: body);
+      dynamic data = json.decode(response.body);
+      if (data['status']) {
+        onSuccess(true);
+      } else {
+        onError(false);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.reviewSitter, error: e, stackTrace: s);
+      onError(false);
+    }
+  }
 }

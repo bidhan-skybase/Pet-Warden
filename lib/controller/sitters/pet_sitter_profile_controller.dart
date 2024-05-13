@@ -31,4 +31,26 @@ class PetSitterProfileController extends GetxController {
           PetSnackBar.error(message: message);
         });
   }
+
+  void addRating() {
+    SittersRepo.addReview(
+        ratings: rating.value,
+        comment: reviewController.text,
+        sitterId: sitter.value!.userId.toString(),
+        onSuccess: (status) {
+          PetSnackBar.success(
+            title: "Hooray!",
+            message: "Your review has been added successfully! 🎉",
+          );
+
+          Get.back();
+        },
+        onError: (status) {
+          PetSnackBar.error(
+            title: "Oh no!",
+            message: "Sorry, an unexpected error occurred. 😔",
+          );
+          Get.back();
+        });
+  }
 }
