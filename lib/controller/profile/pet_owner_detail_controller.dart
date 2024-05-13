@@ -24,7 +24,7 @@ class PetOwnerDetailController extends GetxController {
 
   loadOwner() {
     owner.value = cc.currentUser.value;
-    profilePicPath.value = owner.value?.profilePicture ?? "";
+    profilePicPath.value = owner.value?.profileImageUrl ?? "";
     nameController.text = owner.value?.name ?? "";
     emailController.text = owner.value?.email ?? "";
     phoneController.text = owner.value?.phone ?? "";
@@ -33,7 +33,7 @@ class PetOwnerDetailController extends GetxController {
   void pickImage(XFile pickedImage) async {
     final bytes = File(pickedImage.path).readAsBytesSync();
     String base64Image = base64Encode(bytes);
-    print("this is the image $base64Image");
+
     profilePicPath.value = base64Image;
   }
 }

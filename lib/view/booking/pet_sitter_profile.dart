@@ -3,10 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/controller/sitters/pet_sitter_profile_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/utils/helper/pet_snackbar.dart';
+import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/booking/confirmation_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
@@ -170,7 +173,12 @@ class PetSitterProfile extends StatelessWidget {
                       children: [
                         CustomElevatedButton(
                             onPressed: () {
-                              Get.toNamed(ConfirmationPage.routeName);
+                              var cc = Get.find<CoreController>();
+                              if (cc.currentUser.value?.otpVerifiedAt != null) {
+                                Get.toNamed(ConfirmationPage.routeName);
+                              } else {
+                                Get.toNamed(OTPVerification.routeName);
+                              }
                             },
                             title: "Appoint"),
                         const SizedBox(
@@ -236,7 +244,7 @@ class PetSitterProfile extends StatelessWidget {
                               return const ReviewTile(
                                 imageUrl: ImagePath.profilePic,
                                 name: "Anish Hirachan",
-                                stars: 5,
+                                stars: 3,
                                 time: "1 month ago",
                                 description: "Hello there",
                               );

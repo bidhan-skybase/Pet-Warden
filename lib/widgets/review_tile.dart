@@ -41,35 +41,48 @@ class ReviewTile extends StatelessWidget {
                     child: Image.asset(imageUrl ?? ImagePath.logo, fit: BoxFit.cover),
                   ),
                 ),
+                const SizedBox(
+                  width: 4,
+                ),
                 Text(
                   name ?? "",
                   style: CustomTextStyles.f13W400(color: PetWardenColors.textGrey),
-                )
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+                ),
+                const Spacer(),
+                Text(
+                  stars!.toString(),
+                  style: CustomTextStyles.f13W300(),
+                ),
                 SizedBox(
                   height: 20,
-                  width: 130,
-                  child: ListView.builder(
+                  width: 80,
+                  child: ListView(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: stars,
-                    itemBuilder: (context, index) {
-                      return const Icon(
-                        Icons.star_rounded,
-                        color: PetWardenColors.secondaryColor,
-                      );
-                    },
+                    children: List.generate(
+                      5,
+                      (index) {
+                        if (index < stars!) {
+                          return const Icon(
+                            Icons.star_rounded,
+                            color: PetWardenColors.secondaryColor,
+                            size: 16,
+                          );
+                        } else {
+                          return const Icon(
+                            Icons.star_rounded,
+                            size: 16,
+                            color: Color.fromARGB(255, 187, 187, 187),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
-                Text(
-                  time ?? "",
-                  style: CustomTextStyles.f10W400(color: PetWardenColors.textGrey),
-                )
               ],
+            ),
+            const SizedBox(
+              height: 8,
             ),
             Text(
               description ?? "",

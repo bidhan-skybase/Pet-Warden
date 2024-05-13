@@ -3,7 +3,7 @@ List<Sitters> sittersFromJson(List<dynamic> sittersJson) =>
 
 class Sitters {
   String? id;
-  double? avgRating;
+  num? avgRating;
   String? chargePerHour;
   String? experience;
   String? specialization;

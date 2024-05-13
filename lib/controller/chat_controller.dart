@@ -59,7 +59,7 @@ class MessageController extends GetxController {
       ChatRoom newRoom = ChatRoom(
           senderId: user.value!.id!.toString(),
           senderName: user.value!.name.toString(),
-          senderImage: user.value!.profilePicture ?? "",
+          senderImage: user.value!.profileImageUrl ?? "",
           receiverId: "4",
           receiverName: "sandeep",
           receiverImage: receiverImage,

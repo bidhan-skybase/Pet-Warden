@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(65),
-                    child: CustomNetworkImage(imageUrl: c.user.value?.profilePicture ?? ""),
+                    child: CustomNetworkImage(imageUrl: c.user.value?.profileImageUrl ?? ""),
                     // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
                   ),
                 ),

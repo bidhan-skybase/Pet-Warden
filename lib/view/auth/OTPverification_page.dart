@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petwarden/controller/auth/otp_controller.dart';
 import 'package:petwarden/controller/auth/sign_up_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
@@ -10,7 +11,7 @@ import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPVerification extends StatelessWidget {
-  final c = Get.find<SignUpController>();
+  final c = Get.find<OTPController>();
   static const routeName = "/otp-verification";
   OTPVerification({super.key});
 
