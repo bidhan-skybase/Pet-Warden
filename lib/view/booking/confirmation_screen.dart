@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:petwarden/controller/sitters/booking/confirm_appointment_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
+import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/utils/validators.dart';
 import 'package:petwarden/view/booking/payments_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
@@ -76,7 +74,11 @@ class ConfirmationPage extends StatelessWidget {
                               time.hour,
                               time.minute,
                             );
+                            c.start = selectedDateTime;
                             c.startingTime.value = c.formatDateTime(selectedDateTime);
+                            if (c.endingTime.isNotEmpty) {
+                              c.calculatePrice();
+                            }
                           }
                         }
                       },
@@ -116,8 +118,8 @@ class ConfirmationPage extends StatelessWidget {
                       onTap: () async {
                         DateTime? dateTime = await showDatePicker(
                             context: Get.context!,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
+                            initialDate: c.start,
+                            firstDate: c.start,
                             lastDate: DateTime.now().add(const Duration(days: 180)));
 
                         if (dateTime != null) {
@@ -135,7 +137,9 @@ class ConfirmationPage extends StatelessWidget {
                               time.hour,
                               time.minute,
                             );
+                            c.end = selectedDateTime;
                             c.endingTime.value = c.formatDateTime(selectedDateTime);
+                            c.calculatePrice();
                           }
                         }
                       },
@@ -178,43 +182,47 @@ class ConfirmationPage extends StatelessWidget {
                     const SizedBox(
                       height: 17,
                     ),
-                    CustomTextField(
-                        validator: Validators.checkFieldEmpty,
-                        hint: "Address",
-                        controller: c.addressController,
-                        textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.text),
-                    const SizedBox(
-                      height: 34,
-                    ),
-                    Text(
-                      "Emergency Contact Number *",
-                      style: CustomTextStyles.f16W600(),
-                    ),
-                    const SizedBox(
-                      height: 17,
-                    ),
-                    CustomTextField(
-                        validator: Validators.checkPhoneField,
-                        hint: "Phone number",
-                        controller: c.contactController,
-                        textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.text),
-                    const SizedBox(
-                      height: 34,
-                    ),
-                    Text(
-                      "Note ",
-                      style: CustomTextStyles.f16W600(),
-                    ),
-                    const SizedBox(
-                      height: 17,
-                    ),
-                    CustomTextField(
-                        hint: "Note",
-                        controller: c.noteController,
-                        textInputAction: TextInputAction.done,
-                        textInputType: TextInputType.text)
+                    Form(
+                        key: c.formKey,
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          CustomTextField(
+                              validator: Validators.checkFieldEmpty,
+                              hint: "Address",
+                              controller: c.addressController,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text),
+                          const SizedBox(
+                            height: 34,
+                          ),
+                          Text(
+                            "Emergency Contact Number *",
+                            style: CustomTextStyles.f16W600(),
+                          ),
+                          const SizedBox(
+                            height: 17,
+                          ),
+                          CustomTextField(
+                              validator: Validators.checkPhoneField,
+                              hint: "Phone number",
+                              controller: c.contactController,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text),
+                          const SizedBox(
+                            height: 34,
+                          ),
+                          Text(
+                            "Note ",
+                            style: CustomTextStyles.f16W600(),
+                          ),
+                          const SizedBox(
+                            height: 17,
+                          ),
+                          CustomTextField(
+                              hint: "Note",
+                              controller: c.noteController,
+                              textInputAction: TextInputAction.done,
+                              textInputType: TextInputType.text)
+                        ]))
                   ],
                 ),
               ),
@@ -238,17 +246,29 @@ class ConfirmationPage extends StatelessWidget {
                               "Total",
                               style: CustomTextStyles.f18W500(color: PetWardenColors.primaryColor),
                             ),
-                            Text(
-                              "Rs. 3000",
-                              style: CustomTextStyles.f22W600(),
-                            )
+                            Obx(() => SizedBox(
+                                  width: Get.width / 3.5,
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    "Rs. ${c.total.toString()}",
+                                    style: CustomTextStyles.f22W600(),
+                                  ),
+                                ))
                           ],
                         ),
                         SizedBox(
                             width: 200,
                             child: CustomElevatedButton(
                                 onPressed: () {
-                                  Get.toNamed(PaymentsPage.routeName);
+                                  if (c.startingTime.isEmpty || c.endingTime.isEmpty) {
+                                    PetSnackBar.info(message: "Time slots can not be empty");
+                                  } else if (c.start.isAfter(c.end)) {
+                                    PetSnackBar.error(
+                                        message: "End time should be after the start time.");
+                                  } else if (c.formKey.currentState!.validate()) {
+                                    Get.toNamed(PaymentsPage.routeName);
+                                  }
                                 },
                                 title: "Continue"))
                       ],

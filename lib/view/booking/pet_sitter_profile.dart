@@ -175,9 +175,12 @@ class PetSitterProfile extends StatelessWidget {
                             onPressed: () {
                               var cc = Get.find<CoreController>();
                               if (cc.currentUser.value?.otpVerifiedAt != null) {
-                                Get.toNamed(ConfirmationPage.routeName);
+                                Get.toNamed(ConfirmationPage.routeName,
+                                    arguments: {"sitter": c.sitter.value});
                               } else {
-                                Get.toNamed(OTPVerification.routeName);
+                                Get.toNamed(
+                                  OTPVerification.routeName,
+                                );
                               }
                             },
                             title: "Appoint"),
