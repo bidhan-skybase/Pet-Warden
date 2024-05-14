@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petwarden/controller/sitters/booking/payment_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/booking/appointement_success.dart';
@@ -8,7 +9,8 @@ import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class PaymentsPage extends StatelessWidget {
   static const routeName = "/payments-page";
-  const PaymentsPage({super.key});
+  var c = Get.find<PaymentController>();
+  PaymentsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class PaymentsPage extends StatelessWidget {
                               style: CustomTextStyles.f18W500(color: PetWardenColors.primaryColor),
                             ),
                             Text(
-                              "Rs. 3000",
+                              "Rs. ${c.appointment.cost ?? "-"}",
                               style: CustomTextStyles.f22W600(),
                             )
                           ],

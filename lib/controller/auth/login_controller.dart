@@ -28,6 +28,7 @@ class LoginController extends GetxController {
           password: passwordController.text,
           onSuccess: (user) {
             coreController.loadCurrentUser();
+            coreController.loadCurrentPet();
             loading.hide();
             PetSnackBar.success(
                 title: "Welcome Back! 🐾",

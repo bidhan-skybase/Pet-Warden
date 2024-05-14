@@ -267,7 +267,7 @@ class ConfirmationPage extends StatelessWidget {
                                     PetSnackBar.error(
                                         message: "End time should be after the start time.");
                                   } else if (c.formKey.currentState!.validate()) {
-                                    Get.toNamed(PaymentsPage.routeName);
+                                    c.onSubmit();
                                   }
                                 },
                                 title: "Continue"))

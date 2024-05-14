@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:petwarden/repo/auth_repo.dart';
 import 'package:petwarden/utils/constants/pet_types.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
+import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/widgets/progress_dialog.dart';
 
 import '../core_controller.dart';
@@ -125,6 +126,7 @@ class SignUpController extends GetxController {
         onSuccess: (pet) async {
           coreController.loadCurrentPet();
           loading.hide();
+          Get.toNamed(OTPVerification.routeName);
         },
         onError: (msg) {
           PetSnackBar.error(message: msg);

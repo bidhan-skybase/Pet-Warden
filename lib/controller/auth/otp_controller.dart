@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/repo/auth_repo.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
+import 'package:petwarden/utils/helper/storage-helper.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/dash_pages/dash_screen.dart';
 
@@ -24,7 +25,6 @@ class OTPController extends GetxController {
           PetSnackBar.success(
               message: "Just one more step to start your pet's journey with Pet Warden!",
               title: "Just One Step Away! 🐾");
-          Get.offAllNamed(OTPVerification.routeName);
         },
         onError: (message) {
           PetSnackBar.error(message: message);
@@ -38,6 +38,9 @@ class OTPController extends GetxController {
         otp: otpController.text,
         onSuccess: (status, message) {
           if (status == true) {
+            var user = coreController.currentUser.value;
+            user?.otpVerifiedAt = DateTime.now().toString();
+            StorageHelper.saveOwner(user!);
             Get.offAllNamed(DashPage.routeName);
             PetSnackBar.success(
                 message:
