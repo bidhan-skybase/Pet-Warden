@@ -122,8 +122,8 @@ class PetDetailScreen extends StatelessWidget {
                     Obx(() => c.profilePicPath.value == ""
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: const CustomNetworkImage(
-                              imageUrl: "",
+                            child: CustomNetworkImage(
+                              imageUrl: c.profilePicPath.value,
                               height: 100,
                               width: 100,
                             ),

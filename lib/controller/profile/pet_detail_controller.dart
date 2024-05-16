@@ -46,9 +46,14 @@ class PetDetailController extends GetxController {
     selectedPetType.value = pet.value?.type ?? "Dog";
     selectedBreed.value = pet.value?.type ?? "Lab";
     petAgeController.text = pet.value?.age ?? "";
-    selectedGender.value = pet.value?.gender ?? "Male";
+    // selectedGender.value = pet.value?.gender ?? "Male";
     selectedVaccinationStatus.value = pet.value?.vaccinationStatus ?? "Vaccinated";
     habitsController.text = pet.value?.preferences ?? "";
+    if (pet.value?.gender == "male") {
+      selectedGender.value = "Male";
+    } else {
+      selectedGender.value = "Female";
+    }
   }
 
   void updateBreeds() {

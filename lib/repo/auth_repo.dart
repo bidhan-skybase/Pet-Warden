@@ -27,9 +27,11 @@ class AuthRepo {
       if (data['status']) {
         var user = User.fromJson(data['data']);
         var accessToken = AccessToken.fromJson(data['data']['token']);
-        LogHelper.info("-------accesstoken ----> $accessToken");
+        var pet = Pet.fromJson(data["data"]["pets"][0]);
         StorageHelper.saveToken(accessToken);
         StorageHelper.saveOwner(user);
+        StorageHelper.savePet(pet);
+
         onSuccess(user);
       } else {
         onError(data['message']);
