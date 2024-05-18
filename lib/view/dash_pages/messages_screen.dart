@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/chat_controller.dart';
+import 'package:petwarden/controller/message_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
@@ -34,6 +34,10 @@ class MessagesScreen extends StatelessWidget {
             color: PetWardenColors.buttonColor,
           ),
         ),
+        title: Text(
+          c.reciverName,
+          style: const TextStyle(color: PetWardenColors.buttonColor),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -53,9 +57,9 @@ class MessagesScreen extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     if (c.messageController.text.isNotEmpty) {
-                      c.sendMessage("4", "sandeep", c.messageController.text);
-                      c.getMessage(c.user.value!.id!.toString(), "4");
-                      c.chatRoomInfo("2_4");
+                      c.sendMessage();
+                      c.getMessage();
+                      c.chatRoomInfo();
                       c.messageController.clear();
                     }
                   },
@@ -81,10 +85,7 @@ class MessagesScreen extends StatelessWidget {
 
   Widget _buildMessageList() {
     return StreamBuilder(
-      stream: c.getMessage(
-        c.user.value!.id.toString(),
-        "4",
-      ),
+      stream: c.getMessage(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("Error${snapshot.error}");

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:petwarden/controller/chat_controller.dart';
+import 'package:petwarden/controller/message_controller.dart';
 import 'package:petwarden/controller/dash_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/appointments_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/chat_page_controller.dart';
@@ -20,9 +21,8 @@ final List<GetPage> dashPages = <GetPage>[
       () {
         Get.lazyPut(() => HomePageController());
         Get.lazyPut(() => DashPageController());
-        Get.lazyPut(() => ChatPageController());
         Get.lazyPut(() => AppointmentsPageController());
-        Get.lazyPut(() => MessageController());
+        Get.lazyPut(() => ChatController());
         Get.lazyPut(() => ProfilePageController());
       },
     ),

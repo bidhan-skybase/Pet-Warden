@@ -6,11 +6,10 @@ import 'package:petwarden/controller/chat_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/view/dash_pages/messages_screen.dart';
 import 'package:petwarden/widgets/chat_tile.dart';
-import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class ChatScreen extends StatelessWidget {
-  final c = Get.find<MessageController>();
+  final c = Get.find<ChatController>();
   ChatScreen({super.key});
 
   @override
@@ -35,7 +34,7 @@ class ChatScreen extends StatelessWidget {
 
   Widget _buildChatRooms() {
     return StreamBuilder(
-      stream: c.test(),
+      stream: c.getChatRooms(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("Error${snapshot.error}");
@@ -61,8 +60,9 @@ class ChatScreen extends StatelessWidget {
             return InkWell(
               radius: 24,
               onTap: () {
-                // c.getID();
-                Get.toNamed(MessagesScreen.routeName);
+                Get.toNamed(MessagesScreen.routeName, arguments: {
+                  "reciverdetail": {"id": data["receiverId"], "name": data["receiverName"]}
+                });
               },
               child: ChatTile(
                 imageUrl: data['receiverImage'],

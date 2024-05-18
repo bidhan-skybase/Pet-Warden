@@ -3,86 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:petwarden/controller/core_controller.dart';
-import 'package:petwarden/model/chat_room_model.dart';
-import 'package:petwarden/model/message_model.dart';
+import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/model/user_model.dart';
 
-class MessageController extends GetxController {
+class ChatController extends GetxController {
   var cc = Get.find<CoreController>();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  TextEditingController messageController = TextEditingController();
   Rxn<User> user = Rxn();
 
   @override
   void onInit() {
     user.value = cc.currentUser.value;
+
     super.onInit();
   }
 
-  Future<void> sendMessage(String receiverId, String receiverName, String message) async {
-    final Timestamp timestamp = Timestamp.now();
-    Message newMessage = Message(
-        senderId: user.value!.id.toString(),
-        senderName: user.value!.name!,
-        receiverId: receiverId,
-        receiverName: receiverName,
-        message: message,
-        timestamp: timestamp);
-
-    List<String> ids = [user.value!.id!.toString(), receiverId];
-    ids.sort();
-    String chatRoomId = ids.join("_");
-    await firestore
-        .collection('chat_rooms')
-        .doc(chatRoomId)
-        .collection('messages')
-        .add(newMessage.toMap());
-  }
-
-  Stream<QuerySnapshot> getMessage(String userId, String receiverId) {
-    List<String> ids = [userId, receiverId];
-    ids.sort();
-    String chatRoomId = ids.join("_");
-    return firestore
-        .collection("chat_rooms")
-        .doc(chatRoomId)
-        .collection("messages")
-        .orderBy("timeStamp", descending: false)
-        .snapshots();
-  }
-
-  Future<void> chatRoomInfo(String chatRoomId) async {
-    try {
-      const receiverImage =
-          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-      final Timestamp timestamp = Timestamp.now();
-      ChatRoom newRoom = ChatRoom(
-          senderId: user.value!.id!.toString(),
-          senderName: user.value!.name.toString(),
-          senderImage: user.value!.profileImageUrl ?? "",
-          receiverId: "4",
-          receiverName: "sandeep",
-          receiverImage: receiverImage,
-          timestamp: timestamp,
-          lastMessage: messageController.text,
-          users: [user.value!.id!.toString(), "4"]);
-
-      final roomInfoDocRef = firestore.collection('chat_rooms').doc(chatRoomId);
-      final roomInfoDocSnapshot = await roomInfoDocRef.get();
-
-      if (roomInfoDocSnapshot.exists) {
-        await roomInfoDocRef.update(newRoom.toMap());
-      } else {
-        await roomInfoDocRef.set(newRoom.toMap());
-      }
-    } catch (error) {
-      // Handle error
-      print('Error updating chat room info: $error');
-      rethrow;
-    }
-  }
-
-  Stream<QuerySnapshot> test() {
+  Stream<QuerySnapshot> getChatRooms() {
     return firestore
         .collection("chat_rooms")
         .orderBy("timestamp", descending: true)
