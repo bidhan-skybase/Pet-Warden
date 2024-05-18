@@ -300,7 +300,8 @@ class HomeScreen extends StatelessWidget {
                                             available: sitter.status == "active" ? true : false,
                                             address: sitter.address,
                                             ratings: sitter.avgRating.toString(),
-                                            stars: sitter.avgRating?.round(),
+                                            stars: double.parse(sitter.avgRating!).round(),
+                                            // stars: sitter.avgRating?.round(),
                                             onTap: () {
                                               Get.toNamed(PetSitterProfile.routeName,
                                                   arguments: {"id": sitter.id});

@@ -1,5 +1,5 @@
 class Pet {
-  int? id;
+  String? id;
   String? name;
   String? age;
   String? type;
@@ -9,7 +9,7 @@ class Pet {
   String? vaccinationStatus;
   String? preferences;
   String? profileImage;
-  int? ownerId;
+  String? ownerId;
 
   Pet(
       {this.id,
@@ -25,7 +25,7 @@ class Pet {
       this.ownerId});
 
   Pet.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     name = json['name'];
     age = json['age'];
     type = json['type'];
@@ -35,7 +35,7 @@ class Pet {
     vaccinationStatus = json['vaccination_status'];
     preferences = json['preferences'];
     profileImage = json['image_url_base64'];
-    ownerId = json['owner_id'];
+    ownerId = json['owner_id'].toString();
   }
 
   Map<String, dynamic> toJson() {

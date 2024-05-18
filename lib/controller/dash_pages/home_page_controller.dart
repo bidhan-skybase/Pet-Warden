@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:get/get.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/model/sitters_model.dart';

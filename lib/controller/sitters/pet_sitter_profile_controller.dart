@@ -28,7 +28,7 @@ class PetSitterProfileController extends GetxController {
         onSelected: () {
           Get.toNamed(MessagesScreen.routeName, arguments: {
             "reciverdetail": {
-              "id": sitter.value!.id!.toString(),
+              "id": sitter.value!.userId!.toString(),
               "name": sitter.value!.name!.toString()
             }
           });
@@ -62,21 +62,19 @@ class PetSitterProfileController extends GetxController {
         comment: reviewController.text,
         sitterId: sitter.value!.userId.toString(),
         onSuccess: (status) {
+          Navigator.pop(Get.context!);
+          getSitterDetail();
           PetSnackBar.success(
             title: "Hooray!",
             message: "Your review has been added successfully! 🎉",
           );
-
-          Get.back();
         },
         onError: (status) {
+          Navigator.pop(Get.context!);
           PetSnackBar.error(
             title: "Oh no!",
             message: "Sorry, an unexpected error occurred. 😔",
           );
-          Get.back();
         });
   }
-
-// initialize a context menu
 }

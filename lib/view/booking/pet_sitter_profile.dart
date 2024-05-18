@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_context_menu/flutter_context_menu.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/controller/sitters/pet_sitter_profile_controller.dart';
+import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
-import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/booking/confirmation_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
@@ -250,19 +249,22 @@ class PetSitterProfile extends StatelessWidget {
                         const SizedBox(
                           height: 17,
                         ),
-                        ListView.builder(
-                            itemCount: 2,
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemBuilder: (context, builder) {
-                              return const ReviewTile(
-                                imageUrl: ImagePath.profilePic,
-                                name: "Anish Hirachan",
-                                stars: 3,
-                                time: "1 month ago",
-                                description: "Hello there",
-                              );
-                            }),
+                        c.sitter.value!.reviews!.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: c.sitter.value!.reviews?.length,
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  var review = c.sitter.value!.reviews?[index];
+                                  return ReviewTile(
+                                    imageUrl: ImagePath.profilePic,
+                                    name: review?.userId,
+                                    stars: review?.rating,
+                                    time: "1 month ago",
+                                    description: review?.comment ?? "",
+                                  );
+                                })
+                            : const SizedBox.shrink(),
                         const SizedBox(
                           height: 8,
                         ),
