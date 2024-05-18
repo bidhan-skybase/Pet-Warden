@@ -1,3 +1,1 @@
-class ProfileRepo{
-  
-}
+class ProfileRepo {}

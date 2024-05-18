@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_context_menu/flutter_context_menu.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/main.dart';
 import 'package:petwarden/model/sitters_model.dart';
@@ -53,4 +54,21 @@ class PetSitterProfileController extends GetxController {
           Get.back();
         });
   }
+
+  final entries = <ContextMenuEntry>[
+    const MenuHeader(text: "More"),
+    MenuItem(
+      label: 'Chat',
+      icon: Icons.send,
+      onSelected: () {},
+    ),
+    const MenuDivider(),
+    MenuItem(
+      label: 'Report',
+      icon: Icons.flag,
+      onSelected: () {},
+    ),
+  ];
+
+// initialize a context menu
 }

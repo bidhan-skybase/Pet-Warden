@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_context_menu/flutter_context_menu.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -64,14 +65,24 @@ class PetSitterProfile extends StatelessWidget {
                                   color: PetWardenColors.primaryColor,
                                 )),
                           ),
-                          const CircleAvatar(
-                              radius: 17,
-                              backgroundColor: Color(0xffF6F4F4),
-                              child: Icon(
-                                Icons.more_vert_rounded,
-                                size: 20,
-                                color: PetWardenColors.primaryColor,
-                              ))
+                          InkWell(
+                            onTap: () {
+                              final contextMenu = ContextMenu(
+                                entries: c.entries,
+                                position: const Offset(350, 100),
+                                // padding: const EdgeInsets.all(8.0),
+                              );
+                              showContextMenu(context, contextMenu: contextMenu);
+                            },
+                            child: const CircleAvatar(
+                                radius: 17,
+                                backgroundColor: Color(0xffF6F4F4),
+                                child: Icon(
+                                  Icons.more_vert_rounded,
+                                  size: 20,
+                                  color: PetWardenColors.primaryColor,
+                                )),
+                          )
                         ],
                       ),
                     ),

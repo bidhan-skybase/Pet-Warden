@@ -64,10 +64,10 @@ class MessageController extends GetxController {
           receiverName: "sandeep",
           receiverImage: receiverImage,
           timestamp: timestamp,
-          lastMessage: messageController.text);
+          lastMessage: messageController.text,
+          users: [user.value!.id!.toString(), "4"]);
 
-      final roomInfoDocRef =
-          firestore.collection('chat_rooms').doc(chatRoomId).collection('roomInfo').doc('info');
+      final roomInfoDocRef = firestore.collection('chat_rooms').doc(chatRoomId);
       final roomInfoDocSnapshot = await roomInfoDocRef.get();
 
       if (roomInfoDocSnapshot.exists) {
@@ -82,14 +82,11 @@ class MessageController extends GetxController {
     }
   }
 
-  Stream<QuerySnapshot> getRoomInfo() {
-    String chatRoomId = "2_4";
-
+  Stream<QuerySnapshot> test() {
     return firestore
         .collection("chat_rooms")
-        .doc(chatRoomId)
-        .collection("roomInfo")
-        .orderBy("timestamp", descending: false)
+        .orderBy("timestamp", descending: true)
+        .where("users", arrayContains: user.value!.id!.toString())
         .snapshots();
   }
 
@@ -113,10 +110,5 @@ class MessageController extends GetxController {
       final formatter = DateFormat('MMM d, yyyy');
       return formatter.format(messageTime);
     }
-  }
-
-  void getID() async {
-    var qs = await firestore.collection("chat_rooms").doc("chat_room").get();
-    print(qs);
   }
 }

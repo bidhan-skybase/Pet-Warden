@@ -105,7 +105,8 @@ class PaymentsPage extends StatelessWidget {
                             width: 200,
                             child: CustomElevatedButton(
                                 onPressed: () {
-                                  Get.toNamed(AppointmentSuccess.routeName);
+                                  c.createAppointment();
+                                  // Get.toNamed(AppointmentSuccess.routeName);
                                 },
                                 title: "Continue"))
                       ],

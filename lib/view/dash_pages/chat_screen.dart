@@ -29,20 +29,13 @@ class ChatScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(children: [
             Expanded(child: _buildChatRooms()),
-            // Expanded(
-            //   child: CustomElevatedButton(
-            //       onPressed: () {
-            //         Get.toNamed(MessagesScreen.routeName);
-            //       },
-            //       title: "Chat"),
-            // )
           ]),
         ));
   }
 
   Widget _buildChatRooms() {
     return StreamBuilder(
-      stream: c.getRoomInfo(),
+      stream: c.test(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("Error${snapshot.error}");
@@ -68,8 +61,8 @@ class ChatScreen extends StatelessWidget {
             return InkWell(
               radius: 24,
               onTap: () {
-                c.getID();
-                // Get.toNamed(MessagesScreen.routeName);
+                // c.getID();
+                Get.toNamed(MessagesScreen.routeName);
               },
               child: ChatTile(
                 imageUrl: data['receiverImage'],
