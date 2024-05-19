@@ -258,7 +258,8 @@ class PetSitterProfile extends StatelessWidget {
                                   var review = c.sitter.value!.reviews?[index];
                                   return ReviewTile(
                                     imageUrl: ImagePath.profilePic,
-                                    name: review?.userId,
+                                    name: "bidhan",
+                                    // name: review?.user?.name ?? "",
                                     stars: review?.rating,
                                     time: "1 month ago",
                                     description: review?.comment ?? "",

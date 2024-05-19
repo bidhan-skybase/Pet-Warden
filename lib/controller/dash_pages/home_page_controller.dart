@@ -9,13 +9,16 @@ class HomePageController extends GetxController {
   RxString firstName = "".obs;
   RxString petName = "".obs;
   RxList<Sitters> sitters = <Sitters>[].obs;
+  RxList<Sitters> featuredSitters = <Sitters>[].obs;
   RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     getFirstName();
     getPetName();
+    getFeaturedSitters();
     getSitters();
+
     super.onInit();
   }
 
@@ -31,10 +34,21 @@ class HomePageController extends GetxController {
     petName.value = nameParts.isNotEmpty ? nameParts[0] : "";
   }
 
-  void getSitters() {
+  void getSitters() async {
     isLoading.value = true;
-    SittersRepo.getPetSitters(onSuccess: (listOfSitters) {
+    await SittersRepo.getPetSitters(onSuccess: (listOfSitters) {
       sitters.value = listOfSitters;
+      isLoading.value = false;
+    }, onError: (message) {
+      isLoading.value = false;
+      PetSnackBar.error(message: message);
+    });
+  }
+
+  void getFeaturedSitters() async {
+    isLoading.value = true;
+    await SittersRepo.getFeaturedSitters(onSuccess: (listOfSitters) {
+      featuredSitters.value = listOfSitters;
       isLoading.value = false;
     }, onError: (message) {
       isLoading.value = false;

@@ -16,7 +16,7 @@ class CustomNetworkImage extends StatelessWidget {
     this.boxFit = BoxFit.cover,
     this.height,
     this.width,
-    this.errorImage = ImagePath.logo,
+    this.errorImage = ImagePath.placeHolder,
     this.placeHolder,
   });
 
@@ -31,10 +31,15 @@ class CustomNetworkImage extends StatelessWidget {
       placeholder: (context, url) => placeHolder ?? const ImageShimmer(),
       errorWidget: (context, url, error) => Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Image.asset(
-          errorImage,
-          fit: boxFit,
-        ),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: SizedBox.fromSize(
+              size: const Size.fromRadius(65),
+              child: Image.asset(
+                errorImage,
+                fit: boxFit,
+              ),
+            )),
       ),
     );
   }

@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/home_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/view/booking/pet_sitter_profile.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_search_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/pet_sitter_tile.dart';
@@ -66,37 +69,40 @@ class HomeScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 25),
                     child: CarouselSlider.builder(
                       // itemCount: c.featuredSitterLists.length,
-                      itemCount: 3,
+                      itemCount: c.featuredSitters.length,
 
                       itemBuilder: (context, index, realIndex) {
+                        var featuredSitters = c.featuredSitters[index];
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: PetWardenColors.blueCardColor,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                            padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 4),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Column(
+                                  mainAxisSize: MainAxisSize.max,
                                   children: [
                                     ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.asset(
-                                          ImagePath.profilePic,
-                                          height: 77,
-                                          width: 77,
-                                          fit: BoxFit.contain,
-                                        )),
-                                    const Row(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: CustomNetworkImage(
+                                        imageUrl: featuredSitters.profileImageUrl ?? "",
+                                        height: 77,
+                                        width: 77,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Row(
                                       children: [
-                                        Icon(Icons.star_rounded,
+                                        const Icon(Icons.star_rounded,
                                             color: PetWardenColors.secondaryColor),
                                         Text(
-                                          "5/5 (100)",
-                                          style: TextStyle(
+                                          "${featuredSitters.avgRating}/5 (${featuredSitters.reviewCount})",
+                                          style: const TextStyle(
                                               color: PetWardenColors.cyanColor, fontSize: 12),
                                         )
                                       ],
@@ -113,31 +119,47 @@ class HomeScreen extends StatelessWidget {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "Joji",
-                                            style: CustomTextStyles.f24W500(color: Colors.white),
+                                          Expanded(
+                                            child: Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              featuredSitters.name ?? "",
+                                              style: CustomTextStyles.f24W500(color: Colors.white),
+                                            ),
                                           ),
-                                          const Expanded(
-                                              child: SizedBox(
-                                            width: 10,
-                                          )),
-                                          Text(
-                                            "Available",
-                                            style: CustomTextStyles.f10W400(
-                                                color: PetWardenColors.cyanColor),
-                                          ),
-                                          Container(
-                                            height: 5,
-                                            width: 5,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(100),
-                                                color: const Color(0xff22EAB8)),
-                                          )
+                                          featuredSitters.status == "active"
+                                              ? Text(
+                                                  "Available",
+                                                  style: CustomTextStyles.f10W400(
+                                                      color: PetWardenColors.cyanColor),
+                                                )
+                                              : Text(
+                                                  "Unavailable",
+                                                  style: CustomTextStyles.f10W400(
+                                                      color: PetWardenColors.cyanColor),
+                                                ),
+                                          featuredSitters.status == "active"
+                                              ? Container(
+                                                  height: 5,
+                                                  width: 5,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      color: const Color(0xff22EAB8)),
+                                                )
+                                              : Container(
+                                                  height: 5,
+                                                  width: 5,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      color: PetWardenColors.errorColor),
+                                                )
                                         ],
                                       ),
-                                      Text(
-                                        "Providing Tail-Wagging\n Happiness While You're Away!",
-                                        style: CustomTextStyles.f12W300(color: Colors.white),
+                                      Expanded(
+                                        child: Text(
+                                          softWrap: true,
+                                          featuredSitters.bio ?? "",
+                                          style: CustomTextStyles.f12W300(color: Colors.white),
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 5,
@@ -145,22 +167,34 @@ class HomeScreen extends StatelessWidget {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "Chitwan, Nepal",
-                                            style: CustomTextStyles.f12W500(
-                                                color: PetWardenColors.cyanColor),
+                                          SizedBox(
+                                            width: Get.width / 4,
+                                            child: Text(
+                                              softWrap: false,
+                                              overflow: TextOverflow.ellipsis,
+                                              featuredSitters.address ?? "",
+                                              style: CustomTextStyles.f12W500(
+                                                  color: PetWardenColors.cyanColor),
+                                            ),
                                           ),
-                                          Container(
-                                            decoration: const BoxDecoration(
-                                                color: PetWardenColors.secondaryColor,
-                                                borderRadius: BorderRadius.all(Radius.circular(4))),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 17, vertical: 7),
-                                              child: Text(
-                                                "Appoint",
-                                                style:
-                                                    CustomTextStyles.f12W500(color: Colors.black),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.toNamed(PetSitterProfile.routeName,
+                                                  arguments: {"id": featuredSitters.id});
+                                            },
+                                            child: Container(
+                                              decoration: const BoxDecoration(
+                                                  color: PetWardenColors.secondaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.all(Radius.circular(4))),
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 17, vertical: 7),
+                                                child: Text(
+                                                  "Appoint",
+                                                  style:
+                                                      CustomTextStyles.f12W500(color: Colors.black),
+                                                ),
                                               ),
                                             ),
                                           )
@@ -299,8 +333,9 @@ class HomeScreen extends StatelessWidget {
                                             name: sitter.name,
                                             available: sitter.status == "active" ? true : false,
                                             address: sitter.address,
-                                            ratings: sitter.avgRating.toString(),
-                                            stars: double.parse(sitter.avgRating!).round(),
+                                            ratings: sitter.avgRating,
+                                            stars: sitter.avgRating?.round(),
+                                            // stars: double.parse(sitter.avgRating!).round(),
                                             // stars: sitter.avgRating?.round(),
                                             onTap: () {
                                               Get.toNamed(PetSitterProfile.routeName,

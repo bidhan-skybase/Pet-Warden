@@ -3,18 +3,21 @@ List<Sitters> sittersFromJson(List<dynamic> sittersJson) =>
 
 class Sitters {
   String? id;
-  String? avgRating;
+  double? avgRating;
   String? chargePerHour;
   String? experience;
   String? specialization;
   String? bio;
   String? service;
   String? userId;
+  String? profileImageUrl;
   String? name;
   String? email;
   String? address;
   String? phone;
   String? status;
+  int? reviewCount;
+  int? appointmentCount;
   List<Reviews>? reviews;
 
   Sitters(
@@ -26,27 +29,33 @@ class Sitters {
       this.bio,
       this.service,
       this.userId,
+      this.profileImageUrl,
       this.name,
       this.email,
       this.address,
       this.phone,
       this.status,
+      this.reviewCount,
+      this.appointmentCount,
       this.reviews});
 
   Sitters.fromJson(Map<String, dynamic> json) {
-    id = json['id'].toString();
-    avgRating = json['avg_rating'].toString();
+    id = json['id'];
+    avgRating = double.parse(json['avg_rating'].toString());
     chargePerHour = json['charge_per_hour'];
     experience = json['experience'];
     specialization = json['specialization'];
     bio = json['bio'];
     service = json['service'];
     userId = json['user_id'].toString();
+    profileImageUrl = json['profile_image_url'];
     name = json['name'];
     email = json['email'];
     address = json['address'];
     phone = json['phone'];
     status = json['status'];
+    reviewCount = json['review_count'];
+    appointmentCount = json['appointment_count'];
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
@@ -65,11 +74,14 @@ class Sitters {
     data['bio'] = bio;
     data['service'] = service;
     data['user_id'] = userId;
+    data['profile_image_url'] = profileImageUrl;
     data['name'] = name;
     data['email'] = email;
     data['address'] = address;
     data['phone'] = phone;
     data['status'] = status;
+    data['review_count'] = reviewCount;
+    data['appointment_count'] = appointmentCount;
     if (reviews != null) {
       data['reviews'] = reviews!.map((v) => v.toJson()).toList();
     }
@@ -79,41 +91,68 @@ class Sitters {
 
 class Reviews {
   String? id;
-  String? sitterId;
-  String? userId;
-  int? rating;
   String? comment;
-  String? createdAt;
-  String? updatedAt;
+  int? rating;
+  ReviewUser? user;
 
-  Reviews(
-      {this.id,
-      this.sitterId,
-      this.userId,
-      this.rating,
-      this.comment,
-      this.createdAt,
-      this.updatedAt});
+  Reviews({this.id, this.comment, this.rating, this.user});
 
   Reviews.fromJson(Map<String, dynamic> json) {
-    id = json['id'].toString();
-    sitterId = json['sitter_id'].toString();
-    userId = json['user_id'].toString();
-    rating = json['rating'];
+    id = json['id'];
     comment = json['comment'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    rating = json['rating'];
+    user = json['user'] != null ? ReviewUser.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['sitter_id'] = sitterId;
-    data['user_id'] = userId;
-    data['rating'] = rating;
     data['comment'] = comment;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
+    data['rating'] = rating;
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
+    return data;
+  }
+}
+
+class ReviewUser {
+  String? id;
+  String? name;
+  String? email;
+  Null address;
+  String? phone;
+  String? status;
+  String? profileImageUrl;
+
+  ReviewUser(
+      {this.id,
+      this.name,
+      this.email,
+      this.address,
+      this.phone,
+      this.status,
+      this.profileImageUrl});
+
+  ReviewUser.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    address = json['address'];
+    phone = json['phone'];
+    status = json['status'];
+    profileImageUrl = json['profile_image_url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['address'] = address;
+    data['phone'] = phone;
+    data['status'] = status;
+    data['profile_image_url'] = profileImageUrl;
     return data;
   }
 }

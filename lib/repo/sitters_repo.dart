@@ -70,4 +70,24 @@ class SittersRepo {
       onError(false);
     }
   }
+
+  static Future<void> getFeaturedSitters({
+    required Function(List<Sitters> sitters) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.getFeaturedSitters;
+      http.Response response = await PetRequest.get(url);
+      dynamic data = json.decode(response.body);
+      if (data['status']) {
+        var sitters = sittersFromJson(data["data"]);
+        onSuccess(sitters);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.getFeaturedSitters, error: e, stackTrace: s);
+      onError("Error when fetching featured sitters");
+    }
+  }
 }

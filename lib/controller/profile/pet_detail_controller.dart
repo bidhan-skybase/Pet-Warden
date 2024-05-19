@@ -41,7 +41,7 @@ class PetDetailController extends GetxController {
 
   void loadPetData() {
     pet.value = cc.currentPet.value;
-    profilePicPath.value = pet.value?.profileImage ?? "";
+    profilePicPath.value = pet.value?.imageUrl ?? "";
     petNameController.text = pet.value?.name ?? "";
     selectedPetType.value = pet.value?.type ?? "Dog";
     selectedBreed.value = pet.value?.type ?? "Lab";

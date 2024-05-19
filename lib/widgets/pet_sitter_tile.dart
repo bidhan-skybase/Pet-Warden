@@ -9,7 +9,7 @@ class PetSitterCard extends StatelessWidget {
   final String? imageUrl;
   final String? name;
   final String? address;
-  final String? ratings;
+  final double? ratings;
   final bool? available;
   final VoidCallback? onTap;
   final int? stars;
@@ -134,7 +134,7 @@ class PetSitterCard extends StatelessWidget {
                           width: 10,
                         )),
                         Text(
-                          ratings ?? "",
+                          ratings.toString(),
                           style: const TextStyle(color: PetWardenColors.textGrey, fontSize: 12),
                         )
                       ],

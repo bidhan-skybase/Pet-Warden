@@ -134,12 +134,11 @@ class PetOwnerDetails extends StatelessWidget {
                                     // visible: c.imageFileString.value.isNotEmpty,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
-                                      child: Image.memory(
-                                        base64Decode(c.profilePicPath.value),
-                                        filterQuality: FilterQuality.high,
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.cover,
+                                      child: SizedBox.fromSize(
+                                        size: const Size.fromRadius(65),
+                                        child: CustomNetworkImage(
+                                            imageUrl: c.owner.value?.profileImageUrl ?? ""),
+                                        // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
                                       ),
                                     ),
                                   )),
