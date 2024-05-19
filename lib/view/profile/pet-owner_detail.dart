@@ -52,10 +52,14 @@ class PetOwnerDetails extends StatelessWidget {
         // ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        child: CustomElevatedButton(title: "Save Changes", onPressed: () {}),
-      ),
+      // floatingActionButton: Container(
+      //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      //   child: CustomElevatedButton(
+      //       title: "Save Changes",
+      //       onPressed: () {
+      //         c.onUpdate();
+      //       }),
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -124,21 +128,22 @@ class PetOwnerDetails extends StatelessWidget {
                             Obx(() => c.profilePicPath.value == ""
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
-                                    child: const CustomNetworkImage(
-                                      imageUrl: "",
-                                      height: 100,
-                                      width: 100,
+                                    child: CustomNetworkImage(
+                                      imageUrl: c.owner.value?.profileImageUrl ?? "",
+                                      height: 150,
+                                      width: 150,
                                     ),
                                   )
                                 : Visibility(
                                     // visible: c.imageFileString.value.isNotEmpty,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
-                                      child: SizedBox.fromSize(
-                                        size: const Size.fromRadius(65),
-                                        child: CustomNetworkImage(
-                                            imageUrl: c.owner.value?.profileImageUrl ?? ""),
-                                        // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
+                                      child: Image.memory(
+                                        base64Decode(c.profilePicPath.value),
+                                        filterQuality: FilterQuality.high,
+                                        height: 150,
+                                        width: 150,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   )),
@@ -201,8 +206,13 @@ class PetOwnerDetails extends StatelessWidget {
                           validator: Validators.checkPhoneField,
                           textInputType: TextInputType.text),
                       const SizedBox(
-                        height: 25,
+                        height: 50,
                       ),
+                      CustomElevatedButton(
+                          onPressed: () {
+                            c.onUpdate();
+                          },
+                          title: "Save Changes")
                     ],
                   ))
             ],

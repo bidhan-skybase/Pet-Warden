@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/model/pet_model.dart';
+import 'package:petwarden/repo/profile_repo.dart';
 import 'package:petwarden/utils/constants/pet_types.dart';
+import 'package:petwarden/utils/helper/pet_snackbar.dart';
+import 'package:petwarden/widgets/progress_dialog.dart';
 
 class PetDetailController extends GetxController {
   final cc = Get.find<CoreController>();
@@ -16,7 +19,7 @@ class PetDetailController extends GetxController {
   var habitsController = TextEditingController();
   RxString selectedGender = RxString("male");
   PetConstants constants = PetConstants();
-
+  GlobalKey<FormState> petKey = GlobalKey<FormState>();
   List<String> petTypes = [];
   Map<String, List<String>> breedMap = {};
 
@@ -29,19 +32,24 @@ class PetDetailController extends GetxController {
   RxList<String> breeds = RxList<String>(["Lab", "German"]);
   RxString selectedVaccinationStatus = "Vaccinated".obs;
   late Rx<String> profilePicPath = Rx<String>('');
+  final ProgressDialog loading = ProgressDialog();
+  // RxList<Pet> allPets = <Pet>[].obs;
 
   @override
   void onInit() {
     petTypes = constants.petTypes;
     breedMap = constants.breedMap;
+    var args = Get.arguments["pet"];
+    if (args != null) {
+      pet.value = args;
+    }
+    // allPets = cc.pets;
     loadPetData();
     updateBreeds();
     super.onInit();
   }
 
   void loadPetData() {
-    pet.value = cc.currentPet.value;
-    profilePicPath.value = pet.value?.imageUrl ?? "";
     petNameController.text = pet.value?.name ?? "";
     selectedPetType.value = pet.value?.type ?? "Dog";
     selectedBreed.value = pet.value?.type ?? "Lab";
@@ -68,7 +76,30 @@ class PetDetailController extends GetxController {
   void pickImage(XFile pickedImage) async {
     final bytes = File(pickedImage.path).readAsBytesSync();
     String base64Image = base64Encode(bytes);
-    print("this is the image $base64Image");
     profilePicPath.value = base64Image;
+  }
+
+  void onUpdate() async {
+    if (petKey.currentState!.validate()) {
+      loading.show();
+      ProfileRepo.updatePetDetail(
+          id: pet.value?.id ?? "",
+          name: petNameController.text,
+          age: petAgeController.text,
+          gender: selectedGender.value,
+          vaccination: selectedVaccinationStatus.value,
+          bio: habitsController.text,
+          profilePicture: profilePicPath.value,
+          onSuccess: (pet) {
+            cc.loadCurrentPet();
+            loading.hide();
+            PetSnackBar.success(
+                title: "Your pet looks good",
+                message: "Your pet profile has been updated successfully.");
+          },
+          onError: (message) {
+            PetSnackBar.error(message: message);
+          });
+    }
   }
 }

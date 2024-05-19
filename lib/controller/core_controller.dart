@@ -12,7 +12,7 @@ import 'package:petwarden/view/dash_pages/dash_screen.dart';
 
 class CoreController extends GetxController {
   Rxn<User> currentUser = Rxn();
-  Rxn<Pet> currentPet = Rxn();
+  RxList<Pet> pets = <Pet>[].obs;
   Rxn<AccessToken> accessToken = Rxn();
 
   @override
@@ -71,7 +71,7 @@ class CoreController extends GetxController {
   }
 
   Future<void> loadCurrentPet({bool updateCurrentPet = false}) async {
-    currentPet.value = StorageHelper.getPet();
+    pets.value = StorageHelper.getPets()!;
     // if (Get.isRegistered<ProfileController>()) {
     //   Get.find<ProfileController>().currentUser.value = currentUser.value;
     // }

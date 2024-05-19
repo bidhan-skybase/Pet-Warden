@@ -3,7 +3,7 @@ class User {
   String? name;
   String? email;
   String? emailVerifiedAt;
-  Null address;
+  String? address;
   String? phone;
   String? profileImageUrl;
   String? otp;

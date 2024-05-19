@@ -56,173 +56,180 @@ class HomeScreen extends StatelessWidget {
                     style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
                   ),
                   // const FeaturedPetSitters(),
-                  c.isLoading.value
-                      ? SitterShimmer.featuredList()
-                      : Container(
-                          margin: const EdgeInsets.only(top: 25),
-                          child: CarouselSlider.builder(
-                            // itemCount: c.featuredSitterLists.length,
-                            itemCount: c.featuredSitters.length,
 
-                            itemBuilder: (context, index, realIndex) {
-                              var featuredSitters = c.featuredSitters[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: PetWardenColors.blueCardColor,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15, top: 10, bottom: 4),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(12),
-                                            child: CustomNetworkImage(
-                                              imageUrl: featuredSitters.profileImageUrl ?? "",
-                                              height: 77,
-                                              width: 77,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.star_rounded,
-                                                  color: PetWardenColors.secondaryColor),
-                                              Text(
-                                                "${featuredSitters.avgRating}/5 (${featuredSitters.reviewCount})",
-                                                style: const TextStyle(
-                                                    color: PetWardenColors.cyanColor, fontSize: 12),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                  Obx(() {
+                    if (c.isLoading.value) {
+                      return SitterShimmer.featuredList();
+                    } else {
+                      return Container(
+                          margin: const EdgeInsets.only(top: 25),
+                          child: Obx(
+                            () => CarouselSlider.builder(
+                              // itemCount: c.featuredSitterLists.length,
+                              itemCount: c.featuredSitters.length,
+
+                              itemBuilder: (context, index, realIndex) {
+                                var featuredSitters = c.featuredSitters[index];
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: PetWardenColors.blueCardColor,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 10, bottom: 4),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    overflow: TextOverflow.ellipsis,
-                                                    featuredSitters.name ?? "",
-                                                    style: CustomTextStyles.f24W500(
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                                featuredSitters.status == "active"
-                                                    ? Text(
-                                                        "Available",
-                                                        style: CustomTextStyles.f10W400(
-                                                            color: PetWardenColors.cyanColor),
-                                                      )
-                                                    : Text(
-                                                        "Unavailable",
-                                                        style: CustomTextStyles.f10W400(
-                                                            color: PetWardenColors.cyanColor),
-                                                      ),
-                                                featuredSitters.status == "active"
-                                                    ? Container(
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius.circular(100),
-                                                            color: const Color(0xff22EAB8)),
-                                                      )
-                                                    : Container(
-                                                        height: 5,
-                                                        width: 5,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius.circular(100),
-                                                            color: PetWardenColors.errorColor),
-                                                      )
-                                              ],
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                softWrap: true,
-                                                featuredSitters.bio ?? "",
-                                                style:
-                                                    CustomTextStyles.f12W300(color: Colors.white),
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(12),
+                                              child: CustomNetworkImage(
+                                                imageUrl: featuredSitters.profileImageUrl ?? "",
+                                                height: 77,
+                                                width: 77,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
+                                            const Spacer(),
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                SizedBox(
-                                                  width: Get.width / 4,
-                                                  child: Text(
-                                                    softWrap: false,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    featuredSitters.address ?? "",
-                                                    style: CustomTextStyles.f12W500(
-                                                        color: PetWardenColors.cyanColor),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    Get.toNamed(PetSitterProfile.routeName,
-                                                        arguments: {"id": featuredSitters.id});
-                                                  },
-                                                  child: Container(
-                                                    decoration: const BoxDecoration(
-                                                        color: PetWardenColors.secondaryColor,
-                                                        borderRadius:
-                                                            BorderRadius.all(Radius.circular(4))),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(
-                                                          horizontal: 17, vertical: 7),
-                                                      child: Text(
-                                                        "Appoint",
-                                                        style: CustomTextStyles.f12W500(
-                                                            color: Colors.black),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                const Icon(Icons.star_rounded,
+                                                    color: PetWardenColors.secondaryColor),
+                                                Text(
+                                                  "${featuredSitters.avgRating}/5 (${featuredSitters.reviewCount})",
+                                                  style: const TextStyle(
+                                                      color: PetWardenColors.cyanColor,
+                                                      fontSize: 12),
                                                 )
                                               ],
-                                            ),
+                                            )
                                           ],
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      overflow: TextOverflow.ellipsis,
+                                                      featuredSitters.name ?? "",
+                                                      style: CustomTextStyles.f24W500(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                  featuredSitters.status == "active"
+                                                      ? Text(
+                                                          "Available",
+                                                          style: CustomTextStyles.f10W400(
+                                                              color: PetWardenColors.cyanColor),
+                                                        )
+                                                      : Text(
+                                                          "Unavailable",
+                                                          style: CustomTextStyles.f10W400(
+                                                              color: PetWardenColors.cyanColor),
+                                                        ),
+                                                  featuredSitters.status == "active"
+                                                      ? Container(
+                                                          height: 5,
+                                                          width: 5,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(100),
+                                                              color: const Color(0xff22EAB8)),
+                                                        )
+                                                      : Container(
+                                                          height: 5,
+                                                          width: 5,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(100),
+                                                              color: PetWardenColors.errorColor),
+                                                        )
+                                                ],
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  softWrap: true,
+                                                  featuredSitters.bio ?? "",
+                                                  style:
+                                                      CustomTextStyles.f12W300(color: Colors.white),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  SizedBox(
+                                                    width: Get.width / 4,
+                                                    child: Text(
+                                                      softWrap: false,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      featuredSitters.address ?? "",
+                                                      style: CustomTextStyles.f12W500(
+                                                          color: PetWardenColors.cyanColor),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Get.toNamed(PetSitterProfile.routeName,
+                                                          arguments: {"id": featuredSitters.id});
+                                                    },
+                                                    child: Container(
+                                                      decoration: const BoxDecoration(
+                                                          color: PetWardenColors.secondaryColor,
+                                                          borderRadius:
+                                                              BorderRadius.all(Radius.circular(4))),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.symmetric(
+                                                            horizontal: 17, vertical: 7),
+                                                        child: Text(
+                                                          "Appoint",
+                                                          style: CustomTextStyles.f12W500(
+                                                              color: Colors.black),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            options: CarouselOptions(
-                              height: 136,
-                              aspectRatio: 16 / 9,
-                              viewportFraction: 0.83,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enlargeCenterPage: true,
-                              enlargeFactor: 0.3,
-                              scrollDirection: Axis.horizontal,
+                                );
+                              },
+                              options: CarouselOptions(
+                                height: 136,
+                                aspectRatio: 16 / 9,
+                                viewportFraction: 0.83,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                reverse: false,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 3),
+                                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enlargeCenterPage: true,
+                                enlargeFactor: 0.3,
+                                scrollDirection: Axis.horizontal,
+                              ),
                             ),
-                          ),
-                        ),
+                          ));
+                    }
+                  }),
                 ]),
               ),
               const SliverToBoxAdapter(
@@ -327,7 +334,7 @@ class HomeScreen extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.only(bottom: 15),
                                           child: PetSitterCard(
-                                            imageUrl: ImagePath.profilePic,
+                                            imageUrl: sitter.profileImageUrl,
                                             name: sitter.name,
                                             available: sitter.status == "active" ? true : false,
                                             address: sitter.address,

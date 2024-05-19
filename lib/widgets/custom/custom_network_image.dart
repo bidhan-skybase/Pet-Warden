@@ -32,14 +32,12 @@ class CustomNetworkImage extends StatelessWidget {
       errorWidget: (context, url, error) => Padding(
         padding: const EdgeInsets.all(20.0),
         child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: SizedBox.fromSize(
-              size: const Size.fromRadius(65),
-              child: Image.asset(
-                errorImage,
-                fit: boxFit,
-              ),
-            )),
+          borderRadius: BorderRadius.circular(8),
+          child: Image.asset(
+            errorImage,
+            fit: boxFit,
+          ),
+        ),
       ),
     );
   }

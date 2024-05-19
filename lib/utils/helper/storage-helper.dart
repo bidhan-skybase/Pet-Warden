@@ -61,8 +61,26 @@ class StorageHelper {
   static savePet(Pet pet) {
     try {
       final box = GetStorage();
-      box.write(StorageKeys.Pet, json.encode(pet.toJson()));
-      log(("pet Saved"));
+      // Retrieve the current list of pets from storage
+      String? petsJson = box.read(StorageKeys.Pet);
+      List<Pet> pets = [];
+      if (petsJson != null) {
+        List<dynamic> petsList = json.decode(petsJson);
+        pets = petsList.map((petMap) => Pet.fromJson(petMap)).toList();
+      }
+      // Check if a pet with the same ID already exists
+      int index = pets.indexWhere((p) => p.id == pet.id);
+      if (index != -1) {
+        // Replace the existing pet
+        pets[index] = pet;
+      } else {
+        // Add the new pet to the list
+        pets.add(pet);
+      }
+      // Convert the updated list of pets to JSON and save it
+      String updatedPetsJson = json.encode(pets.map((pet) => pet.toJson()).toList());
+      box.write(StorageKeys.Pet, updatedPetsJson);
+      log("Pet saved");
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
@@ -70,15 +88,21 @@ class StorageHelper {
     }
   }
 
-  static Pet? getPet() {
+  static List<Pet>? getPets() {
     try {
       final box = GetStorage();
-      log("====================> Customer");
-      log(box.read(StorageKeys.Pet));
-      Pet pet = Pet.fromJson(json.decode(box.read(StorageKeys.Pet)));
-      return pet;
+      log("====================> Fetching Pets");
+      String? petsJson = box.read(StorageKeys.Pet);
+      if (petsJson != null) {
+        List<dynamic> petsList = json.decode(petsJson);
+        List<Pet> pets = petsList.map((petMap) => Pet.fromJson(petMap)).toList();
+        return pets;
+      } else {
+        log("No pets found in storage");
+        return null;
+      }
     } catch (e, s) {
-      log("Unable to fetch pet");
+      log("Unable to fetch pets");
       log(e.toString());
       log(s.toString());
       return null;

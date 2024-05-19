@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class PetSitterCard extends StatelessWidget {
@@ -40,11 +41,10 @@ class PetSitterCard extends StatelessWidget {
             children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    imageUrl ?? ImagePath.logo,
-                    height: 77,
-                    width: 77,
-                    fit: BoxFit.contain,
+                  child: CustomNetworkImage(
+                    height: 100,
+                    width: 100,
+                    imageUrl: imageUrl ?? "",
                   )),
               const SizedBox(
                 width: 015,

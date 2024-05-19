@@ -29,7 +29,7 @@ class AppointmentSuccess extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(65),
-                    child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
+                    child: Image.asset(ImagePath.onboarding2, fit: BoxFit.contain),
                   ),
                 ),
                 const SizedBox(

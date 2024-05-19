@@ -16,7 +16,7 @@ class HomePageController extends GetxController {
   void onInit() {
     getFirstName();
     getPetName();
-    getFeaturedSitters();
+    // getFeaturedSitters();
     getSitters();
 
     super.onInit();
@@ -29,9 +29,13 @@ class HomePageController extends GetxController {
   }
 
   void getPetName() {
-    String fullName = cc.currentPet.value?.name ?? "";
-    List<String> nameParts = fullName.split(" ");
-    petName.value = nameParts.isNotEmpty ? nameParts[0] : "";
+    if (cc.pets.length > 1) {
+      petName.value = "Your Pets";
+    } else {
+      String fullName = cc.pets.first.name ?? "";
+      List<String> nameParts = fullName.split(" ");
+      petName.value = nameParts.isNotEmpty ? nameParts[0] : "";
+    }
   }
 
   void getSitters() async {

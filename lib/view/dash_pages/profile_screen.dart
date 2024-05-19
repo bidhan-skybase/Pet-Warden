@@ -9,6 +9,7 @@ import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/profile/change_password.dart';
 import 'package:petwarden/view/profile/pet-owner_detail.dart';
 import 'package:petwarden/view/profile/pet_details.dart';
+import 'package:petwarden/view/profile/pets_page.dart';
 import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/profile_tile.dart';
@@ -60,10 +61,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTile(
                   iconUrl: IconPath.petDetailsIcon,
-                  title: "Pet Profile",
+                  title: "Pet Profiles",
                   hasArrow: true,
                   onTap: () {
-                    Get.toNamed(PetDetailScreen.routeName);
+                    Get.toNamed(PetsPage.routeName);
                   },
                 ),
                 ProfileTile(
