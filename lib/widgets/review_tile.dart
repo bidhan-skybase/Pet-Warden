@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
 class ReviewTile extends StatelessWidget {
@@ -38,9 +39,17 @@ class ReviewTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   child: SizedBox.fromSize(
                     size: const Size.fromRadius(17),
-                    child: Image.asset(imageUrl ?? ImagePath.logo, fit: BoxFit.cover),
+                    child: CustomNetworkImage(imageUrl: imageUrl ?? ""),
+                    // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
                   ),
                 ),
+                // ClipRRect(
+                //   borderRadius: BorderRadius.circular(100),
+                //   child: SizedBox.fromSize(
+                //     size: const Size.fromRadius(17),
+                //     child: Image.asset(imageUrl ?? ImagePath.logo, fit: BoxFit.cover),
+                //   ),
+                // ),
                 const SizedBox(
                   width: 4,
                 ),

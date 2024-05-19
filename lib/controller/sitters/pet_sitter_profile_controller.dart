@@ -13,6 +13,7 @@ class PetSitterProfileController extends GetxController {
   RxDouble rating = RxDouble(0.0);
   var reviewController = TextEditingController();
   List<ContextMenuEntry> entries = [];
+  RxBool isLoading = false.obs;
   @override
   void onInit() {
     var args = Get.arguments;
@@ -45,13 +46,16 @@ class PetSitterProfileController extends GetxController {
     super.onInit();
   }
 
-  void getSitterDetail() {
-    SittersRepo.getSitterDetail(
+  void getSitterDetail() async {
+    isLoading.value = true;
+    await SittersRepo.getSitterDetail(
         id: id.value!,
         onSuccess: (sitter) {
           this.sitter.value = sitter;
+          isLoading.value = false;
         },
         onError: (message) {
+          isLoading.value = false;
           PetSnackBar.error(message: message);
         });
   }

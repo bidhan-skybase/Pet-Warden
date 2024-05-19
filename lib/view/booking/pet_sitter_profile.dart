@@ -12,9 +12,11 @@ import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/auth/OTPverification_page.dart';
 import 'package:petwarden/view/booking/confirmation_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:petwarden/widgets/review_tile.dart';
+import 'package:petwarden/widgets/shimmers/sitter_shimmer.dart';
 import 'package:petwarden/widgets/sitter_specialization.dart';
 
 import '../../widgets/pet_sitter_info.dart';
@@ -93,86 +95,98 @@ class PetSitterProfile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100),
                           child: SizedBox.fromSize(
                             size: const Size.fromRadius(70),
-                            child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
+                            child: CustomNetworkImage(
+                              imageUrl: c.sitter.value?.profileImageUrl ?? "",
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ]),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        c.sitter.value?.name?.toUpperCase() ?? "",
-                        style: CustomTextStyles.f16W600(color: PetWardenColors.primaryColor),
-                      ),
-                      Container(
-                        height: 5,
-                        width: 5,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: const Color(0xff22EAB8)),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(IconPath.locationIcon),
-                      SizedBox(
-                        width: 100,
-                        child: Text(
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                          c.sitter.value?.address ?? "",
-                          style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                  c.isLoading.value
+                      ? Center(child: SitterShimmer.sitterBasicInfo())
+                      : Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  c.sitter.value?.name?.toUpperCase() ?? "",
+                                  style:
+                                      CustomTextStyles.f16W600(color: PetWardenColors.primaryColor),
+                                ),
+                                Container(
+                                  height: 5,
+                                  width: 5,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: const Color(0xff22EAB8)),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(IconPath.locationIcon),
+                                SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    c.sitter.value?.address ?? "",
+                                    style:
+                                        CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                                  ),
+                                ),
+                                const Text(
+                                  " | ",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: PetWardenColors.textGrey),
+                                ),
+                                Text(
+                                  "Pet Sitter",
+                                  style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 9,
+                            ),
+                            Center(
+                              child: Text(
+                                "Rs. ${c.sitter.value?.chargePerHour ?? ""} /hr",
+                                style: CustomTextStyles.f22W600(color: Colors.black),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const Text(
-                        " | ",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: PetWardenColors.textGrey),
-                      ),
-                      Text(
-                        "Pet Sitter",
-                        style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 9,
-                  ),
-                  Center(
-                    child: Text(
-                      "Rs. ${c.sitter.value?.chargePerHour ?? ""} /hr",
-                      style: CustomTextStyles.f22W600(color: Colors.black),
-                    ),
-                  ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const PetSitterInfo(
-                        title: "Pets",
-                        info: "101",
-                      ),
-                      PetSitterInfo(
-                        title: "Experience",
-                        info: "${c.sitter.value?.experience ?? ""} year",
-                      ),
-                      const PetSitterInfo(
-                        title: "Ratings",
-                        info: "100",
-                      ),
-                    ],
-                  ),
+                  c.isLoading.value
+                      ? SitterShimmer.sitterInfo()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const PetSitterInfo(
+                              title: "Pets",
+                              info: "101",
+                            ),
+                            PetSitterInfo(
+                              title: "Experience",
+                              info: "${c.sitter.value?.experience ?? ""} year",
+                            ),
+                            const PetSitterInfo(
+                              title: "Ratings",
+                              info: "100",
+                            ),
+                          ],
+                        ),
                   const SizedBox(
                     height: 41,
                   ),
@@ -204,10 +218,12 @@ class PetSitterProfile extends StatelessWidget {
                         const SizedBox(
                           height: 18,
                         ),
-                        Text(
-                          c.sitter.value?.bio ?? "",
-                          style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
-                        ),
+                        c.isLoading.value
+                            ? SitterShimmer.bio()
+                            : Text(
+                                c.sitter.value?.bio ?? "",
+                                style: CustomTextStyles.f14W400(color: PetWardenColors.textGrey),
+                              ),
                         const SizedBox(
                           height: 33,
                         ),
@@ -218,27 +234,29 @@ class PetSitterProfile extends StatelessWidget {
                         const SizedBox(
                           height: 17,
                         ),
-                        const Wrap(
-                          spacing: 8,
-                          runSpacing: 11,
-                          children: [
-                            SitterSpecialization(
-                              title: "Pet Sitting",
-                            ),
-                            SitterSpecialization(
-                              title: "Dog Walking",
-                            ),
-                            SitterSpecialization(
-                              title: "Special Needs Care",
-                            ),
-                            SitterSpecialization(
-                              title: "Pet Boarding",
-                            ),
-                            SitterSpecialization(
-                              title: "Pet Training",
-                            )
-                          ],
-                        ),
+                        c.isLoading.value
+                            ? SitterShimmer.specializationShimmer()
+                            : const Wrap(
+                                spacing: 8,
+                                runSpacing: 11,
+                                children: [
+                                  SitterSpecialization(
+                                    title: "Pet Sitting",
+                                  ),
+                                  SitterSpecialization(
+                                    title: "Dog Walking",
+                                  ),
+                                  SitterSpecialization(
+                                    title: "Special Needs Care",
+                                  ),
+                                  SitterSpecialization(
+                                    title: "Pet Boarding",
+                                  ),
+                                  SitterSpecialization(
+                                    title: "Pet Training",
+                                  )
+                                ],
+                              ),
                         const SizedBox(
                           height: 33,
                         ),
@@ -249,23 +267,23 @@ class PetSitterProfile extends StatelessWidget {
                         const SizedBox(
                           height: 17,
                         ),
-                        c.sitter.value!.reviews!.isNotEmpty
-                            ? ListView.builder(
+                        c.isLoading.value
+                            ? SitterShimmer.review()
+                            : ListView.builder(
                                 itemCount: c.sitter.value!.reviews?.length,
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   var review = c.sitter.value!.reviews?[index];
                                   return ReviewTile(
-                                    imageUrl: ImagePath.profilePic,
-                                    name: "bidhan",
+                                    imageUrl: review?.user?.profileImageUrl,
+                                    name: review?.user?.name ?? "",
                                     // name: review?.user?.name ?? "",
                                     stars: review?.rating,
                                     time: "1 month ago",
                                     description: review?.comment ?? "",
                                   );
-                                })
-                            : const SizedBox.shrink(),
+                                }),
                         const SizedBox(
                           height: 8,
                         ),
