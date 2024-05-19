@@ -65,4 +65,17 @@ class ProfileRepo {
       onError(data['message']);
     }
   }
+
+  static Future<void> deletePetProfile(
+      {required String id, required Function(bool status) onComplete}) async {
+    String url = Api.deletePetProfile.replaceAll("#id#", id);
+    http.Response response = await PetRequest.post(url);
+    dynamic data = json.decode(response.body);
+    if (data['status']) {
+      StorageHelper.deletePet(id);
+      onComplete(true);
+    } else {
+      onComplete(false);
+    }
+  }
 }

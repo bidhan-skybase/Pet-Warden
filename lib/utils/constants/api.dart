@@ -15,4 +15,5 @@ class Api {
   static const addAppointment = "$baseUrl/appointment/store";
   static const getFeaturedSitters = "$baseUrl/featured-pet-sitters";
   static const updatePetProfile = "$baseUrl/update-pet-profile/#id#";
+  static const deletePetProfile = "$baseUrl/delete-pet-profile/#id#";
 }

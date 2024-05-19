@@ -56,12 +56,12 @@ class AddPetProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Sign Up",
+                    "Add Pet",
                     style: CustomTextStyles.f28W700(color: PetWardenColors.primaryColor),
                   ),
                   RichText(
                     text: TextSpan(
-                      text: 'Enter your pet details for signing to  ',
+                      text: 'Enter your pet details for adding a pet to  ',
                       style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
                       children: <TextSpan>[
                         TextSpan(

@@ -109,6 +109,30 @@ class StorageHelper {
     }
   }
 
+  static deletePet(String id) {
+    try {
+      final box = GetStorage();
+      // Retrieve the current list of pets from storage
+      String? petsJson = box.read(StorageKeys.Pet);
+      if (petsJson != null) {
+        List<dynamic> petsList = json.decode(petsJson);
+        List<Pet> pets = petsList.map((petMap) => Pet.fromJson(petMap)).toList();
+        // Remove the pet with the given ID
+        pets.removeWhere((pet) => pet.id == id);
+        // Convert the updated list of pets to JSON and save it
+        String updatedPetsJson = json.encode(pets.map((pet) => pet.toJson()).toList());
+        box.write(StorageKeys.Pet, updatedPetsJson);
+        log("Pet deleted");
+      } else {
+        log("No pets found in storage to delete");
+      }
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      throw "Unable to delete pet";
+    }
+  }
+
   static saveToken(AccessToken token) {
     try {
       final box = GetStorage();

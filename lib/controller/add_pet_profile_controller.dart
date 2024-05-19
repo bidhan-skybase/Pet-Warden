@@ -72,7 +72,10 @@ class AddPetController extends GetxController {
         preferneces: habitsController.text,
         imageUrl: petPicPath.value,
         onSuccess: (pet) async {
-          // coreController.loadCurrentPet();
+          coreController.loadCurrentPet();
+          Get.back();
+          PetSnackBar.success(
+              title: " Profile Created", message: "Welcome aboard! Your adventure starts now.");
           loading.hide();
         },
         onError: (msg) {

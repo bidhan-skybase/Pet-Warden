@@ -12,7 +12,6 @@ import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/dash_pages/timer_screen.dart';
-import 'package:petwarden/widgets/appointment_card.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 import 'package:table_calendar/table_calendar.dart';
