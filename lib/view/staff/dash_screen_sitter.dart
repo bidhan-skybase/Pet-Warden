@@ -62,11 +62,11 @@ class DashScreenSitter extends StatelessWidget {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: dpc.pageController,
-        children: const [
-          AppointmentScreenSitter(),
+        children: [
+          const AppointmentScreenSitter(),
           ChatScreenSitter(),
-          ProfileScreenSitter(),
-          ErrorScreen()
+          const ProfileScreenSitter(),
+          const ErrorScreen()
         ],
       ),
     );
