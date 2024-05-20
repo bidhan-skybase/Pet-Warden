@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:get_storage/get_storage.dart';
 import 'package:petwarden/model/access_token_model.dart';
 import 'package:petwarden/model/pet_model.dart';
+import 'package:petwarden/model/sitter_staff_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
 
@@ -50,6 +51,32 @@ class StorageHelper {
       log("====================> Customer");
       log(box.read(StorageKeys.Owner));
       User user = User.fromJson(json.decode(box.read(StorageKeys.Owner)));
+      return user;
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      return null;
+    }
+  }
+
+  static saveStaff(SitterStaff user) {
+    try {
+      final box = GetStorage();
+      box.write(StorageKeys.Sitter, json.encode(user.toJson()));
+      log(("Staff Saved"));
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      throw "Unable to save staff";
+    }
+  }
+
+  static SitterStaff? getStaff() {
+    try {
+      final box = GetStorage();
+      log("====================> Staff");
+      log(box.read(StorageKeys.Sitter));
+      SitterStaff user = SitterStaff.fromJson(json.decode(box.read(StorageKeys.Sitter)));
       return user;
     } catch (e, s) {
       log(e.toString());

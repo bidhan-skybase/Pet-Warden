@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:petwarden/controller/add_pet_profile_controller.dart';
+import 'package:petwarden/controller/profile/add_pet_profile_controller.dart';
 import 'package:petwarden/controller/profile/change_password_controller.dart';
 import 'package:petwarden/controller/profile/pet_detail_controller.dart';
 import 'package:petwarden/controller/profile/pet_owner_detail_controller.dart';

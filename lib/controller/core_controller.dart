@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:petwarden/model/access_token_model.dart';
 import 'package:petwarden/model/pet_model.dart';
+import 'package:petwarden/model/sitter_staff_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/storage_keys.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
@@ -10,15 +11,24 @@ import 'package:petwarden/utils/helper/storage-helper.dart';
 import 'package:petwarden/view/auth/log_in_screen.dart';
 import 'package:petwarden/view/dash_pages/dash_screen.dart';
 
+enum USERTYPE { OWNER, STAFF }
+
 class CoreController extends GetxController {
   Rxn<User> currentUser = Rxn();
+  Rxn<SitterStaff> currentStaff = Rxn();
   RxList<Pet> pets = <Pet>[].obs;
   Rxn<AccessToken> accessToken = Rxn();
+  USERTYPE userType = USERTYPE.OWNER;
 
   @override
   void onInit() async {
-    loadCurrentUser(updateCurrentUser: true);
-    loadCurrentPet(updateCurrentPet: true);
+    if (getUserType() == USERTYPE.STAFF) {
+      loadCurrentStaff(updateCurrentUser: true);
+    } else {
+      loadCurrentUser(updateCurrentUser: true);
+      loadCurrentPet(updateCurrentPet: true);
+    }
+
     super.onInit();
   }
 
@@ -45,7 +55,17 @@ class CoreController extends GetxController {
   }
 
   bool isUserLoggedIn() {
-    return currentUser.value != null;
+    return currentUser.value != null || currentStaff.value != null;
+  }
+
+  USERTYPE getUserType() {
+    if (StorageHelper.getUserType() == "OWNER") {
+      return userType = USERTYPE.OWNER;
+    } else if (StorageHelper.getUserType() == "SITTER") {
+      return userType = USERTYPE.STAFF;
+    } else {
+      return userType;
+    }
   }
 
   void logOut() async {
@@ -62,6 +82,16 @@ class CoreController extends GetxController {
 
   Future<void> loadCurrentUser({bool updateCurrentUser = false}) async {
     currentUser.value = StorageHelper.getOwner();
+    // if (Get.isRegistered<ProfileController>()) {
+    //   Get.find<ProfileController>().currentUser.value = currentUser.value;
+    // }
+    // if (updateCurrentUser) {
+    //   updateUser();
+    // }
+  }
+
+  Future<void> loadCurrentStaff({bool updateCurrentUser = false}) async {
+    currentStaff.value = StorageHelper.getStaff();
     // if (Get.isRegistered<ProfileController>()) {
     //   Get.find<ProfileController>().currentUser.value = currentUser.value;
     // }

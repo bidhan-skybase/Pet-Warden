@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-import 'package:petwarden/controller/chat_controller.dart';
-import 'package:petwarden/controller/message_controller.dart';
-import 'package:petwarden/controller/dash_page_controller.dart';
+import 'package:petwarden/controller/dash_pages/chat_controller.dart';
+import 'package:petwarden/controller/dash_pages/message_controller.dart';
+import 'package:petwarden/controller/dash_pages/dash_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/appointments_page_controller.dart';
-import 'package:petwarden/controller/dash_pages/chat_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/home_page_controller.dart';
 import 'package:petwarden/controller/dash_pages/profile_page_controller.dart';
 import 'package:petwarden/controller/profile/change_password_controller.dart';

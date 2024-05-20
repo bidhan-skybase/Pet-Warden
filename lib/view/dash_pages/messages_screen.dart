@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/message_controller.dart';
+import 'package:petwarden/controller/dash_pages/message_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';

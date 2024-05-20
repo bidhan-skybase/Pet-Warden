@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petwarden/controller/add_pet_profile_controller.dart';
+import 'package:petwarden/controller/profile/add_pet_profile_controller.dart';
 import 'package:petwarden/controller/auth/sign_up_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/helper/image_picker_helper.dart';

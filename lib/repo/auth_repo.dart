@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:petwarden/model/access_token_model.dart';
 import 'package:petwarden/model/pet_model.dart';
+import 'package:petwarden/model/sitter_staff_model.dart';
 import 'package:petwarden/model/user_model.dart';
 import 'package:petwarden/utils/constants/api.dart';
 import 'package:http/http.dart' as http;
@@ -68,6 +69,7 @@ class AuthRepo {
       var accessToken = AccessToken.fromJson(data['data']['token']);
       StorageHelper.saveToken(accessToken);
       StorageHelper.saveOwner(user);
+      StorageHelper.saveUserType("OWNER");
       onSuccess(user);
     } else {
       onError(data['message']);
@@ -181,6 +183,37 @@ class AuthRepo {
     } catch (e, s) {
       LogHelper.error(e.toString());
       LogHelper.error(s.toString());
+    }
+  }
+
+  static Future<void> loginAsSitter({
+    required String email,
+    required String password,
+    required Function(SitterStaff sitter) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.loginUrl;
+      var body = {
+        "email": email,
+        "password": password,
+      };
+      http.Response response = await PetRequest.post(url, body: body);
+      dynamic data = json.decode(response.body);
+
+      if (data['status']) {
+        var user = SitterStaff.fromJson(data['data']);
+        var accessToken = AccessToken.fromJson(data['data']['token']);
+        StorageHelper.saveToken(accessToken);
+        StorageHelper.saveStaff(user);
+        StorageHelper.saveUserType("SITTER");
+        onSuccess(user);
+      } else {
+        onError(data['message']);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.loginUrl, error: e, stackTrace: s);
+      onError("Error when logging in");
     }
   }
 }

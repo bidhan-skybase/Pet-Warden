@@ -1,24 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/auth/login_controller.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:petwarden/controller/staff/login_controller_sitter.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/validators.dart';
-import 'package:petwarden/view/auth/forgot_password.dart';
-import 'package:petwarden/view/staff/log_in_screen_sitter.dart';
-import 'package:petwarden/view/auth/sign_up_screen_user.dart';
-import 'package:petwarden/view/dash_pages/dash_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_password_field.dart';
-import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
-import 'package:flutter/gestures.dart';
 
-class LogInScreen extends StatelessWidget {
-  static const routeName = "/login-screen";
-  final c = Get.find<LoginController>();
-  LogInScreen({super.key});
+import '../../widgets/custom/custom_text_field.dart';
+import '../auth/forgot_password.dart';
+
+class LoginScreenSitter extends StatelessWidget {
+  static const routeName = "/login-screen_sitter";
+  final c = Get.find<LoginSitterController>();
+  LoginScreenSitter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +53,11 @@ class LogInScreen extends StatelessWidget {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: 'Enter your credentials to login to  ',
+                      text: 'Enter your credentials to login as  ',
                       style: CustomTextStyles.f14W600(color: PetWardenColors.highlightTextColor),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Pet Warden',
+                            text: 'Pet Sitter',
                             style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
                       ],
                     ),
@@ -126,53 +122,6 @@ class LogInScreen extends StatelessWidget {
                   ),
                   const SizedBox(
                     height: 16,
-                  ),
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Don\'t have an account? ',
-                        style: CustomTextStyles.f14W600(color: PetWardenColors.textColor),
-                        children: <TextSpan>[
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => Get.toNamed(SignUpPageUser.routeName),
-                              text: 'Sign Up',
-                              style: CustomTextStyles.f14W600(color: PetWardenColors.buttonColor)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Stack(
-                    children: [
-                      const Divider(
-                        thickness: 1,
-                        color: PetWardenColors.borderColor,
-                      ),
-                      Center(
-                        child: Container(
-                          color: PetWardenColors.backgroundColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            " LOGIN AS ",
-                            style: CustomTextStyles.f12W400(color: PetWardenColors.textGrey)
-                                .copyWith(backgroundColor: PetWardenColors.backgroundColor),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                  CustomElevatedButton(
-                    buttonColor: PetWardenColors.lightGrey,
-                    borderSide: const BorderSide(color: PetWardenColors.borderColor),
-                    onPressed: () {
-                      Get.toNamed(LoginScreenSitter.routeName);
-                    },
-                    title: "Pet Sitter",
-                    textStyle: CustomTextStyles.f14W600(color: PetWardenColors.textGrey),
-                    // textColor: PetWardenColors.textGrey,
-                    // title: "Sign In",
                   ),
                 ],
               ),

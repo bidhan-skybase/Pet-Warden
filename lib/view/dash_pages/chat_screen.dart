@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/chat_controller.dart';
+import 'package:petwarden/controller/dash_pages/chat_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/view/dash_pages/messages_screen.dart';
 import 'package:petwarden/widgets/chat_tile.dart';

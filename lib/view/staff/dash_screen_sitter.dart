@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:petwarden/controller/core_controller.dart';
-import 'package:petwarden/controller/dash_pages/dash_page_controller.dart';
+import 'package:petwarden/controller/staff/dash_screen_controller_sitter.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
-import 'package:petwarden/view/dash_pages/appointments_screen.dart';
-import 'package:petwarden/view/dash_pages/chat_screen.dart';
-import 'package:petwarden/view/error_screen.dart';
-import 'package:petwarden/view/dash_pages/home_screen.dart';
 import 'package:petwarden/view/dash_pages/profile_screen.dart';
+import 'package:petwarden/view/error_screen.dart';
+import 'package:petwarden/view/staff/appointments_screen_sitter.dart';
+import 'package:petwarden/view/staff/chat_screen_sitter.dart';
+import 'package:petwarden/view/staff/profile_screen_sitter.dart';
 
-class DashPage extends StatelessWidget {
-  static const String routeName = "/dashPage/";
-  DashPage({super.key});
-  final dpc = Get.find<DashPageController>();
+import '../../controller/core_controller.dart';
+
+class DashScreenSitter extends StatelessWidget {
+  static const String routeName = "/dashPageSitter/";
+  DashScreenSitter({super.key});
+  final dpc = Get.find<DashScreenControllerSitter>();
   final cc = Get.find<CoreController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: Obx(
-          () => BottomAppBar(
-            // shape: const CircularNotchedRectangle(),
-            // clipBehavior: Clip.antiAlias,
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: Obx(() => BottomAppBar(
             padding: EdgeInsets.zero,
             height: 60,
-            // notchMargin: 4,
-            // elevation: 0,
             child: BottomNavigationBar(
               elevation: 0,
               backgroundColor: PetWardenColors.lightGrey,
@@ -40,11 +36,6 @@ class DashPage extends StatelessWidget {
               currentIndex: dpc.currentIndex.value,
               onTap: dpc.onPageTapped,
               items: [
-                BottomNavigationBarItem(
-                  activeIcon: SvgPicture.asset(IconPath.homeIconA),
-                  icon: SvgPicture.asset(IconPath.homeIcon),
-                  label: "Home",
-                ),
                 BottomNavigationBarItem(
                   activeIcon: SvgPicture.asset(
                     IconPath.appointmentIconA,
@@ -66,22 +57,18 @@ class DashPage extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
-        extendBody: true,
-        // body: Obx(
-        //   () => dpc.pages[dpc.currentIndex.value],
-        // ),
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: dpc.pageController,
-          children: [
-            HomeScreen(),
-            AppointmentScreen(),
-            ChatScreen(),
-            ProfileScreen(),
-            const ErrorScreen()
-          ],
-        ));
+          )),
+      extendBody: true,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: dpc.pageController,
+        children: const [
+          AppointmentScreenSitter(),
+          ChatScreenSitter(),
+          ProfileScreenSitter(),
+          ErrorScreen()
+        ],
+      ),
+    );
   }
 }

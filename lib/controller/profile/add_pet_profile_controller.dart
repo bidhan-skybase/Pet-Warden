@@ -9,8 +9,8 @@ import 'package:petwarden/utils/constants/pet_types.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/utils/helper/storage-helper.dart';
 
-import '../widgets/progress_dialog.dart';
-import 'core_controller.dart';
+import '../../widgets/progress_dialog.dart';
+import '../core_controller.dart';
 
 class AddPetController extends GetxController {
   GlobalKey<FormState> signupKeyPet = GlobalKey<FormState>();
