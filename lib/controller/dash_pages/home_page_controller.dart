@@ -16,7 +16,7 @@ class HomePageController extends GetxController {
   void onInit() {
     getFirstName();
     getPetName();
-    // getFeaturedSitters();
+    getFeaturedSitters();
     getSitters();
 
     super.onInit();

@@ -14,7 +14,6 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     user.value = cc.currentUser.value;
-
     super.onInit();
   }
 
@@ -22,7 +21,7 @@ class ChatController extends GetxController {
     return firestore
         .collection("chat_rooms")
         .orderBy("timestamp", descending: true)
-        .where("users", arrayContains: user.value!.id!.toString())
+        .where("users", arrayContains: user.value!.id.toString())
         .snapshots();
   }
 

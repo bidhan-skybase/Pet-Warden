@@ -12,18 +12,4 @@ class ProfilePageController extends GetxController {
     user.value = cc.currentUser.value;
     super.onInit();
   }
-
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-// Create a new document in the collection
-  Future<void> addUser() {
-    return users
-        .add({
-          'name': 'John Doe',
-          'age': 30,
-          // Other data fields...
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
 }

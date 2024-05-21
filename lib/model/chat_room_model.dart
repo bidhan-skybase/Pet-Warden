@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatRoom {
+  final String chatRoomId;
   final String senderId;
   final String senderName;
   final String senderImage;
@@ -12,6 +13,7 @@ class ChatRoom {
   final List users;
 
   ChatRoom({
+    required this.chatRoomId,
     required this.senderId,
     required this.senderName,
     required this.senderImage,
@@ -24,6 +26,7 @@ class ChatRoom {
   });
   Map<String, dynamic> toMap() {
     return {
+      'chatRoomId': chatRoomId,
       'senderId': senderId,
       'senderName': senderName,
       'senderImage': senderImage,

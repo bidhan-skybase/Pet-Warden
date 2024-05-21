@@ -173,17 +173,17 @@ class PetSitterProfile extends StatelessWidget {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const PetSitterInfo(
+                            PetSitterInfo(
                               title: "Pets",
-                              info: "101",
+                              info: c.sitter.value?.appointmentCount.toString(),
                             ),
                             PetSitterInfo(
                               title: "Experience",
                               info: "${c.sitter.value?.experience ?? ""} year",
                             ),
-                            const PetSitterInfo(
+                            PetSitterInfo(
                               title: "Ratings",
-                              info: "100",
+                              info: c.sitter.value?.reviewCount.toString(),
                             ),
                           ],
                         ),

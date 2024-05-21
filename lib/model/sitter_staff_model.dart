@@ -1,47 +1,12 @@
 import 'package:petwarden/model/sitters_model.dart';
 
 class SitterStaff {
-  String? id;
-  String? name;
-  String? email;
-  String? emailVerifiedAt;
-  String? address;
-  String? phone;
-  String? profileImageUrl;
-  String? status;
-  String? role;
-  String? createdAt;
-  String? updatedAt;
   ExtraDetails? extraDetails;
   Staff? staff;
 
-  SitterStaff(
-      {this.id,
-      this.name,
-      this.email,
-      this.emailVerifiedAt,
-      this.address,
-      this.phone,
-      this.profileImageUrl,
-      this.status,
-      this.role,
-      this.createdAt,
-      this.updatedAt,
-      this.extraDetails,
-      this.staff});
+  SitterStaff({this.extraDetails, this.staff});
 
   SitterStaff.fromJson(Map<String, dynamic> json) {
-    id = json['id'].toString();
-    name = json['name'];
-    email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    address = json['address'];
-    phone = json['phone'];
-    profileImageUrl = json['profile_image_url'];
-    status = json['status'];
-    role = json['role'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
     extraDetails =
         json['extra_details'] != null ? ExtraDetails.fromJson(json['extra_details']) : null;
     staff = json['staff'] != null ? Staff.fromJson(json['staff']) : null;
@@ -49,18 +14,7 @@ class SitterStaff {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['email_verified_at'] = emailVerifiedAt;
-    data['address'] = address;
-    data['phone'] = phone;
-    data['profile_image_url'] = profileImageUrl;
 
-    data['status'] = status;
-    data['role'] = role;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
     if (extraDetails != null) {
       data['extra_details'] = extraDetails!.toJson();
     }
@@ -93,7 +47,7 @@ class ExtraDetails {
 
   ExtraDetails.fromJson(Map<String, dynamic> json) {
     staffId = json['staff_id'];
-    avgRating = json['avg_rating'];
+    avgRating = double.parse(json['avg_rating'].toString());
     chargePerHour = json['charge_per_hour'];
     experience = json['experience'];
     specialization = json['specialization'];
@@ -146,7 +100,7 @@ class Staff {
 
   Staff.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
-    avgRating = json['avg_rating'];
+    avgRating = double.parse(json['avg_rating'].toString());
     chargePerHour = json['charge_per_hour'];
     experience = json['experience'];
     specialization = json['specialization'];

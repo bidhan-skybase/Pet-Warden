@@ -9,6 +9,7 @@ import 'package:petwarden/utils/constants/storage_keys.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/utils/helper/storage-helper.dart';
 import 'package:petwarden/view/auth/log_in_screen.dart';
+import 'package:petwarden/view/splash_screen.dart';
 
 enum USERTYPE { OWNER, STAFF }
 
@@ -23,6 +24,7 @@ class CoreController extends GetxController {
   void onInit() async {
     if (getUserType() == USERTYPE.STAFF) {
       loadCurrentStaff(updateCurrentUser: true);
+      loadCurrentUser(updateCurrentUser: true);
     } else {
       loadCurrentUser(updateCurrentUser: true);
       loadCurrentPet(updateCurrentPet: true);
@@ -74,38 +76,28 @@ class CoreController extends GetxController {
     box.remove(StorageKeys.Pet);
     box.remove(StorageKeys.UserType);
     box.remove(StorageKeys.Sitter);
-    Get.offAllNamed(LogInScreen.routeName);
-    // loadCustomer();
+
+    // Clear all values stored in current variables
+    currentUser.value = null;
+    currentStaff.value = null;
+    pets.clear();
+    accessToken.value = null;
+
+    Get.offAllNamed(SplashScreen.routeName);
     PetSnackBar.success(title: "Success", message: "Logged out successfully.");
   }
 
   Future<void> loadCurrentUser({bool updateCurrentUser = false}) async {
     currentUser.value = StorageHelper.getOwner();
-    // if (Get.isRegistered<ProfileController>()) {
-    //   Get.find<ProfileController>().currentUser.value = currentUser.value;
-    // }
-    // if (updateCurrentUser) {
-    //   updateUser();
-    // }
+    print("this is the current user id ${currentUser.value?.id}");
   }
 
   Future<void> loadCurrentStaff({bool updateCurrentUser = false}) async {
     currentStaff.value = StorageHelper.getStaff();
-    // if (Get.isRegistered<ProfileController>()) {
-    //   Get.find<ProfileController>().currentUser.value = currentUser.value;
-    // }
-    // if (updateCurrentUser) {
-    //   updateUser();
-    // }
+    print("this is the current staff id ${currentStaff.value?.staff?.id}");
   }
 
   Future<void> loadCurrentPet({bool updateCurrentPet = false}) async {
     pets.value = StorageHelper.getPets()!;
-    // if (Get.isRegistered<ProfileController>()) {
-    //   Get.find<ProfileController>().currentUser.value = currentUser.value;
-    // }
-    // if (updateCurrentUser) {
-    //   updateUser();
-    // }
   }
 }

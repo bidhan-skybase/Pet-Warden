@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_context_menu/flutter_context_menu.dart';
 import 'package:get/get.dart';
+import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/main.dart';
 import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/repo/sitters_repo.dart';
@@ -14,6 +15,8 @@ class PetSitterProfileController extends GetxController {
   var reviewController = TextEditingController();
   List<ContextMenuEntry> entries = [];
   RxBool isLoading = false.obs;
+  var cc = Get.find<CoreController>();
+
   @override
   void onInit() {
     var args = Get.arguments;
@@ -24,17 +27,18 @@ class PetSitterProfileController extends GetxController {
     entries = <ContextMenuEntry>[
       const MenuHeader(text: "More"),
       MenuItem(
-        label: 'Chat',
-        icon: Icons.send,
-        onSelected: () {
-          Get.toNamed(MessagesScreen.routeName, arguments: {
-            "reciverdetail": {
-              "id": sitter.value!.userId!.toString(),
-              "name": sitter.value!.name!.toString()
-            }
-          });
-        },
-      ),
+          label: 'Chat',
+          icon: Icons.send,
+          onSelected: () {
+            Get.toNamed(MessagesScreen.routeName, arguments: {
+              "reciverdetail": {
+                "id": sitter.value?.userId,
+                "name": sitter.value?.name,
+                "chatRoomId": "${cc.currentUser.value?.id}_${sitter.value?.userId}",
+                "image": sitter.value?.profileImageUrl ?? ""
+              }
+            });
+          }),
       const MenuDivider(),
       MenuItem(
         label: 'Report',

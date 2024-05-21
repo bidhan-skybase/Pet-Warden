@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/profile_page_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
-import 'package:petwarden/utils/constants/image_paths.dart';
 import 'package:petwarden/view/profile/change_password.dart';
 import 'package:petwarden/view/profile/pet-owner_detail.dart';
-import 'package:petwarden/view/profile/pet_details.dart';
 import 'package:petwarden/view/profile/pets_page.dart';
 import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/dash_pages/message_controller.dart';
@@ -106,9 +105,14 @@ class MessagesScreen extends StatelessWidget {
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    final currentUser = c.user.value!.id.toString();
-    final isCurrentUserSender = data['senderId'] == currentUser;
+    // Check if the user value is correctly assigned
+    final currentUser = c.user.value?.id?.toString() ?? '';
+
+    // Print the senderId, receiverId, and currentUser for debugging
+
+    final isCurrentUserSender = data['senderId'].toString() == currentUser;
     final alignment = isCurrentUserSender ? Alignment.centerRight : Alignment.centerLeft;
+
     return Container(
       alignment: alignment,
       margin: const EdgeInsets.only(bottom: 20),
@@ -129,11 +133,15 @@ class MessagesScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: PetWardenColors.primaryColor.withOpacity(0.8),
+              color: isCurrentUserSender
+                  ? PetWardenColors.lightGrey
+                  : PetWardenColors.primaryColor.withOpacity(0.8),
             ),
             child: Text(
               data["message"],
-              style: CustomTextStyles.f15W400(color: Colors.white),
+              style: isCurrentUserSender
+                  ? CustomTextStyles.f15W400(color: PetWardenColors.textGrey)
+                  : CustomTextStyles.f15W400(color: Colors.white),
             ),
           ),
         ],

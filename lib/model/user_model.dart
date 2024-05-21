@@ -1,5 +1,5 @@
 class User {
-  int? id;
+  String? id;
   String? name;
   String? email;
   String? emailVerifiedAt;
@@ -31,7 +31,7 @@ class User {
       this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     name = json['name'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:petwarden/controller/core_controller.dart';
 import 'package:petwarden/model/chat_room_model.dart';
 import 'package:petwarden/model/message_model.dart';
-import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/model/user_model.dart';
 
 class MessageController extends GetxController {
@@ -15,6 +13,8 @@ class MessageController extends GetxController {
   Rxn<User> user = Rxn();
   String reciverId = "";
   String reciverName = "";
+  String chatRoomId = "";
+  String reciverImage = "";
 
   @override
   void onInit() {
@@ -23,6 +23,8 @@ class MessageController extends GetxController {
     if (args != null) {
       reciverId = args["id"];
       reciverName = args["name"];
+      chatRoomId = args["chatRoomId"];
+      reciverImage = args["image"];
     } else {
       Get.back();
     }
@@ -39,9 +41,9 @@ class MessageController extends GetxController {
         message: messageController.text,
         timestamp: timestamp);
 
-    List<String> ids = [user.value!.id!.toString(), reciverId];
-    ids.sort();
-    String chatRoomId = ids.join("_");
+    // List<String> ids = [user.value!.id!.toString(), reciverId];
+    // ids.sort();
+    // String chatRoomId = ids.join("_");
     await firestore
         .collection('chat_rooms')
         .doc(chatRoomId)
@@ -50,9 +52,6 @@ class MessageController extends GetxController {
   }
 
   Stream<QuerySnapshot> getMessage() {
-    List<String> ids = [user.value!.id!.toString(), reciverId];
-    ids.sort();
-    String chatRoomId = ids.join("_");
     return firestore
         .collection("chat_rooms")
         .doc(chatRoomId)
@@ -63,17 +62,15 @@ class MessageController extends GetxController {
 
   Future<void> chatRoomInfo() async {
     try {
-      var chatRoomId = "${user.value!.id!.toString()}_$reciverId";
-      const receiverImage =
-          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
       final Timestamp timestamp = Timestamp.now();
       ChatRoom newRoom = ChatRoom(
+          chatRoomId: chatRoomId,
           senderId: user.value!.id!.toString(),
           senderName: user.value!.name.toString(),
           senderImage: user.value!.profileImageUrl ?? "",
           receiverId: reciverId,
           receiverName: reciverName,
-          receiverImage: receiverImage,
+          receiverImage: reciverImage,
           timestamp: timestamp,
           lastMessage: messageController.text,
           users: [user.value!.id!.toString(), reciverId]);

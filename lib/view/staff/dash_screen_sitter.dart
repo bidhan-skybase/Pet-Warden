@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/staff/dash_screen_controller_sitter.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/icon_paths.dart';
+import 'package:petwarden/view/dash_pages/chat_screen.dart';
 import 'package:petwarden/view/dash_pages/profile_screen.dart';
 import 'package:petwarden/view/error_screen.dart';
 import 'package:petwarden/view/staff/appointments_screen_sitter.dart';
-import 'package:petwarden/view/staff/chat_screen_sitter.dart';
 import 'package:petwarden/view/staff/profile_screen_sitter.dart';
 
 import '../../controller/core_controller.dart';
@@ -63,9 +63,9 @@ class DashScreenSitter extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         controller: dpc.pageController,
         children: [
-          const AppointmentScreenSitter(),
-          ChatScreenSitter(),
-          const ProfileScreenSitter(),
+          AppointmentScreenSitter(),
+          ChatScreen(),
+          ProfileScreenSitter(),
           const ErrorScreen()
         ],
       ),

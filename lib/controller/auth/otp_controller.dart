@@ -34,7 +34,7 @@ class OTPController extends GetxController {
 
   Future<void> verifyOTP() async {
     await AuthRepo.verifyOTP(
-        userId: coreController.currentUser.value!.id!,
+        userId: int.parse(coreController.currentUser.value!.id!),
         otp: otpController.text,
         onSuccess: (status, message) {
           if (status == true) {

@@ -32,6 +32,7 @@ class AuthRepo {
         StorageHelper.saveToken(accessToken);
         StorageHelper.saveOwner(user);
         StorageHelper.savePet(pet);
+        StorageHelper.saveUserType("OWNER");
 
         onSuccess(user);
       } else {
@@ -202,12 +203,14 @@ class AuthRepo {
       dynamic data = json.decode(response.body);
 
       if (data['status']) {
-        var user = SitterStaff.fromJson(data['data']);
+        var user = User.fromJson(data['data']);
+        var sitterStaff = SitterStaff.fromJson(data['data']);
         var accessToken = AccessToken.fromJson(data['data']['token']);
         StorageHelper.saveToken(accessToken);
-        StorageHelper.saveStaff(user);
+        StorageHelper.saveStaff(sitterStaff);
+        StorageHelper.saveOwner(user);
         StorageHelper.saveUserType("SITTER");
-        onSuccess(user);
+        onSuccess(sitterStaff);
       } else {
         onError(data['message']);
       }

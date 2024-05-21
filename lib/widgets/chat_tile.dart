@@ -12,11 +12,13 @@ class ChatTile extends StatelessWidget {
   final String name;
   final String message;
   final String time;
+  final bool isSender;
   const ChatTile({
     required this.imageUrl,
     required this.name,
     required this.message,
     required this.time,
+    required this.isSender,
     super.key,
   });
 
@@ -41,20 +43,37 @@ class ChatTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: CustomTextStyles.f20W600(color: PetWardenColors.textGrey),
+              SizedBox(
+                width: Get.width - 200,
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  name,
+                  style: CustomTextStyles.f20W600(color: PetWardenColors.textGrey),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: SizedBox(
-                  width: Get.width - 200,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    message,
-                    style: CustomTextStyles.f14W300(color: PetWardenColors.primaryColor),
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Visibility(
+                        visible: isSender,
+                        child: Text("You: ",
+                            style: CustomTextStyles.f12W500(color: PetWardenColors.textGrey))),
+                    SizedBox(
+                      width: Get.width - 215,
+                      child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          message,
+                          style: isSender
+                              ? CustomTextStyles.f14W500(color: PetWardenColors.primaryColor)
+                              : CustomTextStyles.f15W700(
+                                  color: PetWardenColors.primaryColor,
+                                )),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -7,6 +7,7 @@ class Sitters {
   String? chargePerHour;
   String? experience;
   String? specialization;
+  // List<String>? specialization;
   String? bio;
   String? service;
   String? userId;
@@ -18,26 +19,27 @@ class Sitters {
   String? status;
   int? reviewCount;
   int? appointmentCount;
-  List<Reviews>? reviews;
+  List<Reviews>? reviews; // Changed to dynamic to handle any JSON structure
 
-  Sitters(
-      {this.id,
-      this.avgRating,
-      this.chargePerHour,
-      this.experience,
-      this.specialization,
-      this.bio,
-      this.service,
-      this.userId,
-      this.profileImageUrl,
-      this.name,
-      this.email,
-      this.address,
-      this.phone,
-      this.status,
-      this.reviewCount,
-      this.appointmentCount,
-      this.reviews});
+  Sitters({
+    this.id,
+    this.avgRating,
+    this.chargePerHour,
+    this.experience,
+    this.specialization,
+    this.bio,
+    this.service,
+    this.userId,
+    this.profileImageUrl,
+    this.name,
+    this.email,
+    this.address,
+    this.phone,
+    this.status,
+    this.reviewCount,
+    this.appointmentCount,
+    this.reviews,
+  });
 
   Sitters.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,6 +47,8 @@ class Sitters {
     chargePerHour = json['charge_per_hour'];
     experience = json['experience'];
     specialization = json['specialization'];
+    // specialization =
+    //     json['specialization'] != null ? List<String>.from(json['specialization']) : null;
     bio = json['bio'];
     service = json['service'];
     userId = json['user_id'].toString();
@@ -56,12 +60,7 @@ class Sitters {
     status = json['status'];
     reviewCount = json['review_count'];
     appointmentCount = json['appointment_count'];
-    if (json['reviews'] != null) {
-      reviews = <Reviews>[];
-      json['reviews'].forEach((v) {
-        reviews!.add(Reviews.fromJson(v));
-      });
-    }
+    reviews = json['reviews'] != null ? List<Reviews>.from(json['reviews']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -83,7 +82,7 @@ class Sitters {
     data['review_count'] = reviewCount;
     data['appointment_count'] = appointmentCount;
     if (reviews != null) {
-      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
+      data['reviews'] = reviews!.map((v) => v).toList(); // Handle as dynamic
     }
     return data;
   }
