@@ -14,10 +14,10 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() {
-    getFirstName();
-    getPetName();
     getFeaturedSitters();
     getSitters();
+    getFirstName();
+    getPetName();
 
     super.onInit();
   }

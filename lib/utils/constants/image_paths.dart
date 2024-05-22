@@ -5,6 +5,7 @@ class ImagePath {
   static const placeHolder = "$baseIconPath/placeholder.png";
   static const profilePic = "$baseIconPath/profile.jpg";
   static const esewa = "$baseIconPath/esewa.png";
+  static const paystack = "$baseIconPath/paystack.jpeg";
 
   //onboarding
   static const onboarding1 = "$baseIconPath/onboarding1.png";

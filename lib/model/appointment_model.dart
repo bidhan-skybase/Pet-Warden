@@ -7,6 +7,7 @@ class Appointment {
   String? cost;
   String? staffId;
   String? petId;
+  String? userEmail;
 
   Appointment(
       {this.startDate,
@@ -16,6 +17,7 @@ class Appointment {
       this.note,
       this.cost,
       this.staffId,
+      this.userEmail,
       this.petId});
 
   Appointment.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Appointment {
     note = json['note'];
     cost = json['cost'];
     staffId = json['staff_id'];
+    userEmail = json["email"];
     petId = json['pet_id'];
   }
 
@@ -39,6 +42,7 @@ class Appointment {
     data['cost'] = cost;
     data['staff_id'] = staffId;
     data['pet_id'] = petId;
+    data["email"] = userEmail;
     return data;
   }
 }

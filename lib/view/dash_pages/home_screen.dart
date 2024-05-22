@@ -65,10 +65,7 @@ class HomeScreen extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 25),
                           child: Obx(
                             () => CarouselSlider.builder(
-                              // itemCount: c.featuredSitterLists.length,
-                              // itemCount: c.featuredSitters.length,
-                              itemCount:
-                                  c.featuredSitters.length > 3 ? 3 : c.featuredSitters.length,
+                              itemCount: c.featuredSitters.length,
                               itemBuilder: (context, index, realIndex) {
                                 var featuredSitters = c.featuredSitters[index];
                                 return Container(

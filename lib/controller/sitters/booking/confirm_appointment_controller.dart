@@ -48,8 +48,9 @@ class ConfirmAppointmentController extends GetxController {
         emergencyContact: contactController.text,
         note: noteController.text,
         cost: total.string,
-        staffId: sitter.value!.userId.toString(),
-        petId: "2");
+        staffId: sitter.value!.id.toString(),
+        petId: cc.pets.first.id,
+        userEmail: cc.currentUser.value?.email ?? "");
     // petId: cc.currentPet.value!.id.toString());
     Get.toNamed(PaymentsPage.routeName, arguments: {"appointment": appointment});
   }

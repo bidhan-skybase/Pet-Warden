@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:petwarden/controller/sitters/booking/payment_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
 import 'package:petwarden/utils/constants/image_paths.dart';
+import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/view/booking/appointement_success.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
@@ -46,31 +47,56 @@ class PaymentsPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
-                      decoration: BoxDecoration(
-                          color: PetWardenColors.backgroundColor,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(ImagePath.esewa),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "BIDH** ******NE",
-                                style: CustomTextStyles.f16W600(color: PetWardenColors.textGrey),
-                              ),
-                              Text("981*******",
-                                  style: CustomTextStyles.f12W600(
-                                    color: PetWardenColors.textGrey,
-                                  ))
-                            ],
-                          )
-                        ],
-                      ),
+                    InkWell(
+                      onTap: () {
+                        // c.payWithPayStack();
+                        c.isSelected.toggle();
+                      },
+                      child: Obx(() => Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
+                            decoration: BoxDecoration(
+                                boxShadow: c.isSelected.value
+                                    ? [
+                                        const BoxShadow(
+                                          color: Colors.black26,
+                                          offset: Offset(0, 4),
+                                          blurRadius: 2,
+                                        ),
+                                      ]
+                                    : [],
+                                border: Border.all(
+                                    color: c.isSelected.value
+                                        ? PetWardenColors.primaryColor
+                                        : PetWardenColors.borderColor),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  ImagePath.paystack,
+                                  height: 70,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "PET WARDEN",
+                                      style:
+                                          CustomTextStyles.f16W600(color: PetWardenColors.textGrey),
+                                    ),
+                                    Text(
+                                        softWrap: true,
+                                        "SUPPORTS - Card or \nBank Transfers",
+                                        style: CustomTextStyles.f12W600(
+                                          color: PetWardenColors.textGrey,
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
                     )
                   ],
                 ),
@@ -105,7 +131,14 @@ class PaymentsPage extends StatelessWidget {
                             width: 200,
                             child: CustomElevatedButton(
                                 onPressed: () {
-                                  c.createAppointment();
+                                  if (!c.isSelected.value) {
+                                   PetSnackBar.info(
+  message: "Please choose your preferred payment method to proceed. 💳",
+);
+                                  } else {
+                                    c.payWithPayStack();
+                                  }
+
                                   // Get.toNamed(AppointmentSuccess.routeName);
                                 },
                                 title: "Continue"))
