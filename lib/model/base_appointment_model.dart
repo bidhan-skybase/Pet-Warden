@@ -1,4 +1,4 @@
-class Appointment {
+class BaseAppointment {
   String? startDate;
   String? endDate;
   String? address;
@@ -9,7 +9,7 @@ class Appointment {
   String? petId;
   String? userEmail;
 
-  Appointment(
+  BaseAppointment(
       {this.startDate,
       this.endDate,
       this.address,
@@ -20,7 +20,7 @@ class Appointment {
       this.userEmail,
       this.petId});
 
-  Appointment.fromJson(Map<String, dynamic> json) {
+  BaseAppointment.fromJson(Map<String, dynamic> json) {
     startDate = json['start_date'];
     endDate = json['end_date'];
     address = json['address'];

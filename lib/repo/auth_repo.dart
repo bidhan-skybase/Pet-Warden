@@ -207,8 +207,9 @@ class AuthRepo {
         var sitterStaff = SitterStaff.fromJson(data['data']);
         var accessToken = AccessToken.fromJson(data['data']['token']);
         StorageHelper.saveToken(accessToken);
-        StorageHelper.saveStaff(sitterStaff);
         StorageHelper.saveOwner(user);
+        StorageHelper.saveStaff(sitterStaff);
+
         StorageHelper.saveUserType("SITTER");
         onSuccess(sitterStaff);
       } else {

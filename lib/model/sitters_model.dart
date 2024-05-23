@@ -19,7 +19,7 @@ class Sitters {
   String? status;
   int? reviewCount;
   int? appointmentCount;
-  List<Reviews>? reviews; // Changed to dynamic to handle any JSON structure
+  List<Reviews>? reviews;
 
   Sitters({
     this.id,
@@ -60,31 +60,36 @@ class Sitters {
     status = json['status'];
     reviewCount = json['review_count'];
     appointmentCount = json['appointment_count'];
-    reviews = json['reviews'] != null ? List<Reviews>.from(json['reviews']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['avg_rating'] = avgRating;
-    data['charge_per_hour'] = chargePerHour;
-    data['experience'] = experience;
-    data['specialization'] = specialization;
-    data['bio'] = bio;
-    data['service'] = service;
-    data['user_id'] = userId;
-    data['profile_image_url'] = profileImageUrl;
-    data['name'] = name;
-    data['email'] = email;
-    data['address'] = address;
-    data['phone'] = phone;
-    data['status'] = status;
-    data['review_count'] = reviewCount;
-    data['appointment_count'] = appointmentCount;
-    if (reviews != null) {
-      data['reviews'] = reviews!.map((v) => v).toList(); // Handle as dynamic
+    if (json['reviews'] != null) {
+      reviews = <Reviews>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(Reviews.fromJson(v));
+      });
     }
-    return data;
+
+    Map<String, dynamic> toJson() {
+      final Map<String, dynamic> data = <String, dynamic>{};
+      data['id'] = id;
+      data['avg_rating'] = avgRating;
+      data['charge_per_hour'] = chargePerHour;
+      data['experience'] = experience;
+      data['specialization'] = specialization;
+      data['bio'] = bio;
+      data['service'] = service;
+      data['user_id'] = userId;
+      data['profile_image_url'] = profileImageUrl;
+      data['name'] = name;
+      data['email'] = email;
+      data['address'] = address;
+      data['phone'] = phone;
+      data['status'] = status;
+      data['review_count'] = reviewCount;
+      data['appointment_count'] = appointmentCount;
+      if (reviews != null) {
+        data['reviews'] = reviews!.map((v) => v.toJson()).toList();
+      }
+      return data;
+    }
   }
 }
 
@@ -97,7 +102,7 @@ class Reviews {
   Reviews({this.id, this.comment, this.rating, this.user});
 
   Reviews.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString() ;
     comment = json['comment'];
     rating = json['rating'];
     user = json['user'] != null ? ReviewUser.fromJson(json['user']) : null;

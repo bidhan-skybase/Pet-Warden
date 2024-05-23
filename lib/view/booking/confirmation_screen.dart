@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:petwarden/controller/sitters/booking/confirm_appointment_controller.dart';
 import 'package:petwarden/utils/constants/colors.dart';
@@ -8,6 +9,7 @@ import 'package:petwarden/utils/helper/pet_snackbar.dart';
 import 'package:petwarden/utils/validators.dart';
 import 'package:petwarden/view/booking/payments_screen.dart';
 import 'package:petwarden/widgets/custom/custom_elevated_button.dart';
+import 'package:petwarden/widgets/custom/custom_network_image.dart';
 import 'package:petwarden/widgets/custom/custom_text_field.dart';
 import 'package:petwarden/widgets/custom/custom_text_styles.dart';
 
@@ -49,7 +51,7 @@ class ConfirmationPage extends StatelessWidget {
                       style: CustomTextStyles.f16W600(),
                     ),
                     const SizedBox(
-                      height: 17,
+                      height: 15,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -112,7 +114,7 @@ class ConfirmationPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 18,
+                      height: 15,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -180,7 +182,7 @@ class ConfirmationPage extends StatelessWidget {
                       style: CustomTextStyles.f16W600(),
                     ),
                     const SizedBox(
-                      height: 17,
+                      height: 15,
                     ),
                     Form(
                         key: c.formKey,
@@ -199,7 +201,7 @@ class ConfirmationPage extends StatelessWidget {
                             style: CustomTextStyles.f16W600(),
                           ),
                           const SizedBox(
-                            height: 17,
+                            height: 15,
                           ),
                           CustomTextField(
                               validator: Validators.checkPhoneField,
@@ -215,13 +217,62 @@ class ConfirmationPage extends StatelessWidget {
                             style: CustomTextStyles.f16W600(),
                           ),
                           const SizedBox(
-                            height: 17,
+                            height: 15,
                           ),
                           CustomTextField(
                               hint: "Note",
                               controller: c.noteController,
                               textInputAction: TextInputAction.done,
-                              textInputType: TextInputType.text)
+                              textInputType: TextInputType.text),
+                          const SizedBox(
+                            height: 34,
+                          ),
+                          Text(
+                            "Pet/s ",
+                            style: CustomTextStyles.f16W600(),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 85,
+                            width: Get.width,
+                            child: ListView.builder(
+                                itemCount: c.pets.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  var pet = c.pets[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      c.petId.value = pet.id ?? "";
+                                    },
+                                    child: Obx(() => Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8),
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: pet.id == c.petId.value
+                                                      ? PetWardenColors.primaryColor
+                                                      : PetWardenColors.borderColor)),
+                                          padding: const EdgeInsets.all(5),
+                                          child: Column(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(100),
+                                                child: SizedBox.fromSize(
+                                                  size: const Size.fromRadius(26),
+                                                  child: CustomNetworkImage(
+                                                      imageUrl: pet.imageUrl ?? ""),
+                                                ),
+                                              ),
+                                              Text(pet.name ?? "")
+                                            ],
+                                          ),
+                                        )),
+                                  );
+                                }),
+                          )
                         ]))
                   ],
                 ),
@@ -230,7 +281,7 @@ class ConfirmationPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: 100,
+                    height: 80,
                     width: Get.width,
                     padding: const EdgeInsets.symmetric(horizontal: 26),
                     color: PetWardenColors.lightGrey,

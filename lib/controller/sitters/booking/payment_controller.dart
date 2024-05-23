@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:petwarden/model/appointment_model.dart';
+import 'package:petwarden/model/base_appointment_model.dart';
 import 'package:petwarden/repo/booking_repo.dart';
 import 'package:petwarden/repo/payment_repo.dart';
 import 'package:petwarden/utils/helper/pet_snackbar.dart';
@@ -8,7 +8,7 @@ import 'package:petwarden/view/web_view.dart';
 import 'package:petwarden/widgets/progress_dialog.dart';
 
 class PaymentController extends GetxController {
-  Appointment appointment = Appointment();
+  BaseAppointment appointment = BaseAppointment();
   ProgressDialog loading = ProgressDialog();
   String authorization = "";
   String reference = "";

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
 import 'package:petwarden/controller/core_controller.dart';
-import 'package:petwarden/model/appointment_model.dart';
+import 'package:petwarden/model/base_appointment_model.dart';
+import 'package:petwarden/model/pet_model.dart';
 import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/view/booking/payments_screen.dart';
 
@@ -19,6 +20,8 @@ class ConfirmAppointmentController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Rxn<Sitters> sitter = Rxn();
   var cc = Get.find<CoreController>();
+  RxList<Pet> pets = <Pet>[].obs;
+  RxString petId = "".obs;
 
   @override
   void onInit() {
@@ -26,6 +29,7 @@ class ConfirmAppointmentController extends GetxController {
     if (args != null) {
       sitter.value = args;
     }
+    pets = cc.pets;
     super.onInit();
   }
 
@@ -41,7 +45,7 @@ class ConfirmAppointmentController extends GetxController {
   }
 
   void onSubmit() {
-    Appointment appointment = Appointment(
+    BaseAppointment appointment = BaseAppointment(
         startDate: startingTime.value,
         endDate: endingTime.value,
         address: addressController.text,
@@ -49,7 +53,7 @@ class ConfirmAppointmentController extends GetxController {
         note: noteController.text,
         cost: total.string,
         staffId: sitter.value!.id.toString(),
-        petId: cc.pets.first.id,
+        petId: petId.value,
         userEmail: cc.currentUser.value?.email ?? "");
     // petId: cc.currentPet.value!.id.toString());
     Get.toNamed(PaymentsPage.routeName, arguments: {"appointment": appointment});

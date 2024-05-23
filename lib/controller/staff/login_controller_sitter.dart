@@ -28,6 +28,7 @@ class LoginSitterController extends GetxController {
           email: emailController.text,
           password: passwordController.text,
           onSuccess: (user) {
+            coreController.loadCurrentUser();
             coreController.loadCurrentStaff();
             loading.hide();
             PetSnackBar.success(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:petwarden/model/appointment.dart';
 import 'package:petwarden/model/sitters_model.dart';
 import 'package:petwarden/utils/constants/api.dart';
 import 'package:petwarden/utils/helper/log_helper.dart';
@@ -88,6 +89,27 @@ class SittersRepo {
     } catch (e, s) {
       LogHelper.error(Api.getFeaturedSitters, error: e, stackTrace: s);
       onError("Error when fetching featured sitters");
+    }
+  }
+
+  static Future<void> getAppointments({
+    required String monthId,
+    required Function(List<Appointment> appointments) onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      String url = Api.getAppointments.replaceAll("#id#", monthId);
+      http.Response response = await PetRequest.get(url);
+      dynamic data = json.decode(response.body);
+      if (data['status']) {
+        var appointments = appointmentsFromJson(data["data"]);
+        onSuccess(appointments);
+      } else {
+        onError(data["message"]);
+      }
+    } catch (e, s) {
+      LogHelper.error(Api.getFeaturedSitters, error: e, stackTrace: s);
+      onError("Error when fetching appointments");
     }
   }
 }

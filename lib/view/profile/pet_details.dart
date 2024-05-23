@@ -66,238 +66,234 @@ class PetDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23),
-          child: Column(
-            children: [
-              Form(
-                key: c.petKey,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 43,
-                    ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(16),
+          child: Form(
+            key: c.petKey,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 43,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                          ),
+                          context: context,
+                          builder: (context) {
+                            return SizedBox(
+                              height: 120,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: const Icon(
+                                      Icons.camera,
+                                      color: PetWardenColors.primaryColor,
+                                    ),
+                                    title: const Text("Camera"),
+                                    onTap: () {
+                                      ImageHelper.pickImage(
+                                          imageSource: ImageSource.camera,
+                                          onPickImage: (pickedImage) {
+                                            c.pickImage(
+                                              pickedImage,
+                                            );
+                                          });
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: const Icon(
+                                      Icons.photo,
+                                      color: PetWardenColors.primaryColor,
+                                    ),
+                                    title: const Text("Gallery"),
+                                    onTap: () {
+                                      ImageHelper.pickImage(
+                                          imageSource: ImageSource.gallery,
+                                          onPickImage: (pickedImage) {
+                                            c.pickImage(pickedImage);
+                                          });
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    child: Stack(alignment: Alignment.bottomRight, children: [
+                      Obx(() => c.profilePicPath.value == ""
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: CustomNetworkImage(
+                                imageUrl: c.pet.value?.imageUrl ?? "",
+                                height: 150,
+                                width: 150,
+                              ),
+                            )
+                          : Visibility(
+                              // visible: c.imageFileString.value.isNotEmpty,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.memory(
+                                  base64Decode(c.profilePicPath.value),
+                                  filterQuality: FilterQuality.high,
+                                  height: 150,
+                                  width: 150,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              context: context,
-                              builder: (context) {
-                                return SizedBox(
-                                  height: 120,
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        leading: const Icon(
-                                          Icons.camera,
-                                          color: PetWardenColors.primaryColor,
-                                        ),
-                                        title: const Text("Camera"),
-                                        onTap: () {
-                                          ImageHelper.pickImage(
-                                              imageSource: ImageSource.camera,
-                                              onPickImage: (pickedImage) {
-                                                c.pickImage(
-                                                  pickedImage,
-                                                );
-                                              });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: const Icon(
-                                          Icons.photo,
-                                          color: PetWardenColors.primaryColor,
-                                        ),
-                                        title: const Text("Gallery"),
-                                        onTap: () {
-                                          ImageHelper.pickImage(
-                                              imageSource: ImageSource.gallery,
-                                              onPickImage: (pickedImage) {
-                                                c.pickImage(pickedImage);
-                                              });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              });
-                        },
-                        child: Stack(alignment: Alignment.bottomRight, children: [
-                          Obx(() => c.profilePicPath.value == ""
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: CustomNetworkImage(
-                                    imageUrl: c.pet.value?.imageUrl ?? "",
-                                    height: 150,
-                                    width: 150,
-                                  ),
-                                )
-                              : Visibility(
-                                  // visible: c.imageFileString.value.isNotEmpty,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.memory(
-                                      base64Decode(c.profilePicPath.value),
-                                      filterQuality: FilterQuality.high,
-                                      height: 150,
-                                      width: 150,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                )),
-                          // Obx(() => c.profilePicPath.value == ""
-                          //     ? ClipRRect(
-                          //         borderRadius: BorderRadius.circular(100),
-                          //         child: SizedBox.fromSize(
-                          //           size: const Size.fromRadius(65),
-                          //           child: const CustomNetworkImage(imageUrl: ),
-                          //           // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
-                          //         ),
-                          //       )
-                          //     : Visibility(
-                          //         // visible: c.imageFileString.value.isNotEmpty,
-                          //         child: ClipRRect(
-                          //             borderRadius: BorderRadius.circular(100),
-                          //             child: SizedBox.fromSize(
-                          //                 size: const Size.fromRadius(65),
-                          //                 child: CustomNetworkImage(imageUrl: c.profilePicPath.value))),
-                          //       )),
-                          const Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Icon(
-                                  Icons.circle,
-                                  color: Colors.white,
-                                  size: 28,
-                                ),
-                                Icon(
-                                  Icons.circle,
-                                  color: PetWardenColors.primaryColor,
-                                  size: 26,
-                                ),
-                                Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.white,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          )
-                        ]),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 43,
-                    ),
-                    CustomTextField(
-                        hint: "Pet name",
-                        controller: c.petNameController,
-                        textInputAction: TextInputAction.next,
-                        validator: Validators.checkFieldEmpty,
-                        textInputType: TextInputType.text),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(
-                          () => SizedBox(
-                            width: Get.width / 3,
-                            child: CustomDropdownFormField(
-                              items: c.petTypes,
-                              value: c.selectedPetType.value,
-                              onChanged: (value) {
-                                c.selectedPetType.value = value.toString();
-                                c.updateBreeds();
-                              },
-                            ),
-                          ),
-                        ),
-                        Obx(
-                          () => SizedBox(
-                            width: Get.width / 2,
-                            child: CustomDropdownFormField(
-                              items: c.breeds,
-                              value: c.selectedBreed.value,
-                              onChanged: (value) {
-                                c.selectedBreed.value = value.toString();
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: Get.width / 3,
-                          child: CustomTextField(
-                              hint: "Age",
-                              controller: c.petAgeController,
-                              textInputAction: TextInputAction.next,
-                              validator: Validators.checkFieldEmpty,
-                              textInputType: TextInputType.number),
-                        ),
-                        Row(
+                            )),
+                      // Obx(() => c.profilePicPath.value == ""
+                      //     ? ClipRRect(
+                      //         borderRadius: BorderRadius.circular(100),
+                      //         child: SizedBox.fromSize(
+                      //           size: const Size.fromRadius(65),
+                      //           child: const CustomNetworkImage(imageUrl: ),
+                      //           // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
+                      //         ),
+                      //       )
+                      //     : Visibility(
+                      //         // visible: c.imageFileString.value.isNotEmpty,
+                      //         child: ClipRRect(
+                      //             borderRadius: BorderRadius.circular(100),
+                      //             child: SizedBox.fromSize(
+                      //                 size: const Size.fromRadius(65),
+                      //                 child: CustomNetworkImage(imageUrl: c.profilePicPath.value))),
+                      //       )),
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Stack(
+                          alignment: Alignment.center,
                           children: [
-                            Obx(() => SkyRadioButton(
-                                value: "Male",
-                                groupVlaue: c.selectedGender.value,
-                                onTap: c.changeGender,
-                                title: "Male")),
-                            Obx(() => SkyRadioButton(
-                                value: "Female",
-                                groupVlaue: c.selectedGender.value,
-                                onTap: c.changeGender,
-                                title: "Female")),
+                            Icon(
+                              Icons.circle,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                            Icon(
+                              Icons.circle,
+                              color: PetWardenColors.primaryColor,
+                              size: 26,
+                            ),
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.white,
+                              size: 15,
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                        ),
+                      )
+                    ]),
+                  ),
+                ),
+                const SizedBox(
+                  height: 43,
+                ),
+                CustomTextField(
+                    hint: "Pet name",
+                    controller: c.petNameController,
+                    textInputAction: TextInputAction.next,
+                    validator: Validators.checkFieldEmpty,
+                    textInputType: TextInputType.text),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     Obx(
                       () => SizedBox(
-                        width: Get.width,
+                        width: Get.width / 3,
                         child: CustomDropdownFormField(
-                          items: c.vaccinationStatus,
-                          value: c.selectedVaccinationStatus.value,
-                          hint: "Vaccination Status",
+                          items: c.petTypes,
+                          value: c.selectedPetType.value,
                           onChanged: (value) {
-                            c.selectedVaccinationStatus.value = value.toString();
+                            c.selectedPetType.value = value.toString();
+                            c.updateBreeds();
                           },
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    CustomTextField(
-                        maxLines: 5,
-                        hint: "Habits and preferences",
-                        controller: c.habitsController,
-                        textInputAction: TextInputAction.done,
-                        textInputType: TextInputType.text),
-                    const SizedBox(
-                      height: 40,
+                    Obx(
+                      () => SizedBox(
+                        width: Get.width / 2,
+                        child: CustomDropdownFormField(
+                          items: c.breeds,
+                          value: c.selectedBreed.value,
+                          onChanged: (value) {
+                            c.selectedBreed.value = value.toString();
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: Get.width / 3,
+                      child: CustomTextField(
+                          hint: "Age",
+                          controller: c.petAgeController,
+                          textInputAction: TextInputAction.next,
+                          validator: Validators.checkFieldEmpty,
+                          textInputType: TextInputType.number),
+                    ),
+                    Row(
+                      children: [
+                        Obx(() => SkyRadioButton(
+                            value: "Male",
+                            groupVlaue: c.selectedGender.value,
+                            onTap: c.changeGender,
+                            title: "Male")),
+                        Obx(() => SkyRadioButton(
+                            value: "Female",
+                            groupVlaue: c.selectedGender.value,
+                            onTap: c.changeGender,
+                            title: "Female")),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Obx(
+                  () => SizedBox(
+                    width: Get.width,
+                    child: CustomDropdownFormField(
+                      items: c.vaccinationStatus,
+                      value: c.selectedVaccinationStatus.value,
+                      hint: "Vaccination Status",
+                      onChanged: (value) {
+                        c.selectedVaccinationStatus.value = value.toString();
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                CustomTextField(
+                    maxLines: 5,
+                    hint: "Habits and preferences",
+                    controller: c.habitsController,
+                    textInputAction: TextInputAction.done,
+                    textInputType: TextInputType.text),
+                const SizedBox(
+                  height: 40,
+                ),
+              ],
+            ),
           ),
         ),
       ),

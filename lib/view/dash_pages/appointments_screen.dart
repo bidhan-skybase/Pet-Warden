@@ -96,7 +96,7 @@ class AppointmentScreen extends StatelessWidget {
               height: 20,
             ),
           ),
-          SliverList.builder(
+          Obx(() => SliverList.builder(
               itemCount: 7,
               itemBuilder: (context, index) {
                 return Padding(
@@ -356,7 +356,7 @@ class AppointmentScreen extends StatelessWidget {
                         ]),
                   ),
                 );
-              }),
+              })),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 40,

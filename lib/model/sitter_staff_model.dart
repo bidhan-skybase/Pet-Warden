@@ -102,7 +102,7 @@ class Staff {
     id = json['id'].toString();
     avgRating = double.parse(json['avg_rating'].toString());
     chargePerHour = json['charge_per_hour'];
-    experience = json['experience'];
+    experience = json['experience'].toString();
     specialization = json['specialization'];
     bio = json['bio'];
     service = json['service'];

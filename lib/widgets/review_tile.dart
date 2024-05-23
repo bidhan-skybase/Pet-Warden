@@ -35,21 +35,21 @@ class ReviewTile extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: SizedBox.fromSize(
-                    size: const Size.fromRadius(17),
-                    child: CustomNetworkImage(imageUrl: imageUrl ?? ""),
-                    // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
-                  ),
-                ),
                 // ClipRRect(
                 //   borderRadius: BorderRadius.circular(100),
                 //   child: SizedBox.fromSize(
                 //     size: const Size.fromRadius(17),
-                //     child: Image.asset(imageUrl ?? ImagePath.logo, fit: BoxFit.cover),
+                //     child: CustomNetworkImage(imageUrl: imageUrl ?? ""),
+                //     // child: Image.asset(ImagePath.profilePic, fit: BoxFit.cover),
                 //   ),
                 // ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(17),
+                    child: Image.asset(imageUrl ?? ImagePath.profilePic, fit: BoxFit.cover),
+                  ),
+                ),
                 const SizedBox(
                   width: 4,
                 ),

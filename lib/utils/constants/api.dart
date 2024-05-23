@@ -16,4 +16,6 @@ class Api {
   static const getFeaturedSitters = "$baseUrl/featured-pet-sitters";
   static const updatePetProfile = "$baseUrl/update-pet-profile/#id#";
   static const deletePetProfile = "$baseUrl/delete-pet-profile/#id#";
+  static const deleteAccount = "$baseUrl/auth/delete-account";
+  static const getAppointments = "$baseUrl/appointments?filter[month]=#id#";
 }

@@ -191,6 +191,7 @@ class PetOwnerDetails extends StatelessWidget {
                       ),
                       CustomTextField(
                           hint: "Email",
+                          readOnly: true,
                           controller: c.emailController,
                           textCapitalization: TextCapitalization.none,
                           textInputAction: TextInputAction.next,

@@ -76,12 +76,10 @@ class CoreController extends GetxController {
     box.remove(StorageKeys.Pet);
     box.remove(StorageKeys.UserType);
     box.remove(StorageKeys.Sitter);
-
-    // Clear all values stored in current variables
-    currentUser.value = null;
-    currentStaff.value = null;
-    pets.clear();
-    accessToken.value = null;
+    loadCurrentPet();
+    loadCurrentStaff();
+    loadCurrentUser();
+    // Clear all values stored in current variable
 
     Get.offAllNamed(SplashScreen.routeName);
     PetSnackBar.success(title: "Success", message: "Logged out successfully.");

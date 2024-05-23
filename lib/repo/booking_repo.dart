@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:petwarden/model/appointment_model.dart';
+import 'package:petwarden/model/base_appointment_model.dart';
 import 'package:petwarden/utils/constants/api.dart';
 import 'package:petwarden/utils/helper/log_helper.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +8,7 @@ import 'package:petwarden/utils/helper/request_helper.dart';
 
 class BookingRepo {
   static Future<void> createAppointment(
-      {required Appointment appointment,
+      {required BaseAppointment appointment,
       required Function(bool status) onSuccess,
       required Function(bool status) onError}) async {
     try {

@@ -78,4 +78,15 @@ class ProfileRepo {
       onComplete(false);
     }
   }
+
+  static Future<void> deleteAccount({required Function(bool status) onComplete}) async {
+    String url = Api.deleteAccount;
+    http.Response response = await PetRequest.post(url);
+    dynamic data = json.decode(response.body);
+    if (data['status']) {
+      onComplete(true);
+    } else {
+      onComplete(false);
+    }
+  }
 }
